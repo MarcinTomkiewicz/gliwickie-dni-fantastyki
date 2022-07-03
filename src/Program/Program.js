@@ -1,5 +1,5 @@
 export const Program = () => {
     return (
-        <div>Tu będzie program</div>
+        <div className="content">Tu będzie program</div>
     )
 }

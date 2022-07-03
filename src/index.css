@@ -139,6 +139,7 @@ aside {
   align-items: center;
   flex-direction: column;
   width: 60%;
+  min-width: 60%;
   text-align: justify;
   margin-bottom: 150px;
 }
