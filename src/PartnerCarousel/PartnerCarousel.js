@@ -7,14 +7,6 @@ export const PartnerCarousel = ({ type }) => {
 
   console.log(partnerType);
   return (
-
-    <Carousel controls="false" fade>
-      <Carousel.Item>
-      <img
-      src={process.env.PUBLIC_URL + '/Fb_Cover_GDF.png'}
-      alt="First slide"
-    />
-      </Carousel.Item>
-    </Carousel>
+    <img src={process.env.PUBLIC_URL + '/Plakat_GDF.png'} className="aside__photo"/>
   );
 };
