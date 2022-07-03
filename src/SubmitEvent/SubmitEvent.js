@@ -14,6 +14,7 @@ export const SubmitEvent = () => {
   const [totalTime, setTotalTime] = useState(0);
   const [whatDay, setWhatDay] = useState("selectDay");
   const [whatBlock, setWhatBlock] = useState("");
+  const [isSuccess, setSuccess] = useState(false);
 
   const onSelectedDay = (event) => {
     setWhatDay(event.target.value);
@@ -28,21 +29,32 @@ export const SubmitEvent = () => {
   };
 
   useEffect(() => {
-    if ((whatBlock !== "Sesja RPG" && totalTime > 3 ) || (whatBlock !== "Warsztaty" && totalTime > 3) && whatBlock !== '') {
+    if (
+      (whatBlock !== "Sesja RPG" && totalTime > 3) ||
+      (whatBlock !== "Warsztaty" && totalTime > 3 && whatBlock !== "")
+    ) {
       if (whatBlock === "Sesja RPG" || whatBlock === "Warsztaty") {
         return setIsFullPrice(true);
       }
-        setTotalTime("0");
+      setTotalTime("0");
     }
-    if ((whatBlock !== "Sesja RPG" || whatBlock !== "Warsztaty") && totalTime > 1) {
-      setIsFullPrice(true);
-    }
-    if ((whatBlock === "Sesja RPG" || whatBlock === "Warsztaty") && totalTime > 3) {
+    if (
+      (whatBlock !== "Sesja RPG" || whatBlock !== "Warsztaty") &&
+      totalTime > 1
+    ) {
       setIsFullPrice(true);
     }
     if (
-      ((whatBlock !== "Sesja RPG" || whatBlock !== "Warsztaty") && totalTime < 2) ||
-      ((whatBlock === "Sesja RPG" || whatBlock === "Warsztaty") && totalTime < 4)
+      (whatBlock === "Sesja RPG" || whatBlock === "Warsztaty") &&
+      totalTime > 3
+    ) {
+      setIsFullPrice(true);
+    }
+    if (
+      ((whatBlock !== "Sesja RPG" || whatBlock !== "Warsztaty") &&
+        totalTime < 2) ||
+      ((whatBlock === "Sesja RPG" || whatBlock === "Warsztaty") &&
+        totalTime < 4)
     ) {
       setIsFullPrice(false);
     }
@@ -55,17 +67,20 @@ export const SubmitEvent = () => {
     setIsFullPrice(false);
     setWhatBlock("");
     setTotalTime(0);
-    setWhatDay("selectDay")
-  }
+    setWhatDay("selectDay");
+    setSuccess(false)
+  };
 
   const sendEmail = (e) => {
     e.preventDefault();
-    console.log(emailjs.sendForm(
+    console.log(
+      emailjs.sendForm(
         "gdf_program",
         "template_t461b23",
         form.current,
         "C1GC4KNhMZuiMFPLW"
-      ));
+      )
+    );
     emailjs
       .sendForm(
         "gdf_program",
@@ -76,12 +91,12 @@ export const SubmitEvent = () => {
       .then(
         (result) => {
           console.log(result.text);
+          setSuccess(true);
         },
         (error) => {
           console.log(error.text);
         }
       );
-    resetForm();
   };
 
   return (
@@ -289,14 +304,29 @@ export const SubmitEvent = () => {
           </Col>
         </Row>
         <Row className="justify-content-evenly">
-          <Col sm={3}>
-            <Button type="submit" variant="warning" value="Submit">
-              Wyślij zgłoszenie
+          {isSuccess ? (
+            <Button type="reset" onClick={resetForm} variant="success">
+              Gratulacje, formularz został poprawnie wysłany! Dziękujemy za
+              zgłoszenie! Kliknij tu, aby zresetować formularz.
             </Button>
-          </Col>
-          <Col sm={2}>
-            <Button variant="outline-danger" type="reset" onClick={resetForm}>Anuluj</Button>
-          </Col>
+          ) : (
+            <>
+              <Col sm={3}>
+                <Button type="submit" variant="warning" value="Submit">
+                  Wyślij zgłoszenie
+                </Button>
+              </Col>
+              <Col sm={2}>
+                <Button
+                  variant="outline-danger"
+                  type="reset"
+                  onClick={resetForm}
+                >
+                  Anuluj
+                </Button>
+              </Col>
+            </>
+          )}
         </Row>
         <hr></hr>
         {isFullPrice ? (
