@@ -6,6 +6,9 @@ import Col from "react-bootstrap/Col";
 import FloatingLabel from "react-bootstrap/FloatingLabel";
 import emailjs from "@emailjs/browser";
 import Button from "react-bootstrap/Button";
+import { TextInput } from "../utils/TextInput";
+import Spinner from "react-bootstrap/Spinner";
+import Alert from "react-bootstrap/Alert";
 
 export const SubmitEvent = () => {
   const form = useRef();
@@ -13,19 +16,49 @@ export const SubmitEvent = () => {
   const [isFullPrice, setIsFullPrice] = useState(false);
   const [totalTime, setTotalTime] = useState(0);
   const [whatDay, setWhatDay] = useState("selectDay");
-  const [whatBlock, setWhatBlock] = useState("");
+  const [whatBlock, setWhatBlock] = useState("selectBlock");
+  const [whatHour, setWhatHour] = useState("selectHour");
   const [isSuccess, setSuccess] = useState(false);
+  const [showAlert, setShowAlert] = useState(false);
+  const [shouldSpin, setShouldSpin] = useState(false);
+  const [isEqNeeded, setIsEqNeeded] = useState(true);
+  const [data, setData] = useState({
+    name: "",
+    surname: "",
+    phone: "",
+    email: "",
+    nick: "",
+    facebook: "",
+    day: "",
+    hour: "",
+    block: "",
+    length: "",
+    noeq: false,
+    elec: false,
+    board: false,
+    chairs: false,
+    projector: false,
+    descr: "",
+  });
 
   const onSelectedDay = (event) => {
     setWhatDay(event.target.value);
+    setData({ ...data, day: event.target.value });
   };
 
   const getTotalTime = (event) => {
+    setData({ ...data, length: event.target.value });
     setTotalTime(parseInt(event.target.value));
   };
 
   const onSelectType = (event) => {
+    setData({ ...data, block: event.target.value });
     setWhatBlock(event.target.value);
+  };
+
+  const getHour = (event) => {
+    setWhatHour(event.target.value);
+    setData({ ...data, hour: event.target.value });
   };
 
   useEffect(() => {
@@ -63,40 +96,89 @@ export const SubmitEvent = () => {
     }
   }, [totalTime, whatBlock]);
 
+  const handleDescrChange = (event) => {
+    setData({ ...data, descr: event.target.value });
+  };
+
+  const switchChange = (event) => {
+    setData({ ...data, [event.target.name]: event.target.checked });
+  };
+
   const resetForm = () => {
-    setIsFullPrice(false);
-    setWhatBlock("");
-    setTotalTime(0);
+    setData({
+      name: "",
+      surname: "",
+      phone: "",
+      email: "",
+      nick: "",
+      facebook: "",
+      day: "",
+      hour: "",
+      block: "",
+      length: "",
+      noeq: false,
+      elec: false,
+      board: false,
+      chairs: false,
+      projector: false,
+      descr: "",
+    });
+    setWhatBlock("selectBlock");
     setWhatDay("selectDay");
-    setSuccess(false)
+    setWhatHour("selectHour");
+    setTotalTime(0);
+    setIsEqNeeded(true);
   };
 
   const sendEmail = (e) => {
     e.preventDefault();
-    console.log(
-      emailjs.sendForm(
-        "gdf_program",
-        "template_t461b23",
-        form.current,
-        "C1GC4KNhMZuiMFPLW"
-      )
-    );
-    emailjs
-      .sendForm(
-        "gdf_program",
-        "template_t461b23",
-        form.current,
-        "C1GC4KNhMZuiMFPLW"
-      )
-      .then(
-        (result) => {
-          console.log(result.text);
-          setSuccess(true);
-        },
-        (error) => {
-          console.log(error.text);
-        }
-      );
+    if (
+      whatBlock === "selectBlock" ||
+      whatDay === "selectDay" ||
+      whatHour === "selectHour" ||
+      totalTime === 0
+    ) {
+      setShouldSpin(false);
+      setShowAlert(true);
+    } else {
+      emailjs
+        .sendForm(
+          "gdf_program",
+          "template_t461b23",
+          form.current,
+          "C1GC4KNhMZuiMFPLW"
+        )
+        .then(
+          (result) => {
+            console.log(result);
+            setSuccess(true);
+            setShouldSpin(false);
+            resetForm();
+          },
+          (error) => {
+            console.log(error.text);
+          }
+        );
+    }
+  };
+
+  const startSpinner = () => {
+    setShouldSpin(true);
+  };
+
+  const setEqNeeded = (e) => {
+    if (e.target?.checked === undefined) {
+      return;
+    } else {
+      if (e.target.checked === true) {
+        setData({ ...data, noeq: e.target.checked });
+
+        return setIsEqNeeded(false);
+      }
+      if (e.target.checked === false) {
+        return setIsEqNeeded(true);
+      }
+    }
   };
 
   return (
@@ -110,65 +192,62 @@ export const SubmitEvent = () => {
       <Form style={{ width: "80%" }} ref={form} onSubmit={sendEmail}>
         <Row>
           <Col>
-            <FloatingLabel
-              controlId="floatingInput"
-              label="Imię*"
-              className="mb-3"
-            >
-              <Form.Control
-                className="form__control--input"
-                type="text"
-                placeholder="Imię"
-                required
-                name="name"
-              />
-            </FloatingLabel>
+            <TextInput
+              input="name"
+              isRequired="true"
+              type="text"
+              data={data}
+              setData={setData}
+            />
           </Col>
           <Col>
-            <FloatingLabel
-              controlId="floatingInput"
-              label="Nazwisko*"
-              className="mb-3"
-            >
-              <Form.Control
-                className="form__control--input"
-                type="text"
-                placeholder="Nazwisko"
-                required
-                name="surname"
-              />
-            </FloatingLabel>
+            <TextInput
+              input="surname"
+              isRequired="true"
+              type="text"
+              data={data}
+              setData={setData}
+            />
           </Col>
         </Row>
         <Row>
           <Col>
-            <FloatingLabel
-              controlId="floatingInput"
-              label="Pseudonim (opcjonalnie)"
-              className="mb-3"
-            >
-              <Form.Control
-                className="form__control--input"
-                type="text"
-                placeholder="Pseudonim (opcjonalnie)"
-                name="nick"
-              />
-            </FloatingLabel>
+            <TextInput
+              input="nick"
+              isRequired="false"
+              type="text"
+              data={data}
+              setData={setData}
+            />
           </Col>
           <Col>
-            <FloatingLabel
-              controlId="floatingInput"
-              label="Adres e-mail*"
-              className="mb-3"
-            >
-              <Form.Control
-                className="form__control--input"
-                type="email"
-                placeholder="name@example.com"
-                required
-                name="email"
-              />
-            </FloatingLabel>
+            <TextInput
+              input="email"
+              isRequired="true"
+              type="email"
+              data={data}
+              setData={setData}
+            />
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <TextInput
+              input="phone"
+              isRequired="true"
+              type="number"
+              data={data}
+              setData={setData}
+            />
+          </Col>
+          <Col>
+            <TextInput
+              input="facebook"
+              isRequired="false"
+              type="text"
+              data={data}
+              setData={setData}
+            />
           </Col>
         </Row>
         <Row>
@@ -182,10 +261,13 @@ export const SubmitEvent = () => {
                 className="form__control--input mb-3"
                 onChange={onSelectedDay}
                 name="day"
+                value={whatDay}
               >
                 <option value="selectDay">Wybierz dzień</option>
                 <option disabled>{""}</option>
-                <option value="friday">Piątek (14.10)</option>
+                <option value="friday" name="Piątek (14.10)">
+                  Piątek (14.10)
+                </option>
                 <option value="saturday">Sobota (15.10)</option>
                 <option value="sunday">Niedziela (16.10)</option>
               </Form.Select>
@@ -200,8 +282,10 @@ export const SubmitEvent = () => {
                 aria-label="Preferowany dzień"
                 className="form__control--input mb-3"
                 name="hour"
+                onChange={getHour}
+                value={whatHour}
               >
-                <option>Wybierz godzinę rozpoczęcia</option>
+                <option value="selectHour">Wybierz godzinę rozpoczęcia</option>
                 <option disabled>{""}</option>
                 {whatDay !== "friday" ? (
                   <>
@@ -246,8 +330,10 @@ export const SubmitEvent = () => {
                 className="form__control--input mb-3"
                 onChange={onSelectType}
                 name="block"
+                required
+                value={whatBlock}
               >
-                <option>Wybierz blok tematyczny</option>
+                <option value="selectBlock">Wybierz blok tematyczny</option>
                 <option disabled>{""}</option>
                 <option value="Fantastyczny">Blok Fantastyczny</option>
                 <option value="Science-fiction">Blok Science-fiction</option>
@@ -267,6 +353,8 @@ export const SubmitEvent = () => {
                 className="form__control--input mb-3"
                 onChange={getTotalTime}
                 name="length"
+                required
+                value={totalTime}
               >
                 <option value="0">Przewidywany czas trwania</option>
                 <option disabled>{""}</option>
@@ -290,6 +378,60 @@ export const SubmitEvent = () => {
           <hr></hr>
         </Row>
         <Row>
+          <div>Potrzebne wyposażenie:</div>
+          <Col>
+            <Form.Check
+              type="switch"
+              label="Nie potrzebuję sprzętu"
+              id="eq"
+              name="no-eq"
+              onChange={setEqNeeded}
+              checked={data.noeq}
+            ></Form.Check>
+            <Form.Check
+              type="switch"
+              label="Dostęp do prądu"
+              id="eq"
+              name="elec"
+              disabled={isEqNeeded ? false : true}
+              checked={data.elec}
+              onChange={switchChange}
+            ></Form.Check>
+            <Form.Check
+              type="switch"
+              label="Rzutnik"
+              id="eq"
+              name="projector"
+              disabled={isEqNeeded ? false : true}
+              checked={data.projector}
+              onChange={switchChange}
+            ></Form.Check>
+          </Col>
+          <Col>
+            <Form.Check
+              type="switch"
+              label="Tablica/whiteboard"
+              id="eq"
+              name="board"
+              disabled={isEqNeeded ? false : true}
+              checked={data.board}
+              onChange={switchChange}
+            ></Form.Check>
+            <Form.Check
+              type="switch"
+              label="Krzesła i stoły"
+              id="eq"
+              name="chairs"
+              disabled={isEqNeeded ? false : true}
+              checked={data.chairs}
+              onChange={switchChange}
+            ></Form.Check>
+          </Col>
+        </Row>
+        <Row>
+          <hr></hr>
+        </Row>
+        <Row>
           <Col>
             <FloatingLabel controlId="floatingTextarea2" label="Opis atrakcji*">
               <Form.Control
@@ -299,36 +441,44 @@ export const SubmitEvent = () => {
                 style={{ height: "150px" }}
                 required
                 name="descr"
+                onChange={handleDescrChange}
+                value={data.descr}
               />
             </FloatingLabel>
           </Col>
         </Row>
-        <Row className="justify-content-evenly">
-          {isSuccess ? (
-            <Button type="reset" onClick={resetForm} variant="success">
-              Gratulacje, formularz został poprawnie wysłany! Dziękujemy za
-              zgłoszenie! Kliknij tu, aby zresetować formularz.
-            </Button>
-          ) : (
-            <>
-              <Col sm={3}>
-                <Button type="submit" variant="warning" value="Submit">
-                  Wyślij zgłoszenie
-                </Button>
-              </Col>
-              <Col sm={2}>
-                <Button
-                  variant="outline-danger"
-                  type="reset"
-                  onClick={resetForm}
-                >
-                  Anuluj
-                </Button>
-              </Col>
-            </>
-          )}
-        </Row>
         <hr></hr>
+        {showAlert ? (
+          <Alert
+            variant="danger"
+            dismissible
+            onClose={() => setShowAlert(false)}
+          >
+            <Alert.Heading>Popraw błędy w formularzu</Alert.Heading>
+            <div>Nie wybrano:</div>
+            <div>{whatBlock === "selectBlock" ? "Bloku" : ""}</div>
+            <div>{whatDay === "selectDay" ? "Dnia" : ""}</div>
+            <div>{whatHour === "selectHour" ? "Godziny" : ""}</div>
+            <div>{totalTime === 0 ? "Długości trwania atrakcji" : ""}</div>
+          </Alert>
+        ) : (
+          ""
+        )}
+        {isSuccess ? (
+          <Alert
+            variant="success"
+            dismissible
+            onClick={() => setSuccess(false)}
+          >
+            <Alert.Heading>Gratulacje!</Alert.Heading>
+            <div>
+              Dziękujemy za zgłoszenie! Prosimy oczekiwać na informację zwrotną
+              od Koordynatora ds. Programu.
+            </div>
+          </Alert>
+        ) : (
+          ""
+        )}
         {isFullPrice ? (
           <div className="text-success bold__text">
             GRATULACJE! Przewidywany czas trwania atrakcji uprawnia do darmowej
@@ -347,6 +497,29 @@ export const SubmitEvent = () => {
           uczestnikowi drogą mailową nie później niż do 3 dni przed rozpoczęciem
           Konwentu.
         </div>
+        <hr></hr>
+        <Row className="justify-content-evenly">
+          <Col sm={5}>
+            <Button
+              type="submit"
+              variant="warning"
+              value="Submit"
+              onClick={startSpinner}
+            >
+              {shouldSpin ? (
+                <Spinner animation="border" variant="danger" size="sm" />
+              ) : (
+                ""
+              )}
+              {shouldSpin ? " " : ""}Wyślij zgłoszenie
+            </Button>
+          </Col>
+          <Col sm={2}>
+            <Button variant="outline-danger" type="button" onClick={resetForm}>
+              Anuluj
+            </Button>
+          </Col>
+        </Row>
       </Form>
     </>
   );

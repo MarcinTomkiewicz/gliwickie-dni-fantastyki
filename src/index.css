@@ -178,3 +178,7 @@ footer {
 .not__visible {
   display: none;
 }
+
+.form-check-input {
+  background-color: #fd1d1d !important;
+}
