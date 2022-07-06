@@ -172,10 +172,10 @@ export const SubmitEvent = () => {
     } else {
       if (e.target.checked === true) {
         setData({ ...data, noeq: e.target.checked });
-
         return setIsEqNeeded(false);
       }
       if (e.target.checked === false) {
+        setData({ ...data, noeq: e.target.checked });
         return setIsEqNeeded(true);
       }
     }
