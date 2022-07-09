@@ -1,17 +1,10 @@
 import Form from "react-bootstrap/Form";
 import FloatingLabel from "react-bootstrap/esm/FloatingLabel";
 import { useEffect, useState } from "react";
+import { formLabels as labels } from "./labels";
 
 export const TextInput = ({ input, isRequired, type, data, setData }) => {
     const [value, setValue] = useState("")
-  const labels = [
-    { name: "name", label: "Imię" },
-    { name: "surname", label: "Nazwisko" },
-    { name: "email", label: "Adres e-mail" },
-    { name: "nick", label: "Pseudonim" },
-    { name: "phone", label: "Numer telefonu" },
-    { name: "facebook", label: "Link do Facebooka"}
-  ];
 
 const handleChange = (e) => {
     setData({...data, [input]: e.target.value})

@@ -155,7 +155,7 @@ aside {
 }
 
 footer {
-  width: calc(100%-10px);
+  width: 100%;
   padding: 10px;
   background-color: #6d111e;
   position: sticky;

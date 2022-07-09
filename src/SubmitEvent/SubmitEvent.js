@@ -61,10 +61,12 @@ export const SubmitEvent = () => {
     setData({ ...data, hour: event.target.value });
   };
 
+  console.log(data);
+
   useEffect(() => {
     if (
       (whatBlock !== "Sesja RPG" && totalTime > 3) ||
-      (whatBlock !== "Warsztaty" && totalTime > 3 && whatBlock !== "")
+      (whatBlock !== "Warsztaty" && totalTime > 3) && whatBlock !== ""
     ) {
       if (whatBlock === "Sesja RPG" || whatBlock === "Warsztaty") {
         return setIsFullPrice(true);
@@ -171,7 +173,14 @@ export const SubmitEvent = () => {
       return;
     } else {
       if (e.target.checked === true) {
-        setData({ ...data, noeq: e.target.checked });
+        setData({
+          ...data,
+          noeq: e.target.checked,
+          elec: false,
+          board: false,
+          chairs: false,
+          projector: false,
+        });
         return setIsEqNeeded(false);
       }
       if (e.target.checked === false) {
