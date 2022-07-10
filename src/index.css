@@ -183,6 +183,18 @@ footer {
   background-color: #fd1d1d !important;
 }
 
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
 .inner__wrapper--top {
   display: flex;
   flex-flow: column;
@@ -209,7 +221,7 @@ footer {
 }
 
 .hr__content {
-  width: 50%; 
+  width: 50%;
   border: 0.25px solid white !important;
   opacity: 1 !important;
 }
