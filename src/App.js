@@ -1,13 +1,27 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Footer } from "./Footer/Footer";
 import { TopMenu } from "./TopMenu/TopMenu";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import { Program } from "./Program/Program";
 import { Home } from "./Home/Home";
 import { PartnerCarousel } from "./PartnerCarousel/PartnerCarousel";
 import { SubmitEvent } from "./SubmitEvent/SubmitEvent";
+import { Guests } from "./Guests/Guests";
+import { useEffect } from "react";
+import { guestsVip, pageTitles } from "./utils/backend";
+import { Clubs } from "./Clubs/Clubs";
+import { Conventions } from "./Conventions/Conventions";
 
 function App() {
+  let location = useLocation();
+
+  useEffect(() => {
+    pageTitles.map((page) => {
+      if (page.name === location.pathname)
+        document.title = `${page.title} | Gliwickie Dni Fantastyki`;
+    });
+  });
+
   return (
     <div className="wrapper">
       <TopMenu />
@@ -23,9 +37,9 @@ function App() {
             <Route path="/the_game" element={<Home />} />
             <Route path="/cosplay" element={<Home />} />
             <Route path="/submit_event" element={<SubmitEvent />} />
-            <Route path="/vips" element={<Home />} />
-            <Route path="/clubs" element={<Home />} />
-            <Route path="/conventions" element={<Home />} />
+            <Route path="/vips" element={<Guests />} />
+            <Route path="/clubs" element={<Clubs />} />
+            <Route path="/conventions" element={<Conventions />} />
             <Route path="/vendors" element={<Home />} />
             <Route path="/submit_vendor" element={<Home />} />
             <Route path="/helpers" element={<Home />} />

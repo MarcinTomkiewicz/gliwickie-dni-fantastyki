@@ -44,24 +44,37 @@ export const SubmitEvent = () => {
   const onSelectedDay = (event) => {
     setWhatDay(event.target.value);
     setData({ ...data, day: event.target.value });
+    
   };
+  
+  useEffect(() => {
+  const tempHour = parseInt(data.hour.split(":")[0])
+  if ((whatDay === "friday" && tempHour < 18) || (whatDay === "sunday" && tempHour > 14)) {
+    setData({...data, hour: ""})
+  }
+}, [whatDay])
 
-  const getTotalTime = (event) => {
-    setData({ ...data, length: event.target.value });
-    setTotalTime(parseInt(event.target.value));
-  };
-
-  const onSelectType = (event) => {
-    setData({ ...data, block: event.target.value });
-    setWhatBlock(event.target.value);
-  };
+console.log(data);
 
   const getHour = (event) => {
     setWhatHour(event.target.value);
     setData({ ...data, hour: event.target.value });
   };
+  
+  const onSelectType = (event) => {
+    setData({ ...data, block: event.target.value });
+    setWhatBlock(event.target.value);
+    if (whatBlock !== "Sesja RPG" || whatBlock !== "Warsztaty" && totalTime > 3) {
+      setData({...data, length: ""})
+    }
+  };
+  
+  const getTotalTime = (event) => {
+    setData({ ...data, length: event.target.value });
+    setTotalTime(parseInt(event.target.value));
+  };
 
-  console.log(data);
+  
 
   useEffect(() => {
     if (

@@ -1,7 +1,7 @@
 import Form from "react-bootstrap/Form";
 import FloatingLabel from "react-bootstrap/esm/FloatingLabel";
 import { useEffect, useState } from "react";
-import { formLabels as labels } from "./labels";
+import { formLabels as labels } from "./backend";
 
 export const TextInput = ({ input, isRequired, type, data, setData }) => {
     const [value, setValue] = useState("")
