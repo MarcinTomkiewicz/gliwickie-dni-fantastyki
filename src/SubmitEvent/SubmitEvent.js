@@ -14,14 +14,9 @@ export const SubmitEvent = () => {
   const form = useRef();
 
   const [isFullPrice, setIsFullPrice] = useState(false);
-  const [totalTime, setTotalTime] = useState(0);
-  const [whatDay, setWhatDay] = useState("selectDay");
-  const [whatBlock, setWhatBlock] = useState("selectBlock");
-  const [whatHour, setWhatHour] = useState("selectHour");
   const [isSuccess, setSuccess] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
   const [shouldSpin, setShouldSpin] = useState(false);
-  const [isEqNeeded, setIsEqNeeded] = useState(true);
   const [data, setData] = useState({
     name: "",
     surname: "",
@@ -41,83 +36,85 @@ export const SubmitEvent = () => {
     descr: "",
   });
 
-  const onSelectedDay = (event) => {
-    setWhatDay(event.target.value);
-    setData({ ...data, day: event.target.value });
-    
-  };
-  
-  useEffect(() => {
-  const tempHour = parseInt(data.hour.split(":")[0])
-  if ((whatDay === "friday" && tempHour < 18) || (whatDay === "sunday" && tempHour > 14)) {
-    setData({...data, hour: ""})
-  }
-}, [whatDay])
+  const {
+    day,
+    hour,
+    block,
+    length,
+    noeq,
+    elec,
+    board,
+    chairs,
+    projector,
+    descr,
+  } = data;
 
-console.log(data);
-
-  const getHour = (event) => {
-    setWhatHour(event.target.value);
-    setData({ ...data, hour: event.target.value });
+  const handleSetData = (name, value) => {
+    setData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
   };
-  
-  const onSelectType = (event) => {
-    setData({ ...data, block: event.target.value });
-    setWhatBlock(event.target.value);
-    if (whatBlock !== "Sesja RPG" || whatBlock !== "Warsztaty" && totalTime > 3) {
-      setData({...data, length: ""})
+
+  const handleDataChange = ({ target: { name, value } }) => {
+    handleSetData(name, value);
+  };
+
+  const handleEquipmentSwitch = ({ target: { name, checked } }) => {
+    setData((prev) => ({ ...prev, [name]: !prev[name] }));
+    if (name === "noeq" && checked) {
+      setData((prev) => ({
+        ...prev,
+        elec: false,
+        board: false,
+        chairs: false,
+        projector: false,
+      }));
     }
   };
-  
-  const getTotalTime = (event) => {
-    setData({ ...data, length: event.target.value });
-    setTotalTime(parseInt(event.target.value));
-  };
 
-  
+  useEffect(() => {
+    if ((block !== "Sesja RPG" || block !== "Warsztaty") && length > 3) {
+      handleSetData("length", "0");
+    }
+  }, [block, length]);
+
+  useEffect(() => {
+    const tempHour = parseInt(hour.split(":")[0]);
+    if (
+      (day === "friday" && tempHour < 18) ||
+      (day === "sunday" && tempHour > 14)
+    ) {
+      handleSetData("hour", "");
+    }
+  }, [day, hour]);
 
   useEffect(() => {
     if (
-      (whatBlock !== "Sesja RPG" && totalTime > 3) ||
-      (whatBlock !== "Warsztaty" && totalTime > 3) && whatBlock !== ""
+      (block !== "Sesja RPG" && length > 3) ||
+      (block !== "Warsztaty" && length > 3 && block !== "")
     ) {
-      if (whatBlock === "Sesja RPG" || whatBlock === "Warsztaty") {
+      if (block === "Sesja RPG" || block === "Warsztaty") {
         return setIsFullPrice(true);
       }
-      setTotalTime("0");
+      handleSetData("length", "0");
     }
-    if (
-      (whatBlock !== "Sesja RPG" || whatBlock !== "Warsztaty") &&
-      totalTime > 1
-    ) {
+    if ((block !== "Sesja RPG" || block !== "Warsztaty") && length > 1) {
+      setIsFullPrice(true);
+    }
+    if ((block === "Sesja RPG" || block === "Warsztaty") && length > 3) {
       setIsFullPrice(true);
     }
     if (
-      (whatBlock === "Sesja RPG" || whatBlock === "Warsztaty") &&
-      totalTime > 3
-    ) {
-      setIsFullPrice(true);
-    }
-    if (
-      ((whatBlock !== "Sesja RPG" || whatBlock !== "Warsztaty") &&
-        totalTime < 2) ||
-      ((whatBlock === "Sesja RPG" || whatBlock === "Warsztaty") &&
-        totalTime < 4)
+      ((block !== "Sesja RPG" || block !== "Warsztaty") && length < 2) ||
+      ((block === "Sesja RPG" || block === "Warsztaty") && length < 4)
     ) {
       setIsFullPrice(false);
     }
-    if (whatBlock === "") {
+    if (!block) {
       setIsFullPrice(false);
     }
-  }, [totalTime, whatBlock]);
-
-  const handleDescrChange = (event) => {
-    setData({ ...data, descr: event.target.value });
-  };
-
-  const switchChange = (event) => {
-    setData({ ...data, [event.target.name]: event.target.checked });
-  };
+  }, [length, block]);
 
   const resetForm = () => {
     setData({
@@ -138,21 +135,12 @@ console.log(data);
       projector: false,
       descr: "",
     });
-    setWhatBlock("selectBlock");
-    setWhatDay("selectDay");
-    setWhatHour("selectHour");
-    setTotalTime(0);
-    setIsEqNeeded(true);
   };
 
   const sendEmail = (e) => {
     e.preventDefault();
-    if (
-      whatBlock === "selectBlock" ||
-      whatDay === "selectDay" ||
-      whatHour === "selectHour" ||
-      totalTime === 0
-    ) {
+
+    if (!block || !day || !hour || !length) {
       setShouldSpin(false);
       setShowAlert(true);
     } else {
@@ -165,7 +153,6 @@ console.log(data);
         )
         .then(
           (result) => {
-            console.log(result);
             setSuccess(true);
             setShouldSpin(false);
             resetForm();
@@ -179,28 +166,6 @@ console.log(data);
 
   const startSpinner = () => {
     setShouldSpin(true);
-  };
-
-  const setEqNeeded = (e) => {
-    if (e.target?.checked === undefined) {
-      return;
-    } else {
-      if (e.target.checked === true) {
-        setData({
-          ...data,
-          noeq: e.target.checked,
-          elec: false,
-          board: false,
-          chairs: false,
-          projector: false,
-        });
-        return setIsEqNeeded(false);
-      }
-      if (e.target.checked === false) {
-        setData({ ...data, noeq: e.target.checked });
-        return setIsEqNeeded(true);
-      }
-    }
   };
 
   return (
@@ -281,12 +246,11 @@ console.log(data);
               <Form.Select
                 aria-label="Preferowany dzień"
                 className="form__control--input mb-3"
-                onChange={onSelectedDay}
+                onChange={handleDataChange}
                 name="day"
-                value={whatDay}
+                value={day}
               >
-                <option value="selectDay">Wybierz dzień</option>
-                <option disabled>{""}</option>
+                <option value="">Wybierz dzień</option>
                 <option value="friday" name="Piątek (14.10)">
                   Piątek (14.10)
                 </option>
@@ -304,12 +268,11 @@ console.log(data);
                 aria-label="Preferowany dzień"
                 className="form__control--input mb-3"
                 name="hour"
-                onChange={getHour}
-                value={whatHour}
+                onChange={handleDataChange}
+                value={hour}
               >
-                <option value="selectHour">Wybierz godzinę rozpoczęcia</option>
-                <option disabled>{""}</option>
-                {whatDay !== "friday" ? (
+                <option value="">Wybierz godzinę rozpoczęcia</option>
+                {day !== "friday" ? (
                   <>
                     <option value="9:00">9:00</option>
                     <option value="10:00">10:00</option>
@@ -321,7 +284,7 @@ console.log(data);
                 ) : (
                   ""
                 )}
-                {whatDay === "saturday" ? (
+                {day === "saturday" ? (
                   <>
                     <option value="15:00">15:00</option>
                     <option value="16:00">16:00</option>
@@ -330,7 +293,7 @@ console.log(data);
                 ) : (
                   ""
                 )}
-                {whatDay !== "sunday" ? (
+                {day !== "sunday" ? (
                   <>
                     <option value="18:00">18:00</option>
                     <option value="19:00">19:00</option>
@@ -350,13 +313,12 @@ console.log(data);
               <Form.Select
                 aria-label="Blok tematyczny"
                 className="form__control--input mb-3"
-                onChange={onSelectType}
+                onChange={handleDataChange}
                 name="block"
                 required
-                value={whatBlock}
+                value={block}
               >
-                <option value="selectBlock">Wybierz blok tematyczny</option>
-                <option disabled>{""}</option>
+                <option value="">Wybierz blok tematyczny</option>
                 <option value="Fantastyczny">Blok Fantastyczny</option>
                 <option value="Science-fiction">Blok Science-fiction</option>
                 <option value="Literacki">Blok Literacki</option>
@@ -373,17 +335,16 @@ console.log(data);
               <Form.Select
                 aria-label="Czas trwania"
                 className="form__control--input mb-3"
-                onChange={getTotalTime}
+                onChange={handleDataChange}
                 name="length"
+                value={length}
                 required
-                value={totalTime}
               >
-                <option value="0">Przewidywany czas trwania</option>
-                <option disabled>{""}</option>
+                <option value="">Przewidywany czas trwania</option>
                 <option value="1">1 godzina</option>
                 <option value="2">2 godziny</option>
                 <option value="3">3 godziny</option>
-                {whatBlock === "Sesja RPG" || whatBlock === "Warsztaty" ? (
+                {block === "Sesja RPG" || block === "Warsztaty" ? (
                   <>
                     <option value="4">4 godziny</option>
                     <option value="5">5 godzin</option>
@@ -406,27 +367,27 @@ console.log(data);
               type="switch"
               label="Nie potrzebuję sprzętu"
               id="eq"
-              name="no-eq"
-              onChange={setEqNeeded}
-              checked={data.noeq}
+              name="noeq"
+              onChange={handleEquipmentSwitch}
+              checked={noeq}
             ></Form.Check>
             <Form.Check
               type="switch"
               label="Dostęp do prądu"
               id="eq"
               name="elec"
-              disabled={isEqNeeded ? false : true}
-              checked={data.elec}
-              onChange={switchChange}
+              disabled={noeq}
+              checked={elec}
+              onChange={handleEquipmentSwitch}
             ></Form.Check>
             <Form.Check
               type="switch"
               label="Rzutnik"
               id="eq"
               name="projector"
-              disabled={isEqNeeded ? false : true}
-              checked={data.projector}
-              onChange={switchChange}
+              disabled={noeq}
+              checked={projector}
+              onChange={handleEquipmentSwitch}
             ></Form.Check>
           </Col>
           <Col>
@@ -435,18 +396,18 @@ console.log(data);
               label="Tablica/whiteboard"
               id="eq"
               name="board"
-              disabled={isEqNeeded ? false : true}
-              checked={data.board}
-              onChange={switchChange}
+              disabled={noeq}
+              checked={board}
+              onChange={handleEquipmentSwitch}
             ></Form.Check>
             <Form.Check
               type="switch"
               label="Krzesła i stoły"
               id="eq"
               name="chairs"
-              disabled={isEqNeeded ? false : true}
-              checked={data.chairs}
-              onChange={switchChange}
+              disabled={noeq}
+              checked={chairs}
+              onChange={handleEquipmentSwitch}
             ></Form.Check>
           </Col>
         </Row>
@@ -463,8 +424,8 @@ console.log(data);
                 style={{ height: "150px" }}
                 required
                 name="descr"
-                onChange={handleDescrChange}
-                value={data.descr}
+                onChange={handleDataChange}
+                value={descr}
               />
             </FloatingLabel>
           </Col>
@@ -478,10 +439,10 @@ console.log(data);
           >
             <Alert.Heading>Popraw błędy w formularzu</Alert.Heading>
             <div>Nie wybrano:</div>
-            <div>{whatBlock === "selectBlock" ? "Bloku" : ""}</div>
-            <div>{whatDay === "selectDay" ? "Dnia" : ""}</div>
-            <div>{whatHour === "selectHour" ? "Godziny" : ""}</div>
-            <div>{totalTime === 0 ? "Długości trwania atrakcji" : ""}</div>
+            <div>{!block ? "Bloku" : ""}</div>
+            <div>{!day ? "Dnia" : ""}</div>
+            <div>{!hour ? "Godziny" : ""}</div>
+            <div>{!length ? "Długości trwania atrakcji" : ""}</div>
           </Alert>
         ) : (
           ""
