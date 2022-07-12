@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 export const pageTitles = [
   { name: "/", title: "Strona Główna" },
   { name: "/about", title: "O Gliwickich Dniach Fantastyki" },
@@ -16,7 +18,7 @@ export const pageTitles = [
   { name: "/submit_vendor", title: "Zgłoszenia wystawców" },
   { name: "/helpers", title: "Zostań helperem" },
   { name: "/fun_stuff", title: "Korzyści i regulamin" },
-  { name: "/submit_helper", title: "Zostań helperem" },
+  { name: "/submit_helper", title: "Zgłoszenia helperów" },
   { name: "/media", title: "Media o Konwencie" },
   { name: "/press", title: "Biuro Prasowe" },
   { name: "/media_entrance", title: "Akredytacje medialne" },
@@ -31,6 +33,11 @@ export const formLabels = [
   { name: "facebook", label: "Link do Facebooka" },
   { name: "company", label: "Nazwa firmy" },
 ];
+
+export const legal = 
+  { rodo: 'Wyrażam zgodę na przetwarzanie moich danych osobowych w celu przyjęcia niniejszego zgłoszenia na podstawie pkt 32, pkt 42, pkt 43, pkt 171 preambuły, art. 4 pkt 11, art. 5 ust. 1 lit. b, art. 7 rozporządzenia Parlamentu Europejskiego i Rady (UE) 2016/679 z 27 kwietnia 2016 r. w sprawie ochrony osób fizycznych w związku z przetwarzaniem danych osobowych i w sprawie swobodnego przepływu takich danych oraz uchylenia dyrektywy 95/46/WE - Dz.U. UE. L. z 2016 r. Nr 119, str. 1. Oświadczam, że zostałem/am poinformowany/a o przysługującym mi prawie dostępu do treści moich danych oraz ich poprawiania, wycofania zgody na ich przetwarzanie w każdym czasie. Administratorem danych osobowych gromadzonych i przetwarzanych w ramach realizacji zgłoszeń jest Europejskie Forum Studentów AEGEE-Gliwice z siedzibą w Gliwicach przy ul. Pszczyńskiej 85/10 44-100 Gliwice. Dane osobowe przetwarzane będą w celu organizacji wydarzenia Gliwickie Dni Fantastyki odbywającego się w Gliwicach oraz w celach statystycznych i nie będą udostępniane podmiotom trzecim. Podanie danych osobowych jest dobrowolne, jednak odmowa ich podania skutkować będzie brakiem możliwości przyjęcia niniejszego zgłoszenia.',
+    eventRules: `Akceptuję postanowienia ${<Link to='/rules'>Regulaminu</Link>}.`};
+
 
 export const guestsVip = [
   {

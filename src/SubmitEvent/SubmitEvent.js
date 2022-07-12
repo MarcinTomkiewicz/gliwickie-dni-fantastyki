@@ -9,6 +9,7 @@ import Button from "react-bootstrap/Button";
 import { TextInput } from "../utils/TextInput";
 import Spinner from "react-bootstrap/Spinner";
 import Alert from "react-bootstrap/Alert";
+import { legal } from "../utils/backend";
 
 export const SubmitEvent = () => {
   const form = useRef();
@@ -39,47 +40,52 @@ export const SubmitEvent = () => {
     chairs: false,
     projector: false,
     descr: "",
+    rodo: false,
+    rules: false,
   });
 
   const onSelectedDay = (event) => {
     setWhatDay(event.target.value);
     setData({ ...data, day: event.target.value });
-    
   };
-  
-  useEffect(() => {
-  const tempHour = parseInt(data.hour.split(":")[0])
-  if ((whatDay === "friday" && tempHour < 18) || (whatDay === "sunday" && tempHour > 14)) {
-    setData({...data, hour: ""})
-  }
-}, [whatDay])
 
-console.log(data);
+  useEffect(() => {
+    const tempHour = parseInt(data.hour.split(":")[0]);
+    if (
+      (whatDay === "friday" && tempHour < 18) ||
+      (whatDay === "sunday" && tempHour > 14)
+    ) {
+      setData({ ...data, hour: "" });
+    }
+  }, [whatDay]);
+
+  console.log(data);
 
   const getHour = (event) => {
     setWhatHour(event.target.value);
     setData({ ...data, hour: event.target.value });
   };
-  
+
   const onSelectType = (event) => {
     setData({ ...data, block: event.target.value });
     setWhatBlock(event.target.value);
-    if (whatBlock !== "Sesja RPG" || whatBlock !== "Warsztaty" && totalTime > 3) {
-      setData({...data, length: ""})
+    if (
+      whatBlock !== "Sesja RPG" ||
+      (whatBlock !== "Warsztaty" && totalTime > 3)
+    ) {
+      setData({ ...data, length: "" });
     }
   };
-  
+
   const getTotalTime = (event) => {
     setData({ ...data, length: event.target.value });
     setTotalTime(parseInt(event.target.value));
   };
 
-  
-
   useEffect(() => {
     if (
       (whatBlock !== "Sesja RPG" && totalTime > 3) ||
-      (whatBlock !== "Warsztaty" && totalTime > 3) && whatBlock !== ""
+      (whatBlock !== "Warsztaty" && totalTime > 3 && whatBlock !== "")
     ) {
       if (whatBlock === "Sesja RPG" || whatBlock === "Warsztaty") {
         return setIsFullPrice(true);
@@ -137,6 +143,8 @@ console.log(data);
       chairs: false,
       projector: false,
       descr: "",
+      rodo: false,
+      rules: false,
     });
     setWhatBlock("selectBlock");
     setWhatDay("selectDay");
@@ -147,6 +155,7 @@ console.log(data);
 
   const sendEmail = (e) => {
     e.preventDefault();
+    startSpinner();
     if (
       whatBlock === "selectBlock" ||
       whatDay === "selectDay" ||
@@ -470,6 +479,23 @@ console.log(data);
           </Col>
         </Row>
         <hr></hr>
+        <Form.Check
+          onChange={switchChange}
+          required
+          type="switch"
+          id="rodo_consent"
+          name="rodo"
+          label={legal.rodo}
+        ></Form.Check>
+        <Form.Check
+          onChange={switchChange}
+          required
+          type="switch"
+          id="rules_consent"
+          name="rules"
+          label={legal.eventRules}
+        ></Form.Check>
+        <hr></hr>
         {showAlert ? (
           <Alert
             variant="danger"
@@ -522,12 +548,7 @@ console.log(data);
         <hr></hr>
         <Row className="justify-content-evenly">
           <Col sm={5}>
-            <Button
-              type="submit"
-              variant="warning"
-              value="Submit"
-              onClick={startSpinner}
-            >
+            <Button type="submit" variant="warning" value="Submit">
               {shouldSpin ? (
                 <Spinner animation="border" variant="danger" size="sm" />
               ) : (
