@@ -9,6 +9,7 @@ import Button from "react-bootstrap/Button";
 import { TextInput } from "../utils/TextInput";
 import Spinner from "react-bootstrap/Spinner";
 import Alert from "react-bootstrap/Alert";
+import { FormSelect } from "../utils/FormSelect";
 
 export const SubmitEvent = () => {
   const form = useRef();
@@ -243,20 +244,18 @@ export const SubmitEvent = () => {
         <Row>
           <Col>
             <FloatingLabel controlId="floatingSelect" label="Preferowany dzień">
-              <Form.Select
-                aria-label="Preferowany dzień"
-                className="form__control--input mb-3"
+              <FormSelect
+                ariaLabel="Preferowany dzień"
                 onChange={handleDataChange}
                 name="day"
                 value={day}
-              >
-                <option value="">Wybierz dzień</option>
-                <option value="friday" name="Piątek (14.10)">
-                  Piątek (14.10)
-                </option>
-                <option value="saturday">Sobota (15.10)</option>
-                <option value="sunday">Niedziela (16.10)</option>
-              </Form.Select>
+                options={[
+                  { val: "", label: "Wybierz dzień" },
+                  { val: "friday", label: "Piątek (14.10)" },
+                  { val: "saturday", label: "Sobota (15.10)" },
+                  { val: "sunday", label: "Niedziela (16.10)" },
+                ]}
+              ></FormSelect>
             </FloatingLabel>
           </Col>
           <Col>
@@ -264,9 +263,8 @@ export const SubmitEvent = () => {
               controlId="floatingSelect"
               label="Preferowana godzina"
             >
-              <Form.Select
-                aria-label="Preferowany dzień"
-                className="form__control--input mb-3"
+              <FormSelect
+                ariaLabel="Preferowany dzień"
                 name="hour"
                 onChange={handleDataChange}
                 value={hour}
@@ -303,42 +301,41 @@ export const SubmitEvent = () => {
                 ) : (
                   ""
                 )}
-              </Form.Select>
+              </FormSelect>
             </FloatingLabel>
           </Col>
         </Row>
         <Row>
           <Col>
             <FloatingLabel controlId="floatingSelect" label="Tematyka">
-              <Form.Select
-                aria-label="Blok tematyczny"
-                className="form__control--input mb-3"
+              <FormSelect
+                ariaLabel="Blok tematyczny"
                 onChange={handleDataChange}
                 name="block"
-                required
+                required={true}
                 value={block}
-              >
-                <option value="">Wybierz blok tematyczny</option>
-                <option value="Fantastyczny">Blok Fantastyczny</option>
-                <option value="Science-fiction">Blok Science-fiction</option>
-                <option value="Literacki">Blok Literacki</option>
-                <option value="Filmowy">Blok Filmowy</option>
-                <option value="Naukowy">Blok Naukowy</option>
-                <option value="Manga&Anime">Blok Manga&Anime</option>
-                <option value="Sesja RPG">Sesja RPG</option>
-                <option value="Warsztaty">Warszataty</option>
-              </Form.Select>
+                options={[
+                  { val: "", label: "Wybierz blok tematyczny" },
+                  { val: "Fantastyczny", label: "Blok Fantastyczny" },
+                  { val: "Science-fiction", label: "Blok Science-fiction" },
+                  { val: "Literacki", label: "Blok Literacki" },
+                  { val: "Filmowy", label: "Blok Filmowy" },
+                  { val: "Naukowy", label: "Blok Naukowy" },
+                  { val: "Manga&Anime", label: "Blok Manga&Anime" },
+                  { val: "Sesja RPG", label: "Sesja RPG" },
+                  { val: "Warsztaty", label: "Warsztaty" },
+                ]}
+              ></FormSelect>
             </FloatingLabel>
           </Col>
           <Col>
             <FloatingLabel controlId="hours-1" label="Czas trwania">
-              <Form.Select
-                aria-label="Czas trwania"
-                className="form__control--input mb-3"
+              <FormSelect
+                ariaLabel="Czas trwania"
                 onChange={handleDataChange}
                 name="length"
                 value={length}
-                required
+                required={true}
               >
                 <option value="">Przewidywany czas trwania</option>
                 <option value="1">1 godzina</option>
@@ -353,7 +350,7 @@ export const SubmitEvent = () => {
                 ) : (
                   ""
                 )}
-              </Form.Select>
+              </FormSelect>
             </FloatingLabel>
           </Col>
         </Row>
