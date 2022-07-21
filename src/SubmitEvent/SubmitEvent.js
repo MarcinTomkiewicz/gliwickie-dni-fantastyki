@@ -139,6 +139,7 @@ export const SubmitEvent = () => {
       setShouldSpin(false);
       setShowAlert(true);
     } else {
+      setShowAlert(false);
       emailjs
         .sendForm(
           "gdf_program",
@@ -148,9 +149,11 @@ export const SubmitEvent = () => {
         )
         .then(
           (result) => {
-            setSuccess(true);
-            setShouldSpin(false);
-            resetForm();
+            if (result.status === 200) {
+              setSuccess(true);
+              setShouldSpin(false);
+              resetForm();
+            }
           },
           (error) => {
             console.log(error.text);
