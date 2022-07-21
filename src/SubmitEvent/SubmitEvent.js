@@ -10,6 +10,7 @@ import { TextInput } from "../utils/TextInput";
 import Spinner from "react-bootstrap/Spinner";
 import Alert from "react-bootstrap/Alert";
 import { FormSelect } from "../utils/FormSelect";
+import { handleSetData } from "../utils/helperFunctions";
 
 export const SubmitEvent = () => {
   const form = useRef();
@@ -50,15 +51,8 @@ export const SubmitEvent = () => {
     descr,
   } = data;
 
-  const handleSetData = (name, value) => {
-    setData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
-
-  const handleDataChange = ({ target: { name, value } }) => {
-    handleSetData(name, value);
+  const handleDataChange = ({ target: { name } }) => {
+    setData((prev) => ({ ...prev, [name]: !prev[name] }));
   };
 
   const handleEquipmentSwitch = ({ target: { name, checked } }) => {
@@ -255,7 +249,7 @@ export const SubmitEvent = () => {
                   { val: "saturday", label: "Sobota (15.10)" },
                   { val: "sunday", label: "Niedziela (16.10)" },
                 ]}
-              ></FormSelect>
+              />
             </FloatingLabel>
           </Col>
           <Col>
@@ -325,7 +319,7 @@ export const SubmitEvent = () => {
                   { val: "Sesja RPG", label: "Sesja RPG" },
                   { val: "Warsztaty", label: "Warsztaty" },
                 ]}
-              ></FormSelect>
+              />
             </FloatingLabel>
           </Col>
           <Col>
