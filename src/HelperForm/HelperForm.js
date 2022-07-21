@@ -7,6 +7,7 @@ import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import emailjs from "@emailjs/browser";
 import Alert from "react-bootstrap/Alert";
+import Spinner from "react-bootstrap/Spinner";
 
 import { TextInput } from "../utils/TextInput";
 import { handleSetData } from "../utils/helperFunctions";
@@ -58,6 +59,7 @@ export const HelperForm = () => {
   const [show, setShow] = useState(false);
   const [isSuccess, setSuccess] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
+  const [shouldSpin, setShouldSpin] = useState(false);
   const form = useRef();
 
   const handleModal = () => setShow((prev) => !prev);
@@ -65,6 +67,7 @@ export const HelperForm = () => {
   const resetForm = () => {
     setData(defaultForm);
     setShowAlert(false);
+    setShouldSpin(false);
   };
 
   const {
@@ -95,22 +98,20 @@ export const HelperForm = () => {
 
   const sendEmail = (e) => {
     e.preventDefault();
-
+    setShouldSpin(true);
     if (
-      !tShirtSizeXS ||
-      !tShirtSizeS ||
-      !tShirtSizeXS ||
-      !tShirtSizeM ||
-      !tShirtSizeL ||
-      !tShirtSizeXL ||
-      !tShirtSizeXXL ||
-      !meat ||
-      !vegan ||
-      !shiftsTo12h ||
-      !shiftsOver12h ||
+      (!tShirtSizeXS &&
+        !tShirtSizeS &&
+        !tShirtSizeM &&
+        !tShirtSizeL &&
+        !tShirtSizeXL &&
+        !tShirtSizeXXL) ||
+      (!meat && !vegan) ||
+      (!shiftsTo12h && !shiftsOver12h) ||
       !rulesConsent ||
       !dataProcessingConsent
     ) {
+      setShouldSpin(false);
       return setShowAlert(true);
     }
     setShowAlert(false);
@@ -127,6 +128,7 @@ export const HelperForm = () => {
           if (result.status === 200) {
             resetForm();
             setSuccess(true);
+            setShouldSpin(false);
           }
         },
         (error) => {
@@ -450,7 +452,12 @@ export const HelperForm = () => {
         <Row className="justify-content-evenly mt-5">
           <Col sm={5}>
             <Button type="submit" variant="warning" value="Submit">
-              Wyślij zgłoszenie
+              {shouldSpin ? (
+                <Spinner animation="border" variant="danger" size="sm" />
+              ) : (
+                ""
+              )}
+              {shouldSpin ? " " : ""}Wyślij zgłoszenie
             </Button>
           </Col>
           <Col sm={2}>
