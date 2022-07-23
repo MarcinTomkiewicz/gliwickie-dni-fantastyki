@@ -1,14 +1,11 @@
 import Form from "react-bootstrap/Form";
 import FloatingLabel from "react-bootstrap/esm/FloatingLabel";
-import { useEffect, useState } from "react";
 import { formLabels as labels } from "./backend";
 
 export const TextInput = ({ input, isRequired, type, data, setData }) => {
-    const [value, setValue] = useState("")
-
-const handleChange = (e) => {
-    setData({...data, [input]: e.target.value})
-}
+  const handleChange = (e) => {
+    setData({ ...data, [input]: e.target.value });
+  };
 
   return labels.map((label) => {
     if (label.name === input) {
@@ -32,6 +29,8 @@ const handleChange = (e) => {
           />
         </FloatingLabel>
       );
+    } else {
+      return null;
     }
   });
 };
