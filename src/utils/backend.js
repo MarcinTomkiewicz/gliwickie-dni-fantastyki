@@ -30,7 +30,10 @@ export const formLabels = [
   { name: "email", label: "Adres e-mail" },
   { name: "nick", label: "Pseudonim" },
   { name: "phone", label: "Numer telefonu" },
-  { name: "facebook", label: "Link do Facebooka" },
+  {
+    name: "facebook",
+    label: "Adres strony internetowej / fanpage'a na Facebooku",
+  },
   { name: "company", label: "Nazwa firmy" },
   { name: "birthDate", label: "Data urodzenia" },
   { name: "experienceAsVolounteer", label: "Doświadczenie jako wolontariusz?" },
@@ -41,6 +44,20 @@ export const formLabels = [
   { name: "generalRemarks", label: "Uwagi i przeciwwskazania" },
   { name: "termsConsent", label: "Akceptacja regulaminu" },
   { name: "dataProcessingConsent", label: "Akceptacja przetwarzania danych" },
+  { name: "companyAddress", label: "Pełen adres prowadzonej działalności" },
+  { name: "nip", label: "NIP" },
+  { name: "regon", label: "REGON" },
+  { name: "nameExtraContactPerson", label: "Imię" },
+  { name: "surnameExtraContactPerson", label: "Nazwisko" },
+  { name: "emailExtraContactPerson", label: "Adres e-mail" },
+  { name: "phoneExtraContactPerson", label: "Numer telefonu" },
+  { name: "areaSize", label: "Numer telefonu" },
+  {
+    name: "staff",
+    label: "Przewidywana liczba osób, które będą obsługiwać stoisko",
+  },
+  { name: "remarksAboutStand", label: "Uwagi, propozycje, spostrzeżenia" },
+  { name: "otherAnswer", label: "Inna odpowiedź" },
 ];
 
 export const legal = {
