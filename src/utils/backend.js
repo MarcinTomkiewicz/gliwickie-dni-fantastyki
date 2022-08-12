@@ -32,7 +32,7 @@ export const formLabels = [
   { name: "phone", label: "Numer telefonu" },
   {
     name: "facebook",
-    label: "Adres strony internetowej / fanpage'a na Facebooku",
+    label: "Strona www fanpage'u",
   },
   { name: "company", label: "Nazwa firmy" },
   { name: "birthDate", label: "Data urodzenia" },
@@ -44,7 +44,7 @@ export const formLabels = [
   { name: "generalRemarks", label: "Uwagi i przeciwwskazania" },
   { name: "termsConsent", label: "Akceptacja regulaminu" },
   { name: "dataProcessingConsent", label: "Akceptacja przetwarzania danych" },
-  { name: "companyAddress", label: "Pełen adres prowadzonej działalności" },
+  { name: "companyAddress", label: "Pełny adres prowadzonej działalności" },
   { name: "nip", label: "NIP" },
   { name: "regon", label: "REGON" },
   { name: "nameExtraContactPerson", label: "Imię" },

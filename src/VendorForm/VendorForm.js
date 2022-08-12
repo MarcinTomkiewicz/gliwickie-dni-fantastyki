@@ -17,16 +17,19 @@ import { legal } from "../utils/backend";
 const defaultGeneral = {
   name: "",
   surname: "",
-  phone: "",
   email: "",
-  nick: "",
-  birthDate: "",
   facebook: "",
-  experienceAsVolounteer: "",
-  startDate: "",
-  endDate: "",
-  remarksAboutDates: "",
-  generalRemarks: "",
+  company: "",
+  companyAddress: "",
+  nip: "",
+  regon: "",
+  nameExtraContactPerson: "",
+  surnameExtraContactPerson: "",
+  phoneExtraContactPerson: "",
+  emailExtraContactPerson: "",
+  areaSize: "",
+  staff: "",
+  remarksAboutStand: "",
 };
 
 const defaultContactPerson = {
@@ -53,6 +56,14 @@ const defaultForm = {
   ...defaultGeneral,
   ...defaultContactPerson,
   ...category,
+};
+
+const checkIfAtLeastOneChecked = (obj, props) => {
+  const objToArr = Object.keys(props);
+  const objToArr1 = Object.entries(obj).map(([prop, val]) => ({
+    [prop]: val,
+  }));
+  return objToArr.some((el) => objToArr1.find((obj) => obj[el] === true));
 };
 
 export const VendorForm = () => {
@@ -98,11 +109,19 @@ export const VendorForm = () => {
   const sendEmail = (e) => {
     e.preventDefault();
     setShouldSpin(true);
-    if (false) {
+
+    const isCategorySelected = checkIfAtLeastOneChecked(data, category);
+
+    if (
+      !isCategorySelected ||
+      (!contactPersonDifferentThanAbove && !contactPersonTheSame)
+    ) {
       setShouldSpin(false);
       return setShowAlert(true);
     }
     setShowAlert(false);
+
+    console.log(data);
 
     emailjs
       .sendForm(
@@ -237,7 +256,7 @@ export const VendorForm = () => {
             <Col>
               <TextInput
                 input="nameExtraContactPerson"
-                isRequired="true"
+                isRequired={contactPersonDifferentThanAbove ? "true" : "false"}
                 type="text"
                 data={data}
                 setData={setData}
@@ -246,7 +265,7 @@ export const VendorForm = () => {
             <Col>
               <TextInput
                 input="surnameExtraContactPerson"
-                isRequired="true"
+                isRequired={contactPersonDifferentThanAbove ? "true" : "false"}
                 type="text"
                 data={data}
                 setData={setData}
@@ -257,7 +276,7 @@ export const VendorForm = () => {
             <Col>
               <TextInput
                 input="emailExtraContactPerson"
-                isRequired="true"
+                isRequired={contactPersonDifferentThanAbove ? "true" : "false"}
                 type="email"
                 data={data}
                 setData={setData}
@@ -266,7 +285,7 @@ export const VendorForm = () => {
             <Col>
               <TextInput
                 input="phoneExtraContactPerson"
-                isRequired="true"
+                isRequired={contactPersonDifferentThanAbove ? "true" : "false"}
                 type="number"
                 data={data}
                 setData={setData}
@@ -419,31 +438,33 @@ export const VendorForm = () => {
         <Row>
           <Col>
             <div className="mb-2">Oferta dla wystawców</div>
-            <Table striped bordered hover variant="light">
-              <thead>
+            <Table striped bordered>
+              <thead style={{ backgroundColor: "#fd1d1d", color: "#fff" }}>
                 <tr>
                   <th>Parametry stoiska</th>
                   <th>&nbsp;</th>
                   <th>&nbsp;</th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody style={{ color: "#fff" }}>
                 <tr>
-                  <td colSpan={2}>
+                  <td colSpan={2} style={{ color: "#fff" }}>
                     Stoisko wystawiennicze zgodne z zamówionym metrażem
                   </td>
-                  <td>✔</td>
+                  <td style={{ color: "#fff" }}>✔</td>
                 </tr>
                 <tr>
                   <td colSpan={2}>
                     Specjalna wejściówka dla wystawców (liczba wejściówek
                     ustalana indywidualnie)
                   </td>
-                  <td>✔</td>
+                  <td style={{ color: "#fff" }}>✔</td>
                 </tr>
                 <tr>
-                  <td colSpan={2}>Wzbogacony Welcome Pack</td>
-                  <td>✔</td>
+                  <td colSpan={2} style={{ color: "#fff" }}>
+                    Wzbogacony Welcome Pack
+                  </td>
+                  <td style={{ color: "#fff" }}>✔</td>
                 </tr>
                 <tr>
                   <td colSpan={2}>
@@ -452,11 +473,11 @@ export const VendorForm = () => {
                   <td>✔</td>
                 </tr>
                 <tr>
-                  <td colSpan={2}>
+                  <td colSpan={2} style={{ color: "#fff" }}>
                     Umieszczenie logo na stronie internetowej Gliwickich Dni
                     Fantastyki w dziale Wystawcy
                   </td>
-                  <td>✔</td>
+                  <td style={{ color: "#fff" }}>✔</td>
                 </tr>
                 <tr>
                   <td colSpan={2}>
@@ -494,7 +515,6 @@ export const VendorForm = () => {
           <Col>
             <TextInput
               input="remarksAboutStand"
-              isRequired="true"
               type="text"
               data={data}
               setData={setData}
@@ -509,7 +529,16 @@ export const VendorForm = () => {
           >
             <Alert.Heading>Popraw błędy w formularzu</Alert.Heading>
             <div>Nie zaznaczono:</div>
-            <div></div>
+            <div>
+              {!contactPersonTheSame && !contactPersonDifferentThanAbove
+                ? "Czy osoba kontaktowa jest inna niż podana wyżej"
+                : ""}
+            </div>
+            <div>
+              {!checkIfAtLeastOneChecked(data, category)
+                ? "Kategorii (przynajmniej jedna)"
+                : ""}
+            </div>
           </Alert>
         ) : (
           ""
