@@ -174,7 +174,7 @@ export const SubmitEvent = () => {
         <BoldText value="Regulaminem" /> Gliwickich Dni Fantastyki.
       </div>
       <hr></hr>
-      <Form style={{ width: "80%" }} ref={form} onSubmit={sendEmail}>
+      <Form ref={form} onSubmit={sendEmail}>
         <Row>
           <Col>
             <TextInput

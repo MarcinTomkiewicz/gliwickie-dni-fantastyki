@@ -6,6 +6,10 @@ export const PartnerCarousel = ({ type }) => {
   const [partnerType, setPartnerType] = useState(type);
 
   return (
-    <img src={process.env.PUBLIC_URL + '/Plakat_GDF.png'} className="aside__photo"/>
+    <img
+      src={process.env.PUBLIC_URL + "/gdf2022-banner.png"}
+      alt="Banner Gliwickich Dni Fantastyki"
+      className="aside__photo"
+    />
   );
 };

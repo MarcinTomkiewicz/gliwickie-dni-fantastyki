@@ -18,7 +18,7 @@ function App() {
   let location = useLocation();
 
   useEffect(() => {
-    pageTitles.map((page) => {
+    pageTitles.forEach((page) => {
       if (page.name === location.pathname)
         document.title = `${page.title} | Gliwickie Dni Fantastyki`;
     });
