@@ -141,7 +141,7 @@ export const HelperForm = () => {
     <>
       <h1>Zgłoszenia helperów</h1>
       <hr></hr>
-      <Form style={{ width: "80%" }} ref={form} onSubmit={sendEmail}>
+      <Form ref={form} onSubmit={sendEmail}>
         <Row>
           <Col>
             <TextInput

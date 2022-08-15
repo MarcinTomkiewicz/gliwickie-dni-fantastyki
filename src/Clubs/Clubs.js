@@ -27,7 +27,12 @@ export const Clubs = () => {
               {club.fanpage !== "" ? (
                 <div>
                   <BoldText value="Fanpage: " />
-                  <a href={club.fpLink} target="_blank" className="link-light">
+                  <a
+                    href={club.fpLink}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="link-light"
+                  >
                     {club.fanpage}
                   </a>
                 </div>
