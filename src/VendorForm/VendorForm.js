@@ -308,7 +308,7 @@ export const VendorForm = () => {
         <Row>
           <Col>
             <div className="mb-2">Kategoria*</div>
-            <div className="d-flex flex-column">
+            <div className="d-flex flex-column align-items-start">
               <Form.Check
                 inline
                 value="boardGames"

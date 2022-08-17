@@ -250,9 +250,6 @@ form {
   aside {
     margin-left: 15px;
   }
-  form div:last-child {
-    align-items: center;
-  }
 }
 
 @media screen and (max-width: 1000px) {
