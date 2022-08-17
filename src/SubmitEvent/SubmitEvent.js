@@ -475,7 +475,7 @@ export const SubmitEvent = () => {
           Konwentu.
         </div>
         <hr></hr>
-        <Row className="justify-content-evenly">
+        <Row className="align-items-center mt-5">
           <Col sm={5}>
             <Button
               type="submit"

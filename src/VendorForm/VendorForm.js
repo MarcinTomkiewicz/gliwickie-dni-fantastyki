@@ -558,7 +558,7 @@ export const VendorForm = () => {
         ) : (
           ""
         )}
-        <Row className="justify-content-evenly mt-5">
+        <Row className="align-items-center mt-5">
           <Col sm={5}>
             <Button type="submit" variant="warning" value="Submit">
               {shouldSpin ? (
