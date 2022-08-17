@@ -57,7 +57,7 @@ function App() {
           <PartnerCarousel type="patron" />
         </aside>
       </main>
-      <Footer />;
+      <Footer />
     </div>
   );
 }

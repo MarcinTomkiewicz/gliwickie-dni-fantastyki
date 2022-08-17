@@ -308,7 +308,7 @@ export const VendorForm = () => {
         <Row>
           <Col>
             <div className="mb-2">Kategoria*</div>
-            <div className="d-flex flex-column">
+            <div className="d-flex flex-column align-items-start">
               <Form.Check
                 inline
                 value="boardGames"
@@ -558,7 +558,7 @@ export const VendorForm = () => {
         ) : (
           ""
         )}
-        <Row className="justify-content-evenly mt-5">
+        <Row className="align-items-center mt-5">
           <Col sm={5}>
             <Button type="submit" variant="warning" value="Submit">
               {shouldSpin ? (
