@@ -51,8 +51,8 @@ export const SubmitEvent = () => {
     descr,
   } = data;
 
-  const handleDataChange = ({ target: { name } }) => {
-    setData((prev) => ({ ...prev, [name]: !prev[name] }));
+  const handleDataChange = ({ target: { name, value } }) => {
+    setData((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleEquipmentSwitch = ({ target: { name, checked } }) => {
@@ -364,6 +364,7 @@ export const SubmitEvent = () => {
               name="noeq"
               onChange={handleEquipmentSwitch}
               checked={noeq}
+              value={noeq}
             ></Form.Check>
             <Form.Check
               type="switch"
@@ -372,6 +373,7 @@ export const SubmitEvent = () => {
               name="elec"
               disabled={noeq}
               checked={elec}
+              value={elec}
               onChange={handleEquipmentSwitch}
             ></Form.Check>
             <Form.Check
@@ -381,6 +383,7 @@ export const SubmitEvent = () => {
               name="projector"
               disabled={noeq}
               checked={projector}
+              value={projector}
               onChange={handleEquipmentSwitch}
             ></Form.Check>
           </Col>
@@ -392,15 +395,17 @@ export const SubmitEvent = () => {
               name="board"
               disabled={noeq}
               checked={board}
+              value={board}
               onChange={handleEquipmentSwitch}
             ></Form.Check>
             <Form.Check
               type="switch"
-              label="Krzesła i stoły"
+              label="Dodatkowe Krzesła i stoły"
               id="eq"
               name="chairs"
               disabled={noeq}
               checked={chairs}
+              value={chairs}
               onChange={handleEquipmentSwitch}
             ></Form.Check>
           </Col>
@@ -458,12 +463,12 @@ export const SubmitEvent = () => {
         )}
         {isFullPrice ? (
           <div className="text-success bold__text">
-            GRATULACJE! Przewidywany czas trwania atrakcji uprawnia do darmowej
+            GRATULACJE! Wybrany przewidywany czas trwania atrakcji uprawnia do darmowej
             wejściówki na Gliwickie Dni Fantastyki!
           </div>
         ) : (
           <div className="text-danger bold__text">
-            UWAGA! Przewidywany czas trwania atrakcji NIE uprawnia do darmowej
+            UWAGA! Wybrany przewidywany czas trwania atrakcji NIE uprawnia do darmowej
             wejściówki na Gliwickie Dni Fantastyki!
           </div>
         )}
@@ -475,7 +480,7 @@ export const SubmitEvent = () => {
           Konwentu.
         </div>
         <hr></hr>
-        <Row className="align-items-center mt-5">
+        <Row className="align-items-center justify-content-center mt-3">
           <Col sm={5}>
             <Button
               type="submit"

@@ -12,6 +12,7 @@ import Spinner from "react-bootstrap/Spinner";
 import { TextInput } from "../utils/TextInput";
 import { handleSetData } from "../utils/helperFunctions";
 import { legal } from "../utils/backend";
+import { HelperRules } from "../HelperRules/HelperRules";
 
 const defaultGeneral = {
   name: "",
@@ -44,6 +45,7 @@ const defaultShifts = {
 
 const defaultDiet = {
   meat: false,
+  vegetarian: false,
   vegan: false,
 };
 
@@ -57,12 +59,18 @@ const defaultForm = {
 export const HelperForm = () => {
   const [data, setData] = useState(defaultForm);
   const [show, setShow] = useState(false);
+  const [modalType, setModalType] = useState("");
   const [isSuccess, setSuccess] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
   const [shouldSpin, setShouldSpin] = useState(false);
   const form = useRef();
 
-  const handleModal = () => setShow((prev) => !prev);
+  const handleModal = (e) => {
+    if (e?.target !== undefined) {
+      setModalType(e.target.value);
+    }
+    setShow((prev) => !prev);
+  };
 
   const resetForm = () => {
     setData(defaultForm);
@@ -77,6 +85,7 @@ export const HelperForm = () => {
     tShirtSizeL,
     tShirtSizeXL,
     tShirtSizeXXL,
+    vegetarian,
     vegan,
     meat,
     shiftsTo12h,
@@ -106,7 +115,7 @@ export const HelperForm = () => {
         !tShirtSizeL &&
         !tShirtSizeXL &&
         !tShirtSizeXXL) ||
-      (!meat && !vegan) ||
+      (!meat && !vegan && !vegetarian) ||
       (!shiftsTo12h && !shiftsOver12h) ||
       !rulesConsent ||
       !dataProcessingConsent
@@ -118,10 +127,10 @@ export const HelperForm = () => {
 
     emailjs
       .sendForm(
-        "service_cv6vtos",
-        "template_2ns4tou",
+        "gdf_program",
+        "template_f091p9g",
         form.current,
-        "yzr1aXbYaTCMdb2TI"
+        "C1GC4KNhMZuiMFPLW"
       )
       .then(
         (result) => {
@@ -343,9 +352,18 @@ export const HelperForm = () => {
               <Form.Check
                 inline
                 name="diet"
+                value="vegetarian"
+                type="radio"
+                label="Wegetariańska"
+                checked={vegetarian}
+                onChange={onRadioChange}
+              />
+              <Form.Check
+                inline
+                name="diet"
                 value="vegan"
                 type="radio"
-                label="Wege"
+                label="Wegańska"
                 checked={vegan}
                 onChange={onRadioChange}
               />
@@ -377,6 +395,7 @@ export const HelperForm = () => {
               />
               <button
                 onClick={handleModal}
+                type="button"
                 style={{
                   all: "unset",
                   cursor: "pointer",
@@ -385,9 +404,11 @@ export const HelperForm = () => {
                   textDecoration: "underline",
                   type: "button",
                 }}
+                value="rules"
               >
-                regulaminu*
+                regulaminu
               </button>
+              *
             </Form.Group>
           </Col>
         </Row>
@@ -399,10 +420,26 @@ export const HelperForm = () => {
                 name="dataProcessingConsent"
                 value="dataProcessingConsent"
                 type="radio"
-                label="Akceptuję przetwarzanie danych*"
+                label="Akceptuję"
                 checked={dataProcessingConsent}
                 onChange={onRadioChange}
               />
+              <button
+                onClick={handleModal}
+                type="button"
+                style={{
+                  all: "unset",
+                  cursor: "pointer",
+                  marginLeft: "-12px",
+                  color: "#fff",
+                  textDecoration: "underline",
+                  type: "button",
+                }}
+                value="rodo"
+              >
+                przetwarzanie danych
+              </button>
+              *
             </Col>
           </Row>
         </div>
@@ -443,13 +480,13 @@ export const HelperForm = () => {
             <Alert.Heading>Gratulacje!</Alert.Heading>
             <div>
               Dziękujemy za zgłoszenie! Prosimy oczekiwać na informację zwrotną
-              od Koordynatora ds. Programu.
+              od Koordynatora ds. Helperów.
             </div>
           </Alert>
         ) : (
           ""
         )}
-        <Row className="align-items-center mt-5">
+        <Row className="align-items-center justify-content-center mt-3">
           <Col sm={5}>
             <Button type="submit" variant="warning" value="Submit">
               {shouldSpin ? (
@@ -467,11 +504,17 @@ export const HelperForm = () => {
           </Col>
         </Row>
       </Form>
-      <Modal show={show} onHide={handleModal}>
+      <Modal show={show} size="lg" onHide={handleModal}>
         <Modal.Header closeButton>
-          <Modal.Title>Regulamin</Modal.Title>
+          <Modal.Title>
+            {modalType === "rodo"
+              ? "Zgoda na przetwarzanie danych osobowych"
+              : "Regulamin helperów"}
+          </Modal.Title>
         </Modal.Header>
-        <Modal.Body>{legal.rodo}</Modal.Body>
+        <Modal.Body>
+          {modalType === "rodo" ? legal.rodo : <HelperRules modal={true} />}
+        </Modal.Body>
         <Modal.Footer>
           <Button variant="primary" onClick={handleModal}>
             OK

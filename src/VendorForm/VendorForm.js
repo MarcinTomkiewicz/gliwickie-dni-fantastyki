@@ -13,6 +13,9 @@ import Table from "react-bootstrap/Table";
 import { TextInput } from "../utils/TextInput";
 import { handleSetData } from "../utils/helperFunctions";
 import { legal } from "../utils/backend";
+import { FloatingLabel, FormControl } from "react-bootstrap";
+
+import { VendorRules } from "../VendorRules/VendorRules";
 
 const defaultGeneral = {
   name: "",
@@ -27,6 +30,8 @@ const defaultGeneral = {
   surnameExtraContactPerson: "",
   phoneExtraContactPerson: "",
   emailExtraContactPerson: "",
+  companyDescr: "",
+  googleDrive: "",
   areaSize: "",
   staff: "",
   remarksAboutStand: "",
@@ -69,12 +74,18 @@ const checkIfAtLeastOneChecked = (obj, props) => {
 export const VendorForm = () => {
   const [data, setData] = useState(defaultForm);
   const [show, setShow] = useState(false);
+  const [modalType, setModalType] = useState("");
   const [isSuccess, setSuccess] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
   const [shouldSpin, setShouldSpin] = useState(false);
   const form = useRef();
 
-  const handleModal = () => setShow((prev) => !prev);
+  const handleModal = (e) => {
+    if (e?.target !== undefined) {
+      setModalType(e.target.value);
+    }
+    setShow((prev) => !prev);
+  };
 
   const resetForm = () => {
     setData(defaultForm);
@@ -96,7 +107,9 @@ export const VendorForm = () => {
     jewellery,
     food,
     workshops,
-    other,
+    // other,
+    dataProcessingConsent,
+    rulesConsent,
   } = data;
 
   const onRadioChange = ({ target: { name, checked, value } }) => {
@@ -104,6 +117,12 @@ export const VendorForm = () => {
       setData((prev) => ({ ...prev, ...defaultContactPerson }));
     }
     handleSetData(value, checked, setData);
+  };
+
+  console.log(data);
+
+  const handleDataChange = ({ target: { name, value } }) => {
+    setData((prev) => ({ ...prev, [name]: value }));
   };
 
   const sendEmail = (e) => {
@@ -121,14 +140,12 @@ export const VendorForm = () => {
     }
     setShowAlert(false);
 
-    console.log(data);
-
     emailjs
       .sendForm(
-        "service_cv6vtos",
-        "template_2ns4tou",
+        "gdf_program",
+        "template_hgsx6mr",
         form.current,
-        "yzr1aXbYaTCMdb2TI"
+        "C1GC4KNhMZuiMFPLW"
       )
       .then(
         (result) => {
@@ -304,6 +321,31 @@ export const VendorForm = () => {
               setData={setData}
             />
           </Col>
+          <Col>
+            <TextInput
+              input="googleDrive"
+              isRequired="true"
+              type="text"
+              data={data}
+              setData={setData}
+            />
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <FloatingLabel label="Opis firmy*" controlId="companyDescr">
+              <FormControl
+                as="textarea"
+                placeholder="Opis firmy*"
+                className="form__control--input"
+                name="companyDescr"
+                style={{ height: "100px" }}
+                required
+                value={data.companyDescr}
+                onChange={handleDataChange}
+              />
+            </FloatingLabel>
+          </Col>
         </Row>
         <Row>
           <Col>
@@ -312,7 +354,7 @@ export const VendorForm = () => {
               <Form.Check
                 inline
                 value="boardGames"
-                type="radio"
+                type="switch"
                 label="Planszówki"
                 name="boardGames"
                 checked={boardGames}
@@ -324,7 +366,7 @@ export const VendorForm = () => {
                 value="electronicGames"
                 checked={electronicGames}
                 onChange={onRadioChange}
-                type="radio"
+                type="switch"
                 label="Gry elektroniczne"
               />
               <Form.Check
@@ -333,7 +375,7 @@ export const VendorForm = () => {
                 value="books"
                 checked={books}
                 onChange={onRadioChange}
-                type="radio"
+                type="switch"
                 label="Książki"
               />
               <Form.Check
@@ -342,13 +384,13 @@ export const VendorForm = () => {
                 value="comicBooks"
                 checked={comicBooks}
                 onChange={onRadioChange}
-                type="radio"
+                type="switch"
                 label="Komiksy"
               />
               <Form.Check
                 inline
                 name="mangaAnime"
-                type="radio"
+                type="switch"
                 value="mangaAnime"
                 checked={mangaAnime}
                 onChange={onRadioChange}
@@ -357,7 +399,7 @@ export const VendorForm = () => {
               <Form.Check
                 inline
                 name="arts"
-                type="radio"
+                type="switch"
                 value="arts"
                 checked={arts}
                 onChange={onRadioChange}
@@ -369,7 +411,7 @@ export const VendorForm = () => {
                 value="gadgets"
                 checked={gadgets}
                 onChange={onRadioChange}
-                type="radio"
+                type="switch"
                 label="Gadżety"
               />
               <Form.Check
@@ -378,7 +420,7 @@ export const VendorForm = () => {
                 value="clothing"
                 checked={clothing}
                 onChange={onRadioChange}
-                type="radio"
+                type="switch"
                 label="Odzież"
               />
               <Form.Check
@@ -387,7 +429,7 @@ export const VendorForm = () => {
                 value="jewellery"
                 checked={jewellery}
                 onChange={onRadioChange}
-                type="radio"
+                type="switch"
                 label="Biżuteria i dodatki"
               />
               <Form.Check
@@ -396,7 +438,7 @@ export const VendorForm = () => {
                 value="food"
                 checked={food}
                 onChange={onRadioChange}
-                type="radio"
+                type="switch"
                 label="Jedzenie"
               />
               <Form.Check
@@ -405,17 +447,17 @@ export const VendorForm = () => {
                 value="workshops"
                 checked={workshops}
                 onChange={onRadioChange}
-                type="radio"
+                type="switch"
                 label="Warsztaty"
               />
-              <div>
+              {/* <div>
                 <Form.Check
                   inline
                   name="other"
                   value="other"
                   checked={other}
                   onChange={onRadioChange}
-                  type="radio"
+                  type="switch"
                   label="Inna odpowiedź"
                 />
                 <div
@@ -430,7 +472,7 @@ export const VendorForm = () => {
                     setData={setData}
                   />
                 </div>
-              </div>
+              </div> */}
             </div>
           </Col>
         </Row>
@@ -521,6 +563,86 @@ export const VendorForm = () => {
             />
           </Col>
         </Row>
+        <Row>
+          <Col>
+            <Form.Group>
+              <Form.Check
+                inline
+                name="rulesConsent"
+                value="rulesConsent"
+                type="radio"
+                label="Akceptacja"
+                checked={rulesConsent}
+                onChange={onRadioChange}
+              />
+              <button
+                onClick={handleModal}
+                type="button"
+                style={{
+                  all: "unset",
+                  cursor: "pointer",
+                  marginLeft: "-12px",
+                  color: "#fff",
+                  textDecoration: "underline",
+                  type: "button",
+                }}
+                value="rules"
+              >
+                regulaminu
+              </button>
+              *
+            </Form.Group>
+          </Col>
+        </Row>
+        <div className="mt-3 mb-3">
+          <Row>
+            <Col>
+              <Form.Check
+                inline
+                name="dataProcessingConsent"
+                value="dataProcessingConsent"
+                type="radio"
+                label="Akceptuję"
+                checked={dataProcessingConsent}
+                onChange={onRadioChange}
+              />
+              <button
+                onClick={handleModal}
+                type="button"
+                style={{
+                  all: "unset",
+                  cursor: "pointer",
+                  marginLeft: "-12px",
+                  color: "#fff",
+                  textDecoration: "underline",
+                  type: "button",
+                }}
+                value="rodo"
+              >
+                przetwarzanie danych
+              </button>
+              *
+            </Col>
+          </Row>
+        </div>
+              <Modal show={show} size="lg" onHide={handleModal}>
+        <Modal.Header closeButton>
+          <Modal.Title>
+            {" "}
+            {modalType === "rodo"
+              ? "Zgoda na przetwarzanie danych osobowych"
+              : "Regulamin wystawców"}
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          {modalType === "rodo" ? legal.rodo : <VendorRules modal={true} />}
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="primary" onClick={handleModal}>
+            OK
+          </Button>
+        </Modal.Footer>
+      </Modal>
         {showAlert ? (
           <Alert
             variant="danger"
@@ -552,13 +674,13 @@ export const VendorForm = () => {
             <Alert.Heading>Gratulacje!</Alert.Heading>
             <div>
               Dziękujemy za zgłoszenie! Prosimy oczekiwać na informację zwrotną
-              od Koordynatora ds. Programu.
+              od Koordynatora ds. Wystawców.
             </div>
           </Alert>
         ) : (
           ""
         )}
-        <Row className="align-items-center mt-5">
+        <Row className="align-items-center justify-content-center mt-3">
           <Col sm={5}>
             <Button type="submit" variant="warning" value="Submit">
               {shouldSpin ? (
@@ -576,17 +698,6 @@ export const VendorForm = () => {
           </Col>
         </Row>
       </Form>
-      <Modal show={show} onHide={handleModal}>
-        <Modal.Header closeButton>
-          <Modal.Title>Regulamin</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>{legal.rodo}</Modal.Body>
-        <Modal.Footer>
-          <Button variant="primary" onClick={handleModal}>
-            OK
-          </Button>
-        </Modal.Footer>
-      </Modal>
     </>
   );
 };

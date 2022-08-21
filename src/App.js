@@ -13,6 +13,10 @@ import { Clubs } from "./Clubs/Clubs";
 import { Conventions } from "./Conventions/Conventions";
 import { HelperForm } from "./HelperForm/HelperForm";
 import { VendorForm } from "./VendorForm/VendorForm";
+import { HelperRules } from "./HelperRules/HelperRules";
+import { VendorRules } from "./VendorRules/VendorRules";
+import { UnderPressure } from "./UnderPressure/UnderPressure";
+import { RuleCon } from "./RuleCon/RuleCon";
 
 function App() {
   let location = useLocation();
@@ -20,7 +24,7 @@ function App() {
   useEffect(() => {
     pageTitles.forEach((page) => {
       if (page.name === location.pathname)
-        document.title = `${page.title} | Gliwickie Dni Fantastyki`;
+        document.title = `${page.title} | Gliwickie Dni Fantastyki 2022`;
     });
   });
 
@@ -31,25 +35,25 @@ function App() {
         <div className="content">
           <Routes>
             <Route path="/about" element={<Home />} />
-            <Route path="/place" element={<Home />} />
-            <Route path="/rules" element={<Home />} />
-            <Route path="/parents" element={<Home />} />
+            <Route path="/place" element={<UnderPressure />} />
+            <Route path="/rules" element={<RuleCon />} />
+            <Route path="/parents" element={<UnderPressure />} />
             <Route path="/agenda" element={<Program />} />
-            <Route path="/blocks" element={<Home />} />
-            <Route path="/the_game" element={<Home />} />
-            <Route path="/cosplay" element={<Home />} />
+            <Route path="/blocks" element={<UnderPressure />} />
+            <Route path="/the_game" element={<UnderPressure />} />
+            <Route path="/cosplay" element={<UnderPressure />} />
             <Route path="/submit_event" element={<SubmitEvent />} />
             <Route path="/vips" element={<Guests />} />
             <Route path="/clubs" element={<Clubs />} />
             <Route path="/conventions" element={<Conventions />} />
-            <Route path="/vendors" element={<Home />} />
+            <Route path="/vendors" element={<VendorRules />} />
             <Route path="/submit_vendor" element={<VendorForm />} />
-            <Route path="/helpers" element={<Home />} />
-            <Route path="/fun_stuff" element={<Home />} />
+            <Route path="/helpers" element={<UnderPressure />} />
+            <Route path="/fun_stuff" element={<HelperRules modal={false} />} />
             <Route path="/submit_helper" element={<HelperForm />} />
-            <Route path="/media" element={<Home />} />
-            <Route path="/press" element={<Home />} />
-            <Route path="/media_entrance" element={<Home />} />
+            <Route path="/media" element={<UnderPressure />} />
+            <Route path="/press" element={<UnderPressure />} />
+            <Route path="/media_entrance" element={<UnderPressure />} />
             <Route exact path="/" element={<Home />} />
           </Routes>
         </div>

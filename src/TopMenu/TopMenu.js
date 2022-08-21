@@ -27,13 +27,13 @@ export const TopMenu = () => {
             <NavDropdown.Item as={Link} to="/conventions" className="no__underline">Konwenty</NavDropdown.Item>
           </NavDropdown>
           <NavDropdown title="Wystawcy" id="nav-dropdown">
-            <NavDropdown.Item as={Link} to="/vendors" className="no__underline">Regulamin i zasady</NavDropdown.Item>
+            <NavDropdown.Item as={Link} to="/vendors" className="no__underline">Regulamin wystawców</NavDropdown.Item>
             <NavDropdown.Divider style={{backgroundColor: "#fff", height: "2px"}}/>
             <NavDropdown.Item as={Link} to="/submit_vendor" className="no__underline">Zgłoszenia wystawców</NavDropdown.Item>
           </NavDropdown>
           <NavDropdown title="Pomoc przy GDF" id="nav-dropdown">
             <NavDropdown.Item as={Link} to="/helpers" className="no__underline">Zostań helperem</NavDropdown.Item>
-            <NavDropdown.Item as={Link} to="/fun_stuff" className="no__underline">Korzyści i regulamin</NavDropdown.Item>
+            <NavDropdown.Item as={Link} to="/fun_stuff" className="no__underline">Regulamin helperów</NavDropdown.Item>
             <NavDropdown.Divider style={{backgroundColor: "#fff", height: "2px"}}/>
             <NavDropdown.Item as={Link} to="/submit_helper" className="no__underline">Zgłoszenia helperów</NavDropdown.Item>
           </NavDropdown>
