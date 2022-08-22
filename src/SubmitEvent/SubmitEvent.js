@@ -11,12 +11,17 @@ import Spinner from "react-bootstrap/Spinner";
 import Alert from "react-bootstrap/Alert";
 import { FormSelect } from "../utils/FormSelect";
 import { handleSetData } from "../utils/helperFunctions";
+import { RuleCon } from "../RuleCon/RuleCon";
+import { Modal } from "react-bootstrap";
+import { legal } from "../utils/backend";
 
 export const SubmitEvent = () => {
   const form = useRef();
 
   const [isFullPrice, setIsFullPrice] = useState(false);
   const [isSuccess, setSuccess] = useState(false);
+  const [modalType, setModalType] = useState("");
+  const [show, setShow] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
   const [shouldSpin, setShouldSpin] = useState(false);
   const [data, setData] = useState({
@@ -38,6 +43,13 @@ export const SubmitEvent = () => {
     descr: "",
   });
 
+  const handleModal = (e) => {
+    if (e?.target !== undefined) {
+      setModalType(e.target.value);
+    }
+    setShow((prev) => !prev);
+  };
+
   const {
     day,
     hour,
@@ -49,7 +61,13 @@ export const SubmitEvent = () => {
     chairs,
     projector,
     descr,
+    dataProcessingConsent,
+    rulesConsent,
   } = data;
+
+  const onRadioChange = ({ target: { name, checked, value } }) => {
+    handleSetData(value, checked, setData);
+  };
 
   const handleDataChange = ({ target: { name, value } }) => {
     setData((prev) => ({ ...prev, [name]: value }));
@@ -171,7 +189,18 @@ export const SubmitEvent = () => {
       <h1>Zgłoszenia punktów programu</h1>
       <div>
         Przed zgłoszeniem swojej atrakcji prosimy o zapoznanie się z{" "}
-        <BoldText value="Regulaminem" /> Gliwickich Dni Fantastyki.
+        <button
+                onClick={handleModal}
+                type="button"
+                style={{
+                  all: "unset",
+                  cursor: "pointer",
+                  color: "#fff",
+                  textDecoration: "underline",
+                  type: "button",
+                }}
+                value="rules"
+              ><BoldText value="Regulaminem" /></button> Gliwickich Dni Fantastyki.
       </div>
       <hr></hr>
       <Form ref={form} onSubmit={sendEmail}>
@@ -430,6 +459,87 @@ export const SubmitEvent = () => {
           </Col>
         </Row>
         <hr></hr>
+        <Row>
+          <Col>
+            <Form.Group>
+              <Form.Check
+                inline
+                name="rulesConsent"
+                value="rulesConsent"
+                type="radio"
+                label="Akceptacja"
+                checked={rulesConsent}
+                onChange={onRadioChange}
+              />
+              <button
+                onClick={handleModal}
+                type="button"
+                style={{
+                  all: "unset",
+                  cursor: "pointer",
+                  marginLeft: "-12px",
+                  color: "#fff",
+                  textDecoration: "underline",
+                  type: "button",
+                }}
+                value="rules"
+              >
+                regulaminu
+              </button>
+              *
+            </Form.Group>
+          </Col>
+        </Row>
+        <div className="mt-3 mb-3">
+          <Row>
+            <Col>
+              <Form.Check
+                inline
+                name="dataProcessingConsent"
+                value="dataProcessingConsent"
+                type="radio"
+                label="Akceptuję"
+                checked={dataProcessingConsent}
+                onChange={onRadioChange}
+              />
+              <button
+                onClick={handleModal}
+                type="button"
+                style={{
+                  all: "unset",
+                  cursor: "pointer",
+                  marginLeft: "-12px",
+                  color: "#fff",
+                  textDecoration: "underline",
+                  type: "button",
+                }}
+                value="rodo"
+              >
+                przetwarzanie danych
+              </button>
+              *
+            </Col>
+          </Row>
+        </div>
+              <Modal show={show} size="lg" onHide={handleModal}>
+        <Modal.Header closeButton>
+          <Modal.Title>
+            {" "}
+            {modalType === "rodo"
+              ? "Zgoda na przetwarzanie danych osobowych"
+              : "Regulamin Gliwickich Dni Fantastyki"}
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          {modalType === "rodo" ? legal.rodo : <RuleCon modal={true} />}
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="primary" onClick={handleModal}>
+            OK
+          </Button>
+        </Modal.Footer>
+      </Modal>
+      <hr></hr>
         {showAlert ? (
           <Alert
             variant="danger"

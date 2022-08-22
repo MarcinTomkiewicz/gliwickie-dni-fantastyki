@@ -1,9 +1,21 @@
+import { useEffect, useState } from "react";
 import { BoldText } from "../utils/BoldText"
 
-export const RuleCon = () => {
+export const RuleCon = ({ modal }) => {
+    const [header, setHeader] = useState("");
+
+    useEffect(() => {
+      if (modal) {
+        setHeader("");
+      }
+      if (!modal) {
+        setHeader("Regulamin Gliwickich Dni Fantastyki");
+      }
+    }, [modal]);
+  
     return (
-        <>
-        <h1>Regulamin Gliwickich Dni Fantastyki</h1>
+      <>
+        <h1>{header}</h1>
         <ol>
         <li>Każdy uczestnik Gliwickich Dni Fantastyki, zwanych dalej GDF, wykupując bilet lub otrzymując wejściówkę (dotyczy wystawców oraz osób tworzących punkty programu), akceptuje niniejszy regulamin i zobowiązuje się jednocześnie przestrzegać warunków niniejszego regulaminu.</li>
         <li>Wszystkie osoby uczestniczące w GDF mają obowiązek zapoznać się, zaakceptować i przestrzegać treści niniejszego regulaminu. Niedopełnienie tego obowiązku nie może być podstawą do ewentualnych roszczeń w stosunku do Organizatorów.</li>
@@ -87,21 +99,21 @@ w punkcie informacyjnym oraz na stronie https://gliwickiednifantastyki.pl  oraz 
 <li>W kwestiach nieuregulowanych w niniejszym Regulaminie stosuje się przepisy zawarte w regulaminie obiektu.</li>
 <li>Organizator zastrzega sobie prawo do zmiany niniejszego Regulaminu bez uprzedniego informowania potencjalnych uczestników. Informacja o przetwarzaniu danych osobowych stanowi Załącznik nr 1 do niniejszego Regulaminem.</li>
 </ol>
-<div><BoldText value='ZAŁĄCZNIK NR 1 DO REGULAMINU GLIWICKICH DNI FANTASTYKI' /></div>
-<div>Informacja o przetwarzaniu danych osobowych</div>
-<div>Administratorem Państwa danych osobowych jest GOP-Con Sp. z o.o., mieszcząca się przy pl. Jana Pawła II 3A, 41-709 Ruda Śląska, wpisana do Krajowego Rejestru Sądowego pod numerem 0000987688. Poniżej znajdą Państwo wszelkie niezbędne informacje dotyczące przetwarzania Państwa danych osobowych w związku z realizacją zawartej z Państwem umowy oraz w celu jej należytego wykonania.</div>
+<div className="mt-4 mb-2"><BoldText value='ZAŁĄCZNIK NR 1 DO REGULAMINU GLIWICKICH DNI FANTASTYKI' /></div>
+<div className="mb-2">INFORMACJA O PRZETWARZANIU DANYCH OSOBOWYCH</div>
+<div style={{alignSelf: "flex-start"}}>Administratorem Państwa danych osobowych jest GOP-Con Sp. z o.o., mieszcząca się przy pl. Jana Pawła II 3A, 41-709 Ruda Śląska, wpisana do Krajowego Rejestru Sądowego pod numerem 0000987688. Poniżej znajdą Państwo wszelkie niezbędne informacje dotyczące przetwarzania Państwa danych osobowych w związku z realizacją zawartej z Państwem umowy oraz w celu jej należytego wykonania.</div>
 <div>Dane osobowe przetwarzane są na podstawie zgody, na podstawie prawnie uzasadnionego interesu Administratora w celu realizacji GDF, transakcji sprzedaży biletu, rejestracji prelegentów i uczestników, a także kontaktu z Państwem w razie takiej potrzeby oraz w celu rozpatrzenia ewentualnych reklamacji czy dochodzenia roszczeń. Zakres zbieranych danych to: imię i nazwisko, data urodzenia, numer zamówienia, adres e-mail, w przypadku wystawców będących osobami fizycznymi również numer PESEL oraz adres korespondencyjny, a w przypadku osób prowadzących działalność gospodarczą także dane identyfikacyjne (NIP, numer konta) dla celów rozliczenia zawartych zobowiązań i realizacji obowiązków prawnych i podatkowych wynikających z przepisów prawa.</div>
-<div>Podanie danych jest dobrowolne. Niepodanie danych uniemożliwia jednak realizację rejestracji uczestnika, a tym samym obsługę zamówienia.</div>
+<div style={{alignSelf: "flex-start"}}>Podanie danych jest dobrowolne. Niepodanie danych uniemożliwia jednak realizację rejestracji uczestnika, a tym samym obsługę zamówienia.</div>
 <div>Państwa dane osobowe mogą być przekazywane naszym partnerom w celu niezbędnym do prawidłowej realizacji umowy. Dotyczy to podmiotów prowadzących dla nas obsługę informatyczną czy księgową, firm zajmujących się dochodzeniem roszczeń, pośredniczących w zamawianiu usług kurierskich, operatorów pocztowych, firm kurierskich, serwisów obsługujących druk czy serwisów obsługujących płatności internetowe, oraz usługami ochrony. Dane osobowe wystawców mogą być przekazane poza obszar EOG, do zaufanych partnerów dostarczających usługi internetowe i posiadających odpowiednie certyfikaty bezpieczeństwa. O takich przypadkach wystawcy zostaną odpowiednio poinformowani.</div>
 <div>Jako Administrator zapewniamy Państwu prawo dostępu do danych, żądania ich sprostowania, usunięcia lub ograniczenia ich przetwarzania. Mogą Państwo także skorzystać z uprawnienia do złożenia wobec Administratora sprzeciwu wobec przetwarzania danych oraz prawa do przenoszenia danych do innego administratora danych. W przypadku wyrażenia dobrowolnej zgody przysługuje Państwu prawo cofnięcia zgody na przetwarzanie w dowolnym momencie, co nie wpływa na zgodność z prawem przetwarzania, którego dokonano na podstawie zgody przed jej cofnięciem.</div>
-<div>Mają Państwo prawo wnieść skargę dotyczącą przetwarzania danych osobowych do Prezesa Urzędu Ochrony Danych Osobowych.</div>
-<div>Dane osobowe nie będą przekazane do państw trzecich lub organizacji międzynarodowych.</div>
-<div>Administrator  nie prowadzi działań zautomatyzowanego przetwarzania danych ani profilowania.</div>
-<div>W sprawach dotyczących danych osobowych prosimy o kontakt pod adresem e-mail: gliwickiednifantastyki@aegee-gliwice.org</div>
+<div style={{alignSelf: "flex-start"}}>Mają Państwo prawo wnieść skargę dotyczącą przetwarzania danych osobowych do Prezesa Urzędu Ochrony Danych Osobowych.</div>
+<div style={{alignSelf: "flex-start"}}>Dane osobowe nie będą przekazane do państw trzecich lub organizacji międzynarodowych.</div>
+<div style={{alignSelf: "flex-start"}}>Administrator  nie prowadzi działań zautomatyzowanego przetwarzania danych ani profilowania.</div>
+<div style={{alignSelf: "flex-start"}}>W sprawach dotyczących danych osobowych prosimy o kontakt pod adresem e-mail: gliwickiednifantastyki@aegee-gliwice.org</div>
 
-<div><BoldText value='ZAŁĄCZNIK NR 2 DO REGULAMINU GLIWICKICH DNI FANTASTYKI' /></div>
-<div>ZASADY I HARMONOGRAM SPRZEDAŻY BILETÓW</div>
-<div>Na GDF obowiązują następujące zasady sprzedaży i dystrybucji biletów:</div>
+<div className="mt-4 mb-2"><BoldText value='ZAŁĄCZNIK NR 2 DO REGULAMINU GLIWICKICH DNI FANTASTYKI' /></div>
+<div className="mb-2">ZASADY I HARMONOGRAM SPRZEDAŻY BILETÓW</div>
+<div style={{alignSelf: "flex-start"}}>Na GDF obowiązują następujące zasady sprzedaży i dystrybucji biletów:</div>
 <ol>
 <li>Bilety na GDF będą sprzedawane w następujących wariantach:</li>
 <ul>

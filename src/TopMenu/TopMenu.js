@@ -6,9 +6,9 @@ import { Link } from "react-router-dom";
 export const TopMenu = () => {
   return (
     <nav className="top__bar">
-      <img src={process.env.PUBLIC_URL + "/gdf-logo.png"}
+      <a href="https://gliwickiednifantastyki.pl"><img src={process.env.PUBLIC_URL + "/gdf-logo.png"}
             alt="Logo Gliwickich Dni Fantastyki"
-            className="media__logo" />
+            className="media__logo" /></a>
         <Nav variant="pills">
           <NavDropdown title="Konwent" id="nav-dropdown">
             <NavDropdown.Item as={Link} to="/about" className="no__underline">O Gliwickich Dniach Fantastyki</NavDropdown.Item>

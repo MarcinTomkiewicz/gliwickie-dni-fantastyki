@@ -3,11 +3,11 @@ export const Footer = () => {
     <footer>
       <div className="d-flex flex-row justify-content-evenly align-items-center">
         <div>
-          <img
+        <a href="https://gliwickiednifantastyki.pl"><img
             src={process.env.PUBLIC_URL + "/logo 4.png"}
             alt="Logo Gliwickich Dni Fantastyki"
             className="footer__photo"
-          />
+          /></a>
         </div>
         <div className="d-flex flex-column justify-content-center align-items-center">
           <div></div>
