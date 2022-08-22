@@ -142,7 +142,7 @@ export const VendorForm = () => {
 
     emailjs
       .sendForm(
-        "gdf_program",
+        "gdf_wystawcy",
         "template_hgsx6mr",
         form.current,
         "C1GC4KNhMZuiMFPLW"

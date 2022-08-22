@@ -127,7 +127,7 @@ export const HelperForm = () => {
 
     emailjs
       .sendForm(
-        "gdf_program",
+        "gdf_kadry",
         "template_f091p9g",
         form.current,
         "C1GC4KNhMZuiMFPLW"
