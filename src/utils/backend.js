@@ -22,6 +22,7 @@ export const pageTitles = [
   { name: "/media", title: "Media o Konwencie" },
   { name: "/press", title: "Biuro Prasowe" },
   { name: "/media_entrance", title: "Akredytacje medialne" },
+  { name: "/buy_ticket", title: "Kup bilet" },
 ];
 
 export const formLabels = [
@@ -33,6 +34,10 @@ export const formLabels = [
   {
     name: "facebook",
     label: "Fanpage na Facebooku",
+  },
+  {
+    name: "facebook_profile",
+    label: "Link do profilu na Facebooku",
   },
   { name: "company", label: "Nazwa firmy" },
   { name: "birthDate", label: "Data urodzenia" },
@@ -52,7 +57,7 @@ export const formLabels = [
   { name: "emailExtraContactPerson", label: "Adres e-mail" },
   { name: "phoneExtraContactPerson", label: "Numer telefonu" },
   { name: "areaSize", label: "Rozmiar stoiska (w m2)" },
-  { name: "googleDrive", label: "Link do logo"},
+  { name: "googleDrive", label: "Link do logo" },
   {
     name: "staff",
     label: "Przewidywana liczba osób, które będą obsługiwać stoisko",
@@ -67,6 +72,17 @@ export const legal = {
     <Link to="/rules">Regulaminu</Link>
   )}.`,
 };
+
+export const patrons = [
+  {src: `${process.env.PUBLIC_URL + "/patrons/patronat.png"}`, href: "https://adamneumann.pl/", alt: "Patronat Prezydenta Miasta Gliwice Pana Adama Neumanna"},
+  {src: `${process.env.PUBLIC_URL + "/patrons/gliwice.jpg"}`, href: "http://gliwice.eu/", alt: "Gliwice. Przyszłość jest tu."},
+  {src: `${process.env.PUBLIC_URL + "/patrons/arena.png"}`, href: "https://arenagliwice.com/", alt: "Arena Gliwice"},
+  {src: `${process.env.PUBLIC_URL + "/patrons/konwenty.png"}`, href: "https://konwenty-poludniowe.pl", alt: "Konwenty Południowe"},
+  {src: `${process.env.PUBLIC_URL + "/patrons/kawerna.png"}`, href: "https://kawerna.pl", alt: "Kawerna"},
+  {src: `${process.env.PUBLIC_URL + "/patrons/polter.png"}`, href: "htttps://polter.pl", alt: "Poltergeist - zrodzony z fantastyki"},
+  {src: `${process.env.PUBLIC_URL + "/patrons/ksiazki.png"}`, href: "https://www.facebook.com/groups/399240960159910", alt: "Książki Fantasy"},
+  {src: `${process.env.PUBLIC_URL + "/patrons/royal.jpg"}`, href: "https://hotelroyal.com.pl/", alt: "Hotel Royal Gliwice"},
+];
 
 export const guestsVip = [
   {
@@ -90,8 +106,8 @@ export const guestsVip = [
     descr: [
       'Marcin Sergiusz Przybyłek (ur. 1968), znany także jako Martin Ann / Martin Ann Drimm, lekarz medycyny, wieloletni pracownik koncernu farmaceutycznego, trener i konsultant biznesowy, wizjoner, filozof. Autor sagi science fiction "Gamedec", antyporadnika dla menadżerów "Sprzedaż albo śmierć?!", futurystycznego kryminału "CEO Slayer", powieści "Kalina i Kaj. Książka teoretycznie dla dzieci", zbioru anegdot dla graczy "Grao Story", epickiej dylogii "Orzeł Biały" oraz "Symfonii życia". We wrześniu 2021 roku wydana została przez Anshar Studios oparta na jego prozie gra wideo "Gamedec". Pyramid Games rozpoczęło prace nad grą wideo "CEO Slayer". Aktorsko realizuje się w serialu "19+" (rola Aleksa). Zainteresowany psychologicznym, technologicznym oraz finansowym rozwojem ludzkości, rozwija swoje wizje w książkach, wykładach i podczas szkoleń. Od trzydziestu sześciu lat w związku z żoną Anną, z którą mają dwudziestoletnią córkę, Kalinę.',
     ],
-    fanpage: "",
-    fpLink: "",
+    fanpage: "Marcin Przybyłek strona autorska",
+    fpLink: "https://www.facebook.com/Marcin-Przyby%C5%82ek-strona-autorska-101204016074556",
   },
   {
     name: "Michał",
@@ -194,16 +210,16 @@ export const guestsVip = [
     surname: "Gołkowski",
     photo: `${process.env.PUBLIC_URL + "/guests/11.png"}`,
     descr: [
-      'Rocznik 1981, relatywnie duży przebieg, ale za to bezawaryjny i bezwypadkowy. Napęd na cztery koła, turbo, klimatyzacja i bogaty pakiet wyposażenia wnętrza.',
-      'Pisarz oraz poliglota. Z wykształcenia lingwista,  z zawodu tłumacz symultaniczny, z zamiłowania  historii wojskowości i antropologii kultury.',
-      'Najszybsze pióro polskiej fantastyki. Debiutował w nie tak znów odległym 2013 roku, od tego czasu zasypując wydawnictwo iście hurtową ilością co najmniej dwóch-trzech książek rocznie. Wciąż poszerzający się zakres jego tematów krąży pomiędzy tematyką wojenną, thrillerem psychologicznym, groteską, powieścią grozy, historią oraz wręcz rasowym, krwistym fantasy. Książki spływają mu z palców na klawiaturę tak szybko, że przeważnie sam nie pamięta ile ich wydał.',
-      'Od pewnego czasu zaangażowany – jakby mało tego było! – w prace dwóch spółek gamedevowych: Sylen Studio oraz Red Square Games, zajmujących się produkcją gier wideo, RPG oraz planszowych na podstawie jego wciąż poszerzanej, pogłębianej i rozciąganej poza granice przyzwoitości twórczości.',
-      'Niezrównany prelegent i mówca, potrafiący bez zająknięcia i powtórzenia poprowadzić godzinny wykład o praktycznie dowolnej tematyce – od formowania się organizacji przestępczych we wczesnym okresie poradzieckim, wstecz aż do technik oblężniczych starożytnego Babilonu.',
-      'Brany prosto z salonu, pierwszy właściciel, brak ukrytych opłat.',
-      'Okazja jakich mało!',
+      "Rocznik 1981, relatywnie duży przebieg, ale za to bezawaryjny i bezwypadkowy. Napęd na cztery koła, turbo, klimatyzacja i bogaty pakiet wyposażenia wnętrza.",
+      "Pisarz oraz poliglota. Z wykształcenia lingwista,  z zawodu tłumacz symultaniczny, z zamiłowania  historii wojskowości i antropologii kultury.",
+      "Najszybsze pióro polskiej fantastyki. Debiutował w nie tak znów odległym 2013 roku, od tego czasu zasypując wydawnictwo iście hurtową ilością co najmniej dwóch-trzech książek rocznie. Wciąż poszerzający się zakres jego tematów krąży pomiędzy tematyką wojenną, thrillerem psychologicznym, groteską, powieścią grozy, historią oraz wręcz rasowym, krwistym fantasy. Książki spływają mu z palców na klawiaturę tak szybko, że przeważnie sam nie pamięta ile ich wydał.",
+      "Od pewnego czasu zaangażowany – jakby mało tego było! – w prace dwóch spółek gamedevowych: Sylen Studio oraz Red Square Games, zajmujących się produkcją gier wideo, RPG oraz planszowych na podstawie jego wciąż poszerzanej, pogłębianej i rozciąganej poza granice przyzwoitości twórczości.",
+      "Niezrównany prelegent i mówca, potrafiący bez zająknięcia i powtórzenia poprowadzić godzinny wykład o praktycznie dowolnej tematyce – od formowania się organizacji przestępczych we wczesnym okresie poradzieckim, wstecz aż do technik oblężniczych starożytnego Babilonu.",
+      "Brany prosto z salonu, pierwszy właściciel, brak ukrytych opłat.",
+      "Okazja jakich mało!",
     ],
-    fanpage: "",
-    fpLink: "",
+    fanpage: "Michał Gołkowski - ofiszyl fanpejcz",
+    fpLink: "https://www.facebook.com/MichalGolkowskiOfiszylFanpejcz",
   },
   {
     name: "Marcin",
@@ -221,7 +237,7 @@ export const guestsVip = [
     photo: `${process.env.PUBLIC_URL + "/guests/7.png"}`,
     descr: [
       'Staszek "szybki jest" Mąderek to reżyser, scenarzysta, niezależny producent filmowy. Jeden z pierwszych w Polsce twórców komputerowych efektów specjalnych i animacji 3D, z pasji również aktor i kompozytor muzyki filmowej. Autor i producent wielu teatrów telewizji, seriali, reklam, teledysków oraz autorskich produkcji filmowych. W świecie gamedev-u reżyseruje elementy rozgrywki, prowadzi sesje motion capture, tworzy modele 3D z wykorzystaniem fotogrametrii, kreuje cut-sceny, teasery i trailery gier - zarówno z wykorzystaniem "żywego", filmowego planu, jak i wirtualnego silnika Unreal Engine. ',
-      'Od wielu lat wykłada gościnnie w różnych uczelniach, prowadzi popularne warsztaty filmowe, szkolenia z dziedziny reżyserii, sztuki operatorskiej, montażu filmowego, aktorstwa, wystapień publicznych i samoobrony dla kobiet. ',
+      "Od wielu lat wykłada gościnnie w różnych uczelniach, prowadzi popularne warsztaty filmowe, szkolenia z dziedziny reżyserii, sztuki operatorskiej, montażu filmowego, aktorstwa, wystapień publicznych i samoobrony dla kobiet. ",
       'W internecie i fandomie zasłynął krótkometrażową parodią "Stars in Black" z 1999 roku. Cytaty z tego filmiku do dziś krążą między wielbicielami filmowej fantastyki, choć młodsza ich część nie zawsze kojarzy autora.',
     ],
     fanpage: 'Staszek "Szybki Jest" Mąderek',
@@ -237,9 +253,9 @@ export const guestsVip = [
       'Na kilka lat porzucił działalność pisarską, by powrócić w powieściach "Czarna kolonia" (2016) i Wilk (2016). W 2017 roku wydał swoje opowiadanie w antologii Ostatni dzień pary 2. Jego opowiadanie "Husarze Śmierci" zdobyło drugą nagrodę w konkursie Stwórz Swoją Historię. Opowiadanie "Księga Ostrzy" zajęło także drugie miejsce w konkursie Dylematy Singielki. W dzieciństwie chciał być archeologiem, potem filmowcem, ostatecznie odnalazł się w tworzeniu literatury, bo jak sam mówi " dla literatury wystarczy tylko kartka i długopis".',
       'Do Fabryki Słów trafił z gotowymi powieściami z gatunku sci-fi i fantasy "Serce lodu" (2019) i "Krew kamienia" (2020).',
       'Twierdzi, że nie potrafi nie wymyślać nowych historii.  Nieustanne tworzenie scenariuszy to jego największe uzależnienie, a historia "Czerwonego lotosu" (2021) rozlała się po jego mózgu natychmiast po decyzji "piszę o Japonii". Jak wyszło? Epicko. Książka bardzo szybko podbiła czytelnicze serca i zyskała tytuł "najlepszej książki na wiosnę" według serwisu granice.pl. Zapytany o swoich literackich idoli wymienia jednym tchem Rafała Dębskiego, Feliksa Kresa, Georga R.R. Martina, Miroslava Žambocha i Mario Puzo.',
-      'Najbardziej lubi spacery i długie rozmowy z żoną oraz rozgrywki Warhammera. Doskonale sprawdza się jako kura domowa, chociaż od dzieciństwa walczy z kapciami, które uznaje za element systemu domowej opresji.',
+      "Najbardziej lubi spacery i długie rozmowy z żoną oraz rozgrywki Warhammera. Doskonale sprawdza się jako kura domowa, chociaż od dzieciństwa walczy z kapciami, które uznaje za element systemu domowej opresji.",
     ],
-    fanpage: 'Arkady Saulski - Kolonia Literacka',
+    fanpage: "Arkady Saulski - Kolonia Literacka",
     fpLink: "https://www.facebook.com/profile.php?id=100063692221721",
   },
   {
@@ -247,7 +263,7 @@ export const guestsVip = [
     surname: "Szewioła-Nagel",
     photo: `${process.env.PUBLIC_URL + "/guests/4.png"}`,
     descr: [
-      'Urodzona w Świętochłowicach – terapeutka, która postanowiła iść zupełnie inną drogą niż ta, którą ma w papierach. Zawodowo: freelancer, autor, rysownik oraz redaktor/korektor, który kocha horror ekstremalny. Sprawny operator cienkopisu i klawiatury oraz niezwykle uparty i dokładny poprawiacz. Prywatnie: gadziara, kociara i zwykła matka.'
+      "Urodzona w Świętochłowicach – terapeutka, która postanowiła iść zupełnie inną drogą niż ta, którą ma w papierach. Zawodowo: freelancer, autor, rysownik oraz redaktor/korektor, który kocha horror ekstremalny. Sprawny operator cienkopisu i klawiatury oraz niezwykle uparty i dokładny poprawiacz. Prywatnie: gadziara, kociara i zwykła matka.",
     ],
     fanpage: "Katarzyna Szewioła-Nagel",
     fpLink: "https://www.facebook.com/SzewiolaNagel",
@@ -258,7 +274,7 @@ export const guestsVip = [
     photo: `${process.env.PUBLIC_URL + "/guests/20.png"}`,
     descr: [
       'Autorka ze Śląska. Wydałam dwa zbiory opowiadań - "Niebo, ptaki i robaki" oraz "Wilgość", pojawiłam się w paru antologiach (m.in. "Żertwa", "Grobowiec", "Dziwne opowieści. Antologia weird fiction").',
-      'Wierzę w krótką formę, koszmar codzienności i pszczelą rewolucję.'
+      "Wierzę w krótką formę, koszmar codzienności i pszczelą rewolucję.",
     ],
     fanpage: "",
     fpLink: "",
@@ -268,7 +284,7 @@ export const guestsVip = [
     surname: "z Kosmosu",
     photo: `${process.env.PUBLIC_URL + "/guests/2.png"}`,
     descr: [
-      'Julian Jeliński - Twórca vloga "Brody z kosmosu", pełnego brodatych recenzji i najbardziej kosmicznego spojrzenia na filmy, komiksy i cały geek świat. Na Brodach znajdziecie "Najgorsze Animacje", podcast "Koszmarne Horrory", komentarze i popkulturowe analizy. Uwielbia poszukiwać ideologii w popkulturze prawie tak bardzo jak Slavoj Żiżek. Gdy nie nagrywa, jest człowiekiem-przewodnikiem swojego ślepego psa i nosicielem upierdliwego kota.'
+      'Julian Jeliński - Twórca vloga "Brody z kosmosu", pełnego brodatych recenzji i najbardziej kosmicznego spojrzenia na filmy, komiksy i cały geek świat. Na Brodach znajdziecie "Najgorsze Animacje", podcast "Koszmarne Horrory", komentarze i popkulturowe analizy. Uwielbia poszukiwać ideologii w popkulturze prawie tak bardzo jak Slavoj Żiżek. Gdy nie nagrywa, jest człowiekiem-przewodnikiem swojego ślepego psa i nosicielem upierdliwego kota.',
     ],
     fanpage: "Brody z kosmosu",
     fpLink: "https://www.facebook.com/brodyzkosmosu",
@@ -278,7 +294,7 @@ export const guestsVip = [
     surname: "Rak",
     photo: `${process.env.PUBLIC_URL + "/guests/1.png"}`,
     descr: [
-      'Pisarz, lekarz weterynarii i leśny człowiek. Za powieść "Baśń o wężowym sercu albo wtóre słowo o Jakóbie Szeli" otrzymał Nagodę im. Janusza A. Zajdla, Nagrodę Nike, Nagrodę im. Jerzego Żuławskiego, Nagrodę Nowej Fantastyki, Śląkfę oraz European Science Fiction Society Award w kategorii Best Written Work of Fiction. W tym roku ukazała się jego kolejna powieść, "Agla. Alef". Ostatnio zajmuje się głównie byciem tatą.'
+      'Pisarz, lekarz weterynarii i leśny człowiek. Za powieść "Baśń o wężowym sercu albo wtóre słowo o Jakóbie Szeli" otrzymał Nagodę im. Janusza A. Zajdla, Nagrodę Nike, Nagrodę im. Jerzego Żuławskiego, Nagrodę Nowej Fantastyki, Śląkfę oraz European Science Fiction Society Award w kategorii Best Written Work of Fiction. W tym roku ukazała się jego kolejna powieść, "Agla. Alef". Ostatnio zajmuje się głównie byciem tatą.',
     ],
     fanpage: "",
     fpLink: "",
@@ -288,11 +304,26 @@ export const guestsVip = [
     surname: "Inglot",
     photo: `${process.env.PUBLIC_URL + "/guests/21.png"}`,
     descr: [
-      'Polski pisarz science fiction i nie tylko, ur. 1962. Ukończył Liceum Ogólnokształcące Nr 1 we Wrocławiu i filologię polską na UWr. Po studiach pracował jako nauczyciel, później jako redaktor, mieszka i tworzy we Wrocławiu.',
+      "Polski pisarz science fiction i nie tylko, ur. 1962. Ukończył Liceum Ogólnokształcące Nr 1 we Wrocławiu i filologię polską na UWr. Po studiach pracował jako nauczyciel, później jako redaktor, mieszka i tworzy we Wrocławiu.",
       'Debiutował opowiadaniem "Dira necessitas" ("Feniks" 2\'1986). Autor powieści "Inquisitor" (1996, wznowionej w 2006 jako "Inquisitor. Zemsta Azteków" oraz w 2022 jako "Inquisitor. Zemsta Tezcatlipoki") i "Quietus" (1997, wydanie rozszerzone 2011), obie nominowane do Nagrody im. Janusza A. Zajdla, oraz zbioru opowiadań "Bohaterowie do wynajęcia" (2004, wspólnie z Andrzejem Drzewińskim). W 2009 roku wydał baśń fantasy dla dzieci "Eri i smok" (wznowienie 2018), oraz jej kontynuację "Eri czarodziejka" (2019) i "Eri w Mrocznych Górach" (2021). W 2015 roku ukazał się zbiór autorskich opowiadań pt. "Sodomion", a w 2016 powieść-dyptyk "Polska 2.0", ukazująca alternatywne wizje Polski przyszłości (Srebrne Wyróżnienie Nagrody Literackiej im. Jerzego Żuławskiego). W 2018 roku zdobył pierwsze miejsce w konkursie #Wolność - czytaj dalej, w kategorii powieść historyczna dla dzieci i młodzieży w wieku 15-18 lat, za utwór "Operacja Komendant. Misja w czasie" (powieść ukazała się w roku 2019).',
       'Od połowy lat 80. publikuje również opowiadania, w sumie napisał ich ok. 30, szczególnie zasłynął tekstami będącymi satyrą na polski fandom fantastyczny, takimi jak "Science and Fiction, Inc.", "Las liberte" i "Brzózka i mistrzowie". Przez wiele lat był czynnym krytykiem na łamach "Fantastyki" i "Nowej Fantastyki", publikując liczne recenzje i artykuły (ich zbiór pt. "Autostopem przez fantastykę" ukazał się w 2022 roku). Opowiadania i teksty publicystyczne zamieszczał także w "Fenixie", "Sfinksie" oraz "Playboyu".',
       'Inglot pisuje też prozę niefantastyczną. Jego pierwszą powieścią o tematyce współczesnej jest "Porwanie sabinek" (2008), w 2012 roku ukazał się "Wypędzony", książka opowiadająca o Wrocławiu w 1945 roku (nominacja do Literackiej Nagrody Europy Środkowej Angelus – półfinał). Nie ogranicza się do jednej konwencji literackiej. Pisze zarówno hard SF, jak i fantasy, horror czy historię alternatywną, dobrze sobie radzi również w mainstreamie, tworząc powieści sensacyjne i historyczne, przydarzyła mu się też sztuka teatralna "Długi dzień w Tokio" oraz słuchowisko "Noc pod Radzyminem". ',
       'Maciej Parowski w swojej książce - leksykonie autorów "Wasz cyrk, moje małpy" napisał o Inglocie: Jego twórczość literacką charakteryzuje pewne rozdarcie. Kibicuje Inglot kulturze wysokiej; nie cierpi amerykanizacji, tandety, upadku gustów zbiorowych, a w latach 80. był kojarzony z grupą literacką Kareta Wrocławski, preferującą prostą rozrywkę. Pasjonuje go ścieranie się humanistycznych impulsów, ale ciągnie ku pulpie. W wyniku tego rozdarcia wraca w jego prozie figura diabła-kusiciela i fluktuuje charakter kulturowych proroctw (od pesymizmu do nadziei).',
+    ],
+    fanpage: "",
+    fpLink: "",
+  },
+  {
+    name: "Andrzej",
+    surname: "Pilipiuk",
+    photo: `${process.env.PUBLIC_URL + "/guests/22.png"}`,
+    descr: [
+      'Andrzej Pilipiuk, człowiek z przeszłości. Niestrudzony tropiciel ciekawostek z lamusa. Kolekcjoner nagród literackich, który z pisania z pasją uczynił swój sposób na życie.',
+      'Autor na swoim koncie ma już 38 książek (Fabryka Słów), 19 tomów kontynuacji przygód Pana Samochodzika pod pseudonimem Tomasz Olszakowski oraz sentymentalny album „Wojsławice – skarby naszej pamięci; wspomnienie o miasteczku”.',
+      'Homo literatus, który do pisania podchodzi z żelazną konsekwencją – pracuje planowo, codziennie, a kiedy poczuje zmęczenie fabułą, zabiera się za inny tytuł. Uprzedzając krytykę sam siebie nazwał Wielkim Grafomanem. Z wykształcenia archeolog, z zamiłowania łowca meteorów. Beznadziejnie zauroczony zapomnianymi odkrywcami i wynalazkami XIX wieku. Społecznik. Własnym sumptem i ogromnym zaangażowaniem wydał unikatowy album o Wojsławicach, mieście w którym narodził się Jakub Wędrowycz.',
+      'Twórca panteonu niezwykłych bohaterów literackich oraz Jakuba Wędrowycza – zawistnego, mściwego kmiota, bimbrownika i egzorcysty. Jedynego w naszej literaturze, rdzennie polskiego superbohatera, który przez lata rozśmieszania do łez dorobił się własnego festiwalu, oraz zapewnił autorowi miejsce na podium ścisłej czołówki najpoczytniejszych pisarzy w Polsce.',
+      'Czterokrotny laureat prestiżowej nagrody Nautilusa. Dziesięciokrotnie nominowany, raz nagrodzony Nagrodą im. Janusza A. Zajdla. As EMPiK-u 2006 – jeden z trzech najchętniej kupowanych autorów.',
+      'Pija herbatę. Ani wstrząśniętą, ani tym bardziej mieszaną. Parzoną w samowarze.',
     ],
     fanpage: "",
     fpLink: "",
@@ -315,4 +346,111 @@ export const clubs = [
   },
 ];
 
-export const conventions = [];
+export const funStuff = [
+  {
+    name: 'DeLorean z "Powrotu do Przyszłości"',
+    photo: `${process.env.PUBLIC_URL + "fun_stuff/delorean.png"}`,
+    descr: [
+      'Celem naszej fundacji jest zbiórka na nowoczesną karetkę do pomocy wcześniakom i noworodkom. Ambulans typu „N” to karetka neonatologiczna służąca wyłącznie do transportu noworodków i wcześniaków w stanie zagrożenia życia. Chcemy wyposażyć w taką karetkę każde województwo w Polsce.  Karetka neonatologiczna zostanie zaprojektowana w zabudowie kontenerowej i będzie pierwszą w Polsce tak zaawansowaną karetką do ratowania najmłodszych. Od ,,zwykłej” karetki wyróżnia ją to ,że medycy mają dostęp do inkubatora z każdej strony, dzięki czemu łatwiej i szybciej mogą zajmować się małym pacjentem.',
+      'Chcemy pomóc najmłodszym dla których każda sekunda jest na wagę złota. Porody przedwczesne stanowią około 8% wszystkich porodów w Polsce, a dzięki rozwojowi medycyny polscy neonatolodzy są w stanie ratować dzieci ważące 500 gramów a nawet mniej!!',
+      'Karetek neonatologicznych jest w Polsce bardzo mało.  Jeżdżą do najcięższych przypadków i przewożą najbardziej potrzebujące maluszki między szpitalami. Często są to już stare i mocno zużyte sprzęty. Nie ma dnia, aby taka karetka nie wyjeżdżała z bazy, aby zdążyć na czas  uratować życie.',
+      'Zebraliśmy już ponad ćwierć miliona złotych na zakup karetki! Chcemy zachęcić Was wszystkich do udziału w akcji i przyłączenia się do naszego celu.',
+      'Dlaczego karetka kontenerowa?',
+      '- trwałość zabudowy na 15 lat',
+      '- wymiana podwozia po 5 latach',
+      '- większe bezpieczeństwo',
+      '- nieporównywalnie większa przestrzeń do pracy (dostęp do malucha z 3 stron)',
+      '- ponad 100-krotnie lepsza izolacja termiczna aniżeli w ambulansie typu furgon - niższe koszty eksploatacji.',
+      'Każdego dnia z samej Łodzi karetka z literą „N” wyjeżdża średnio 4 razy. Dzięki rozwojowi neonatologii szanse na przeżycie mają nawet dzieci ważące 0,5kg.',
+      'Nasza karetka da szansę na przeżycie najmłodszym dzieciom, które będą mogły być szybko przetransportowane do specjalistycznego szpitala, a podczas drogi najwyższej klasy sprzęt medyczny i lekarze będą pracować z małym pacjentem.',
+      'Dzięki Tobie kupiliśmy już pierwszą w Polsce karetkę o zabudowie kontenerowej.',
+      'Teraz musimy wyposażyć ją w sprzęt medyczny, który kosztować będzie prawie milion złotych!',
+      'Drugi etap trwa…pomożesz? 🫵 Dziękujemy za wszystkie dokonane wpłaty i mamy nadzieję ,że jak najszybciej uda nam się zakończyć budowę karetki.',
+    ],
+    fanpage: "Fundacja FUN and DRIVE",
+    fpLink: "https://www.facebook.com/fundacjafunanddrive",
+    webpage: "https://www.siepomaga.pl/gliwickiednifantastyki",
+  },
+  {
+    name: "Grupa rekonstrukcyjna Powrót Bractwa Śródziemia",
+    photo: `${process.env.PUBLIC_URL + "fun_stuff/middleearth.png"}`,
+    descr: [
+      'Grupa rekonstrukcyjna ze świata Tolkiena, zajmująca się światem Śródziemia, jest forpocztą tego świata, pokazuje ludziom świat stworzony  przez J.R.R. Tolkiena i świat filmowy Petera Jacksona. Prowadzi wykłady, warsztaty, własne widowiska, ma obóz rycerski w klimatach. W tym roku cała organizacja obchodziła 20-lecie istnienia. Na swoim koncie ma oprawę jak i organizacje koncertów muzyki filmowej czy oprawy kinowe.',
+      'Była też gwardią dla aktorów grających we "Władcy Pierścieni" i "Hobbicie", podczas ich wizyty w Polsce. Od paru lat organizują Dni Tolkienowskie i Międzynarodowy Dzień Czytania Tolkiena.',
+      'Posiada swoje stroje uzbrojenie, chatkę hobbita i wiele innych akcesoriów.',
+      'Przybliżamy ten świat nawet osobom, które nigdy nie miały styczności z powieściami J.R.R. Tolkiena. W tym roku po raz pierwszy stworzyli widowisko - słowo muzyczne w klimatach Śródziemia.',
+      'Poza tym zajmują się też światami "Star Wars", XV-wiecznego rycerstwa oraz średniowiecznej Japonii.',
+    ],
+    fanpage: "Powrót Bractwa Śródziemia - The Return of the Brotherhood of Middle-earth",
+    fpLink: "https://www.facebook.com/brotherhoodofmiddleearth",
+    webpage: "",
+  },
+  {
+    name: "Tetris Klasyczny",
+    photo: `${process.env.PUBLIC_URL + "fun_stuff/tetris.png"}`,
+    descr: [
+      "Woop! Tetris dla Ciebie! Polska społeczność Tetrisa Klasycznego - druga co do wielkości na świecie - zajmuje się szerzeniem zamiłowania do wszystkiego, co poukładane. Przez cały czas trwania wydarzenia dostępne będą stanowiska do gry, gdzie będzie można spróbować swoich sił w Tetrisie samemu, bądź z pomocą bardziej doświadczonego gracza. Wszyscy śmiałkowie będą mieli też okazję się wykazać: dla początkujących graczy szykowany jest turniej. Zaawansowani gracze będą mogli zaś stanąć na przeciwko sobie w pokazówkach ku uciesze widzów.",
+    ],
+    fanpage: "Classic Tetris Poland",
+    fpLink: "https://www.facebook.com/CTWCPoland",
+    webpage: "https://classictetris.pl/",
+  },
+  {
+    name: "Kuźnia",
+    photo: `${process.env.PUBLIC_URL + "fun_stuff/kuznia.png"}`,
+    descr: [
+      "Podczas tegorocznej edycji Gliwickich Dni Fantastyki wystąpi rzemieślnik mający upodobanie w kowalstwie, złotnictwie , płatnerstwie i cosplay - Kamil Staszór. Prowadzi pracownię rzemieślniczą Dzieła z Weny Zrodzone, w której podejmuje się wykonania prostych i niezwykle złożonych projektów - od pierścionka zaręczynowego, przez nóż, miecz, łuk, zbroję, po dziewięciometrową rzeźbę smoka ze stali.",
+      "Zapraszamy na stoisko i warsztaty prowadzone przez człowieka, który nie boi się przekuwać pasji w życie. Będą prowadzone watsztaty z kowalstwa, repuserstwa, odlewnictwa i fleczerstwa.",
+    ],
+    fanpage: "Dzieła z Weny Zrodzone",
+    fpLink: "https://www.facebook.com/DzielazWenyZrodzone/",
+    webpage: "",
+  },
+  {
+    name: "Grupa rekonstrukcyjna Najemnicy Pustyni",
+    photo: `${process.env.PUBLIC_URL + "fun_stuff/pustynia.png"}`,
+    descr: [
+      "Postapokaliptyczna grupa cosplayowa z Rudy Ślaskiej tworząca własne uniwersum. Zniszczonego świata Plugium.",
+    ],
+    fanpage: "Najemnicy Pustyni",
+    fpLink: "https://www.facebook.com/profile.php?id=100055217325595",
+    webpage: "",
+  },
+  {
+    name: "",
+    photo: `${process.env.PUBLIC_URL + "fun_stuff/"}`,
+    descr: [
+      "",
+    ],
+    fanpage: "",
+    fpLink: "",
+    webpage: "",
+  },
+];
+
+export const concerts = [
+  {
+    name: "Oberschlesien",
+    photo: `${process.env.PUBLIC_URL + "concerts/oberschlesien.png"}`,
+    descr: [
+      'Oberschlesien – śląska grupa muzyczna wykonująca industrial metal. Powstała w 2008 roku w Piekarach Śląskich z inicjatywy Marcela Różanki. W swej twórczości formacja posługuje się Językiem Śląskim.',
+      'W 2012 roku zespół wziął udział w czwartej edycji talent show “Must Be the Music. Tylko muzyka” emitowanego na antenie telewizji Polsat. Grupa zajęła drugie miejsce w tymże konkursie.',
+      'Zespół zagrał setki koncertów na wszystkich największych festiwalach w Polsce i za granicą gdzie jest entuzjastycznie przyjmowany krzewiąc Ślaską Tożsamość, Kulturę i Język Śląski co jest głównym założeniem grupy jak mówi pomysłodawca, kompozytor i producent całej muzycznej twórczości zespołu – Marcel Różanka.',
+    ],
+    date: "15.10.2022, godzina 22:00",
+    fanpage: "Oberschlesien",
+    fpLink: "https://www.facebook.com/oberschlesien333",
+    webpage: "https://www.zespoloberschlesien.pl/",
+  },
+  {
+    name: "Cronica",
+    photo: `${process.env.PUBLIC_URL + "concerts/cronica.png"}`,
+    descr: [
+      'Cronica to formacja Heavy folkowa powstała w roku 2015 w Jaworznie. Ich muzyka to połączenie mocnych brzmień gitar elektrycznych z melodyjnymi dźwiękami instrumentów takich jak: flet, skrzypce, lira korbowa oraz keyboard. Grupa prócz warstwy instrumentalnej kładzie bardzo duży nacisk na sekcję wokalną i lirykę. Cztery głosy (2 damskie i 2 męskie) operujące różnymi stylami (min. śpiew klasyczny, operowy, growl), jak najlepiej starają się oddać klimat wykonywanych przez nich utworów. Bardzo ważnym ogniwem twórczości Cronicy jest wcześniej wspomniana warstwa tekstowa inspirowana dawnymi legendami i podaniami ludowymi, wierzeniami, religią, a także filozofią oraz obecnymi odczuciami samych muzyków w sprawach doczesnych.',
+    ],
+    date: "14.10.2022, godzina 22:00",
+    fanpage: "Cronica",
+    fpLink: "https://www.facebook.com/cronicaPL",
+    webpage: "https://cronicapl.bandcamp.com/",
+  },
+]

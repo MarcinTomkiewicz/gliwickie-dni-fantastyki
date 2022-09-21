@@ -15,11 +15,13 @@ export const HelperRules = ({ modal }) => {
   return (
     <>
       <h1>{header}</h1>
-      <div>
+      <ul style={{alignSelf: "flex-start", listStyle: "none"}}>
+      <li>
         Wolontariat jest regulowany przez Ustawę z dnia 24 kwietnia 2003 r. o
         działalności pożytku publicznego i o wolontariacie (Dz. U. z 2020 r.
         poz. 1057 z późn. zm.).
-      </div>
+      </li>
+      </ul>
       <h2 className="d-flex justify-content-center">I. Konwent</h2>
       <ol>
         <li>
@@ -30,10 +32,10 @@ export const HelperRules = ({ modal }) => {
           Głównym organizatorem Konwentu jest GOP-Con Sp. z o.o., mieszcząca się
           przy pl. Jana Pawła II 3A, 41-709 Ruda Śląska, wpisana do Krajowego
           Rejestru Sądowego pod numerem 0000987688, NIP 6412559004, REGON
-          52284901000000, zwana dalej Organizatorem. Organem odpowiedzialnym za
-          zatrudnienie, koordynację oraz nadzór nad wolontariuszami jest Klub
+          52284901000000, zwana dalej Organizatorem. 
+          {/* Organem odpowiedzialnym za zatrudnienie, koordynację oraz nadzór nad wolontariuszami jest Klub
           Fantastyki Kregulec, działający na wniosek i w porozumieniu z
-          Organizatorem, a w imieniu Organizatora - Koordynator ds. Helperów.
+          Organizatorem, a w imieniu Organizatora - Koordynator ds. Helperów. */}
         </li>
       </ol>
       <h2 className="d-flex justify-content-center">II. Wolontariat</h2>
@@ -69,7 +71,7 @@ export const HelperRules = ({ modal }) => {
           www.gliwickiednifantastyki.pl{" "}
         </li>
         <li>
-          Rekrutacja otwarta będzie od dnia 15 września do dnia 26 września 2022
+          Rekrutacja otwarta będzie od dnia 22 sierpnia do dnia 26 września 2022
           roku. Zgłoszenia wysłane po tym terminie nie będą rozpatrywane.
         </li>
         <li>
@@ -180,7 +182,7 @@ export const HelperRules = ({ modal }) => {
       <h2 className="d-flex justify-content-center">IV. Prawa wolontariusza</h2>
       <ol>
         <li>
-          Wolontariusz, który odbędzie 8h dyżuru jest zwolniony z opłaty
+          Wolontariusz, który odbędzie 12h dyżuru jest zwolniony z opłaty
           akredytacyjnej.
         </li>
         <li>Organizator zapewni wolontariuszom:</li>

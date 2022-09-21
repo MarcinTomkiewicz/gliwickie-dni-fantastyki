@@ -4,6 +4,13 @@ import { BoldText } from "../utils/BoldText";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 
 export const Clubs = () => {
+  const goToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
+
   return (
     <>
       <h1>Kluby i stowarzyszenia</h1>
@@ -17,9 +24,7 @@ export const Clubs = () => {
             <div>
               <LazyLoadImage
                 src={club.photo}
-                className={
-                  i % 2 === 0 ? "guests__photo--left" : "guests__photo--right"
-                }
+                className={i % 2 === 0 ? "guests__photo--left" : "guests__photo--right"}
               />
               {club.descr.map((descr) => {
                 return <div key={descr}>{descr}</div>;
@@ -27,18 +32,18 @@ export const Clubs = () => {
               {club.fanpage !== "" ? (
                 <div>
                   <BoldText value="Fanpage: " />
-                  <a
-                    href={club.fpLink}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="link-light"
-                  >
+                  <a href={club.fpLink} target="_blank" rel="noreferrer" className="link-light">
                     {club.fanpage}
                   </a>
                 </div>
               ) : (
                 ""
               )}
+            </div>
+            <div class="mt-2" style={{ textAlign: "right", width: "100%" }}>
+              <button style={{ border: "0", background: "unset" }} className="footer__a" onClick={goToTop}>
+                Powrót do góry
+              </button>
             </div>
           </div>
         );

@@ -197,7 +197,7 @@ export const HelperForm = () => {
           </Col>
           <Col>
             <TextInput
-              input="facebook"
+              input="facebook_profile"
               type="text"
               data={data}
               setData={setData}
@@ -498,7 +498,7 @@ export const HelperForm = () => {
             </Button>
           </Col>
           <Col sm={2}>
-            <Button variant="outline-danger" type="button" onClick={resetForm}>
+            <Button className="submit__button" type="button" onClick={resetForm}>
               Anuluj
             </Button>
           </Col>

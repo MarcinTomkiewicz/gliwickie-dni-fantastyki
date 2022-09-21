@@ -14,6 +14,7 @@ import { handleSetData } from "../utils/helperFunctions";
 import { RuleCon } from "../RuleCon/RuleCon";
 import { Modal } from "react-bootstrap";
 import { legal } from "../utils/backend";
+import { EventRules } from "../EventRules/EventRules";
 
 export const SubmitEvent = () => {
   const form = useRef();
@@ -24,6 +25,8 @@ export const SubmitEvent = () => {
   const [show, setShow] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
   const [shouldSpin, setShouldSpin] = useState(false);
+  const [modalText, setModalText] = useState("");
+  const [modalBody, setModalBody] = useState(<></>);
   const [data, setData] = useState({
     name: "",
     surname: "",
@@ -50,20 +53,8 @@ export const SubmitEvent = () => {
     setShow((prev) => !prev);
   };
 
-  const {
-    day,
-    hour,
-    block,
-    length,
-    noeq,
-    elec,
-    board,
-    chairs,
-    projector,
-    descr,
-    dataProcessingConsent,
-    rulesConsent,
-  } = data;
+  const { day, hour, block, length, noeq, elec, board, chairs, projector, descr, dataProcessingConsent, rulesConsent } =
+    data;
 
   const onRadioChange = ({ target: { name, checked, value } }) => {
     handleSetData(value, checked, setData);
@@ -88,29 +79,27 @@ export const SubmitEvent = () => {
 
   useEffect(() => {
     if ((block !== "Sesja RPG" || block !== "Warsztaty") && length > 3) {
-      handleSetData("length", "0");
+      if (block === "Sesja RPG" || block === "Warsztaty") {
+        return;
+      }
+      handleSetData("length", "0", setData);
     }
   }, [block, length]);
 
   useEffect(() => {
     const tempHour = parseInt(hour.split(":")[0]);
-    if (
-      (day === "friday" && tempHour < 18) ||
-      (day === "sunday" && tempHour > 14)
-    ) {
-      handleSetData("hour", "");
+    if ((day === "friday" && tempHour < 18) || (day === "sunday" && tempHour > 14)) {
+      handleSetData("hour", "", setData);
     }
   }, [day, hour]);
 
   useEffect(() => {
-    if (
-      (block !== "Sesja RPG" && length > 3) ||
-      (block !== "Warsztaty" && length > 3 && block !== "")
-    ) {
+    if (((block !== "Sesja RPG" && length > 3) || (block !== "Warsztaty" && length > 3)) && block !== "") {
       if (block === "Sesja RPG" || block === "Warsztaty") {
         return setIsFullPrice(true);
+      } else {
+        handleSetData("length", "0", setData);
       }
-      handleSetData("length", "0");
     }
     if ((block !== "Sesja RPG" || block !== "Warsztaty") && length > 1) {
       setIsFullPrice(true);
@@ -128,6 +117,19 @@ export const SubmitEvent = () => {
       setIsFullPrice(false);
     }
   }, [length, block]);
+
+  useEffect(() => {
+    if (modalType === "rodo") {
+      setModalText("Zgoda na przetwarzanie danych osobowych");
+      setModalBody(legal.rodo);
+    } else if (modalType === "rules") {
+      setModalText("Zasady zgłaszania atrakcji");
+      setModalBody(<EventRules modal="true" />);
+    } else if (modalType === undefined) {
+      setModalText("Regulamin Konwentu");
+      setModalBody(<RuleCon modal="true" />);
+    }
+  }, [modalType]);
 
   const resetForm = () => {
     setData({
@@ -158,25 +160,18 @@ export const SubmitEvent = () => {
       setShowAlert(true);
     } else {
       setShowAlert(false);
-      emailjs
-        .sendForm(
-          "gdf_program",
-          "template_t461b23",
-          form.current,
-          "C1GC4KNhMZuiMFPLW"
-        )
-        .then(
-          (result) => {
-            if (result.status === 200) {
-              setSuccess(true);
-              setShouldSpin(false);
-              resetForm();
-            }
-          },
-          (error) => {
-            console.log(error.text);
+      emailjs.sendForm("gdf_program", "template_t461b23", form.current, "C1GC4KNhMZuiMFPLW").then(
+        (result) => {
+          if (result.status === 200) {
+            setSuccess(true);
+            setShouldSpin(false);
+            resetForm();
           }
-        );
+        },
+        (error) => {
+          console.log(error.text);
+        }
+      );
     }
   };
 
@@ -190,78 +185,39 @@ export const SubmitEvent = () => {
       <div>
         Przed zgłoszeniem swojej atrakcji prosimy o zapoznanie się z{" "}
         <button
-                onClick={handleModal}
-                type="button"
-                style={{
-                  all: "unset",
-                  cursor: "pointer",
-                  color: "#fff",
-                  textDecoration: "underline",
-                  type: "button",
-                }}
-                value="rules"
-              ><BoldText value="Regulaminem" /></button> Gliwickich Dni Fantastyki.
+          onClick={handleModal}
+          type="button"
+          style={{ all: "unset", cursor: "pointer", color: "#fff", textDecoration: "underline", type: "button" }}
+          value="rulecon"
+        >
+          <BoldText value="Regulaminem" />
+        </button>{" "}
+        Gliwickich Dni Fantastyki.
       </div>
       <hr></hr>
       <Form ref={form} onSubmit={sendEmail}>
         <Row>
           <Col>
-            <TextInput
-              input="name"
-              isRequired="true"
-              type="text"
-              data={data}
-              setData={setData}
-            />
+            <TextInput input="name" isRequired="true" type="text" data={data} setData={setData} />
           </Col>
           <Col>
-            <TextInput
-              input="surname"
-              isRequired="true"
-              type="text"
-              data={data}
-              setData={setData}
-            />
+            <TextInput input="surname" isRequired="true" type="text" data={data} setData={setData} />
           </Col>
         </Row>
         <Row>
           <Col>
-            <TextInput
-              input="nick"
-              isRequired="false"
-              type="text"
-              data={data}
-              setData={setData}
-            />
+            <TextInput input="nick" isRequired="false" type="text" data={data} setData={setData} />
           </Col>
           <Col>
-            <TextInput
-              input="email"
-              isRequired="true"
-              type="email"
-              data={data}
-              setData={setData}
-            />
+            <TextInput input="email" isRequired="true" type="email" data={data} setData={setData} />
           </Col>
         </Row>
         <Row>
           <Col>
-            <TextInput
-              input="phone"
-              isRequired="true"
-              type="number"
-              data={data}
-              setData={setData}
-            />
+            <TextInput input="phone" isRequired="true" type="number" data={data} setData={setData} />
           </Col>
           <Col>
-            <TextInput
-              input="facebook"
-              isRequired="false"
-              type="text"
-              data={data}
-              setData={setData}
-            />
+            <TextInput input="facebook" isRequired="false" type="text" data={data} setData={setData} />
           </Col>
         </Row>
         <Row>
@@ -285,16 +241,8 @@ export const SubmitEvent = () => {
             </FloatingLabel>
           </Col>
           <Col>
-            <FloatingLabel
-              controlId="floatingSelect"
-              label="Preferowana godzina"
-            >
-              <FormSelect
-                ariaLabel="Preferowany dzień"
-                name="hour"
-                onChange={handleDataChange}
-                value={hour}
-              >
+            <FloatingLabel controlId="floatingSelect" label="Preferowana godzina">
+              <FormSelect ariaLabel="Preferowany dzień" name="hour" onChange={handleDataChange} value={hour}>
                 <option value="">Wybierz godzinę rozpoczęcia</option>
                 {day !== "friday" ? (
                   <>
@@ -348,6 +296,7 @@ export const SubmitEvent = () => {
                   { val: "Filmowy", label: "Blok Filmowy" },
                   { val: "Naukowy", label: "Blok Naukowy" },
                   { val: "Manga&Anime", label: "Blok Manga&Anime" },
+                  { val: "Gier Wideo", label: "Blok Gier Wideo" },
                   { val: "Sesja RPG", label: "Sesja RPG" },
                   { val: "Warsztaty", label: "Warsztaty" },
                 ]}
@@ -467,7 +416,7 @@ export const SubmitEvent = () => {
                 name="rulesConsent"
                 value="rulesConsent"
                 type="radio"
-                label="Akceptacja"
+                label="Akceptuję"
                 checked={rulesConsent}
                 onChange={onRadioChange}
               />
@@ -484,7 +433,7 @@ export const SubmitEvent = () => {
                 }}
                 value="rules"
               >
-                regulaminu
+                Zasad zgłaszania atrakcji
               </button>
               *
             </Form.Group>
@@ -521,31 +470,22 @@ export const SubmitEvent = () => {
             </Col>
           </Row>
         </div>
-              <Modal show={show} size="lg" onHide={handleModal}>
-        <Modal.Header closeButton>
-          <Modal.Title>
-            {" "}
-            {modalType === "rodo"
-              ? "Zgoda na przetwarzanie danych osobowych"
-              : "Regulamin Gliwickich Dni Fantastyki"}
-          </Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          {modalType === "rodo" ? legal.rodo : <RuleCon modal={true} />}
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="primary" onClick={handleModal}>
-            OK
-          </Button>
-        </Modal.Footer>
-      </Modal>
-      <hr></hr>
+        <Modal show={show} size="lg" onHide={handleModal}>
+          <Modal.Header closeButton>
+            <Modal.Title>
+              <div>{modalText}</div>
+            </Modal.Title>
+          </Modal.Header>
+          <Modal.Body>{modalBody}</Modal.Body>
+          <Modal.Footer>
+            <Button variant="primary" onClick={handleModal}>
+              OK
+            </Button>
+          </Modal.Footer>
+        </Modal>
+        <hr></hr>
         {showAlert ? (
-          <Alert
-            variant="danger"
-            dismissible
-            onClose={() => setShowAlert(false)}
-          >
+          <Alert variant="danger" dismissible onClose={() => setShowAlert(false)}>
             <Alert.Heading>Popraw błędy w formularzu</Alert.Heading>
             <div>Nie wybrano:</div>
             <div>{!block ? "Bloku" : ""}</div>
@@ -557,57 +497,39 @@ export const SubmitEvent = () => {
           ""
         )}
         {isSuccess ? (
-          <Alert
-            variant="success"
-            dismissible
-            onClick={() => setSuccess(false)}
-          >
+          <Alert variant="success" dismissible onClick={() => setSuccess(false)}>
             <Alert.Heading>Gratulacje!</Alert.Heading>
-            <div>
-              Dziękujemy za zgłoszenie! Prosimy oczekiwać na informację zwrotną
-              od Koordynatora ds. Programu.
-            </div>
+            <div>Dziękujemy za zgłoszenie! Prosimy oczekiwać na informację zwrotną od Koordynatora ds. Programu.</div>
           </Alert>
         ) : (
           ""
         )}
         {isFullPrice ? (
           <div className="text-success bold__text">
-            GRATULACJE! Wybrany przewidywany czas trwania atrakcji uprawnia do darmowej
-            wejściówki na Gliwickie Dni Fantastyki!
+            GRATULACJE! Aktualnie wybrany przewidywany czas trwania atrakcji uprawnia do zniżki -100% na bilet 3-dniowy
+            Gliwickich Dni Fantastyki
           </div>
         ) : (
-          <div className="text-danger bold__text">
-            UWAGA! Wybrany przewidywany czas trwania atrakcji NIE uprawnia do darmowej
-            wejściówki na Gliwickie Dni Fantastyki!
+          <div className="text-warning bold__text">
+            UWAGA! Aktualnie wybrany przewidywany czas trwania atrakcji uprawnia do zniżki -50% na bilet 3-dniowy
+            Gliwickich Dni Fantastyki!
           </div>
         )}
         <div className="bold__text">
-          Prosimy pamiętać, że ostateczna decyzja, dotycząca darmowej wejściówki
-          będzie uzależniona od długości trwania atrakcji zatwierdzonych przez
-          odpowiedniego Koordynatora. Informacja o tym zostanie przekazana
-          uczestnikowi drogą mailową nie później niż do 3 dni przed rozpoczęciem
-          Konwentu.
+          Prosimy pamiętać, że ostateczna decyzja, dotycząca darmowej wejściówki będzie uzależniona od długości trwania
+          atrakcji zatwierdzonych przez odpowiedniego Koordynatora. Informacja o tym zostanie przekazana uczestnikowi
+          drogą mailową nie później niż do 3 dni przed rozpoczęciem Konwentu.
         </div>
         <hr></hr>
         <Row className="align-items-center justify-content-center mt-3">
           <Col sm={5}>
-            <Button
-              type="submit"
-              variant="warning"
-              value="Submit"
-              onClick={startSpinner}
-            >
-              {shouldSpin ? (
-                <Spinner animation="border" variant="danger" size="sm" />
-              ) : (
-                ""
-              )}
+            <Button type="submit" variant="warning" value="Submit" onClick={startSpinner}>
+              {shouldSpin ? <Spinner animation="border" variant="danger" size="sm" /> : ""}
               {shouldSpin ? " " : ""}Wyślij zgłoszenie
             </Button>
           </Col>
           <Col sm={2}>
-            <Button variant="outline-danger" type="button" onClick={resetForm}>
+            <Button className="submit__button" type="button" onClick={resetForm}>
               Anuluj
             </Button>
           </Col>

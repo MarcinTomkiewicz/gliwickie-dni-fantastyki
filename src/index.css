@@ -2,11 +2,12 @@
 body {
   margin: 0;
   font-family: "Dosis" !important;
+  font-size: 16px !important;
   font-weight: 400;
   color: #fff;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  scrollbar-color: #fd1d1d #fcb045;
+  scrollbar-color: #BB5B37 #fcb045;
   box-sizing: content-box;
 }
 
@@ -21,8 +22,8 @@ select:-webkit-autofill:hover,
 select:-webkit-autofill:focus {
   border: 1px solid #fff;
   -webkit-text-fill-color: #fff;
-  box-shadow: 0 0 0px 1000px #fd1d1d inset;
-  -webkit-box-shadow: 0 0 0px 1000px #fd1d1d inset;
+  box-shadow: 0 0 0px 1000px #6D111E inset;
+  -webkit-box-shadow: 0 0 0px 1000px #6D111E inset;
   transition: background-color 5000s ease-in-out 0s;
 }
 
@@ -36,8 +37,12 @@ h3 {
 }
 
 .form__control--input {
-  background-color: #fd1d1d !important;
+  background-color: #6D111E !important;
   color: #fff !important;
+}
+
+.form-check-input {
+  background-color: #6D111E !important;
 }
 
 *::-webkit-scrollbar {
@@ -45,11 +50,12 @@ h3 {
 }
 
 *::-webkit-scrollbar-track {
-  background: #fcb045;
+  /* background: #fcb045; */
+  background: #B55656;
 }
 
 *::-webkit-scrollbar-thumb {
-  background-color: #fd1d1d;
+  background-color: #FADDCB;
   border-radius: 10px;
   border: 0px solid #ffffff;
 }
@@ -89,11 +95,11 @@ h3 {
 }
 
 .nav.nav-pills .nav-link.active {
-  background-color: #fd1d1d;
+  background-color: #BB5B37;
 }
 
 .dropdown.show > #nav-dropdown {
-  background-color: #fd1d1d;
+  background-color: #BB5B37;
 }
 
 div.dropdown-menu.show {
@@ -118,24 +124,37 @@ div.dropdown-menu.show {
   opacity: 1;
 }
 
+.footer__a {
+  color: #ffffff;
+  text-decoration: none;
+}
+
+.footer__a:hover {
+  color: #ffffff;
+  text-decoration: underline;
+}
+
 a.dropdown-item {
   color: #ffffff;
 }
 
+
 main {
   width: 100%;
-  background: rgba(252, 176, 69, 1);
+  min-height: 83vh;
+  background: rgb(200, 103, 59);
   background: linear-gradient(
     0deg,
-    rgba(252, 176, 69, 1) 12%,
-    rgba(252, 176, 69, 1) 35%,
-    rgba(253, 29, 29, 1) 90%
+    rgb(200, 103, 59)12%,
+    rgb(200, 103, 59) 35%,
+    rgb(131, 40, 37) 90%
   );
   color: #fff;
-  padding: 20px;
+  padding: 10px;
+  padding-bottom: 20px;
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: center;
   flex-grow: 1;
 }
 
@@ -146,25 +165,37 @@ aside {
   align-items: center;
   flex-direction: column;
   overflow: hidden;
-  max-width: 250px;
-  margin-top: 4%;
+  max-width: 20%;
+  margin-left: 1%;
 }
 
 .aside__photo {
   width: 100%;
-  height: auto;
+  position: sticky;
 }
 
 .content {
   overflow-x: hidden;
-  align-self: center;
+  align-self: flex-start;
   display: flex;
   justify-content: flex-start;
-  margin-top: 40px;
+  margin-left: 40px;
   align-items: center;
   flex-direction: column;
   min-height: 100%;
-  width: 60%;
+  width: 80%;
+  text-align: justify;
+}
+
+.content__ticket {
+  overflow-x: hidden;
+  align-self: center;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
+  min-height: 100%;
+  width: 100%;
   text-align: justify;
 }
 
@@ -185,10 +216,6 @@ footer {
 
 .not__visible {
   display: none;
-}
-
-.form-check-input {
-  background-color: #fd1d1d !important;
 }
 
 /* Chrome, Safari, Edge, Opera */
@@ -246,10 +273,46 @@ form {
   width: 150px;
 }
 
+.marker-position {
+  top: 40px;
+  left: 0;
+  position: relative;
+}
+
+#map {
+  height: 100%;
+  width: 100%;
+}
+
+.submit__button {
+  background-color: rgba(109, 17, 30, 0) !important;
+  border: rgb(109, 17, 30) solid 1px !important;
+  color: #6d111e !important; 
+}
+
+.submit__button:hover {
+  background-color: rgba(109, 17, 30, 1) !important;
+  border: #6d111e solid 1px !important;
+  color: #ffffff !important;
+}
+
+.table__striped {
+  color: #fff
+}
+
+.table__striped > tr:nth-child(even) {
+  background: rgba(109, 17, 30, 0.4);
+}
+.table__striped > tr:hover {
+  background: rgba(109, 17, 30, 0.8)
+}
+
 @media screen and (max-width: 1200px) {
   form,
   .content {
+    margin: 0;
     width: 90%;
+    font-size: 14px;
   }
   aside {
     margin-left: 15px;
@@ -262,11 +325,11 @@ form {
   }
 }
 
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 800px) { 
   form,
   .content {
     width: 100%;
-    text-align: center;
+    text-align: justify;
   }
   aside {
     display: none;

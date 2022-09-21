@@ -52,7 +52,7 @@ const category = {
   gadgets: false,
   clothing: false,
   jewellery: false,
-  food: false,
+  // food: false,
   workshops: false,
   other: false,
 };
@@ -105,7 +105,7 @@ export const VendorForm = () => {
     gadgets,
     clothing,
     jewellery,
-    food,
+    // food,
     workshops,
     // other,
     dataProcessingConsent,
@@ -119,8 +119,6 @@ export const VendorForm = () => {
     handleSetData(value, checked, setData);
   };
 
-  console.log(data);
-
   const handleDataChange = ({ target: { name, value } }) => {
     setData((prev) => ({ ...prev, [name]: value }));
   };
@@ -131,34 +129,24 @@ export const VendorForm = () => {
 
     const isCategorySelected = checkIfAtLeastOneChecked(data, category);
 
-    if (
-      !isCategorySelected ||
-      (!contactPersonDifferentThanAbove && !contactPersonTheSame)
-    ) {
+    if (!isCategorySelected || (!contactPersonDifferentThanAbove && !contactPersonTheSame)) {
       setShouldSpin(false);
       return setShowAlert(true);
     }
     setShowAlert(false);
 
-    emailjs
-      .sendForm(
-        "gdf_wystawcy",
-        "template_hgsx6mr",
-        form.current,
-        "C1GC4KNhMZuiMFPLW"
-      )
-      .then(
-        (result) => {
-          if (result.status === 200) {
-            resetForm();
-            setSuccess(true);
-            setShouldSpin(false);
-          }
-        },
-        (error) => {
-          console.log(error.text);
+    emailjs.sendForm("gdf_wystawcy", "template_hgsx6mr", form.current, "C1GC4KNhMZuiMFPLW").then(
+      (result) => {
+        if (result.status === 200) {
+          resetForm();
+          setSuccess(true);
+          setShouldSpin(false);
         }
-      );
+      },
+      (error) => {
+        console.log(error.text);
+      }
+    );
   };
 
   return (
@@ -168,81 +156,37 @@ export const VendorForm = () => {
       <Form ref={form} onSubmit={sendEmail}>
         <Row>
           <Col>
-            <TextInput
-              input="company"
-              isRequired="true"
-              type="text"
-              data={data}
-              setData={setData}
-            />
+            <TextInput input="company" isRequired="true" type="text" data={data} setData={setData} />
           </Col>
         </Row>
         <Row>
           <Col>
-            <TextInput
-              input="name"
-              isRequired="true"
-              type="text"
-              data={data}
-              setData={setData}
-            />
+            <TextInput input="name" isRequired="true" type="text" data={data} setData={setData} />
           </Col>
           <Col>
-            <TextInput
-              input="surname"
-              isRequired="true"
-              type="text"
-              data={data}
-              setData={setData}
-            />
+            <TextInput input="surname" isRequired="true" type="text" data={data} setData={setData} />
           </Col>
         </Row>
 
         <Row>
           <Col>
-            <TextInput
-              input="email"
-              isRequired="true"
-              type="email"
-              data={data}
-              setData={setData}
-            />
+            <TextInput input="email" isRequired="true" type="email" data={data} setData={setData} />
           </Col>
           <Col>
-            <TextInput
-              input="companyAddress"
-              isRequired="true"
-              type="text"
-              data={data}
-              setData={setData}
-            />
+            <TextInput input="companyAddress" isRequired="true" type="text" data={data} setData={setData} />
           </Col>
         </Row>
         <Row>
           <Col>
-            <TextInput
-              input="nip"
-              isRequired="true"
-              type="number"
-              data={data}
-              setData={setData}
-            />
+            <TextInput input="nip" isRequired="false" type="number" data={data} setData={setData} />
           </Col>
           <Col>
-            <TextInput
-              input="regon"
-              isRequired="true"
-              type="number"
-              data={data}
-              setData={setData}
-            />
+            <TextInput input="regon" isRequired="false" type="number" data={data} setData={setData} />
           </Col>
         </Row>
         <Row className="mt-4">
           <Col>
-            <div className="mb-2">
-              Osoba kontaktowa jest inna niż podana powyżej*
-            </div>
+            <div className="mb-2">Osoba kontaktowa jest inna niż podana powyżej:*</div>
             <Form.Check
               inline
               type="radio"
@@ -313,22 +257,10 @@ export const VendorForm = () => {
         <h3 className="mt-4 mb-4">O firmie</h3>
         <Row>
           <Col>
-            <TextInput
-              input="facebook"
-              isRequired="true"
-              type="text"
-              data={data}
-              setData={setData}
-            />
+            <TextInput input="facebook" isRequired="true" type="text" data={data} setData={setData} />
           </Col>
           <Col>
-            <TextInput
-              input="googleDrive"
-              isRequired="true"
-              type="text"
-              data={data}
-              setData={setData}
-            />
+            <TextInput input="googleDrive" isRequired="true" type="text" data={data} setData={setData} />
           </Col>
         </Row>
         <Row>
@@ -349,7 +281,8 @@ export const VendorForm = () => {
         </Row>
         <Row>
           <Col>
-            <div className="mb-2">Kategoria*</div>
+            <div className="mb-2">Kategoria:*</div>
+            <div className="d-flex flex-row justify-content-between w-50">
             <div className="d-flex flex-column align-items-start">
               <Form.Check
                 inline
@@ -396,6 +329,8 @@ export const VendorForm = () => {
                 onChange={onRadioChange}
                 label="Manga i anime"
               />
+              </div>
+              <div className="d-flex flex-column align-items-start">
               <Form.Check
                 inline
                 name="arts"
@@ -432,7 +367,7 @@ export const VendorForm = () => {
                 type="switch"
                 label="Biżuteria i dodatki"
               />
-              <Form.Check
+              {/* <Form.Check
                 inline
                 name="food"
                 value="food"
@@ -440,7 +375,7 @@ export const VendorForm = () => {
                 onChange={onRadioChange}
                 type="switch"
                 label="Jedzenie"
-              />
+              /> */}
               <Form.Check
                 inline
                 name="workshops"
@@ -450,45 +385,22 @@ export const VendorForm = () => {
                 type="switch"
                 label="Warsztaty"
               />
-              {/* <div>
-                <Form.Check
-                  inline
-                  name="other"
-                  value="other"
-                  checked={other}
-                  onChange={onRadioChange}
-                  type="switch"
-                  label="Inna odpowiedź"
-                />
-                <div
-                  style={{ display: other ? "block" : "none" }}
-                  className="mt-2"
-                >
-                  <TextInput
-                    input="otherAnswer"
-                    isRequired={other ? "true" : "false"}
-                    type="text"
-                    data={data}
-                    setData={setData}
-                  />
-                </div>
-              </div> */}
+            </div>
             </div>
           </Col>
         </Row>
         <h3 className="mt-4 mb-4">Zapotrzebowanie na wynajęcie stoiska</h3>
         <Row>
           <Col>
-            <div className="mb-2">Oferta dla wystawców</div>
-            <Table striped bordered>
-              <thead style={{ backgroundColor: "#fd1d1d", color: "#fff" }}>
+            <div className="mb-2">Oferta dla wystawców:</div>
+            <Table bordered >
+              <thead style={{ backgroundColor: "#6D111E", color: "#fff" }}>
                 <tr>
-                  <th>Parametry stoiska</th>
-                  <th>&nbsp;</th>
+                  <th colSpan={2}>Parametry stoiska</th>
                   <th>&nbsp;</th>
                 </tr>
               </thead>
-              <tbody style={{ color: "#fff" }}>
+              <tbody className="table__striped">
                 <tr>
                   <td colSpan={2} style={{ color: "#fff" }}>
                     Stoisko wystawiennicze zgodne z zamówionym metrażem
@@ -496,10 +408,7 @@ export const VendorForm = () => {
                   <td style={{ color: "#fff" }}>✔</td>
                 </tr>
                 <tr>
-                  <td colSpan={2}>
-                    Specjalna wejściówka dla wystawców (liczba wejściówek
-                    ustalana indywidualnie)
-                  </td>
+                  <td colSpan={2}>Specjalna wejściówka dla wystawców (liczba wejściówek ustalana indywidualnie)</td>
                   <td style={{ color: "#fff" }}>✔</td>
                 </tr>
                 <tr>
@@ -509,15 +418,12 @@ export const VendorForm = () => {
                   <td style={{ color: "#fff" }}>✔</td>
                 </tr>
                 <tr>
-                  <td colSpan={2}>
-                    Post w mediach społecznościowych Gliwickich Dni Fantastyki
-                  </td>
+                  <td colSpan={2}>Post w mediach społecznościowych Gliwickich Dni Fantastyki</td>
                   <td>✔</td>
                 </tr>
                 <tr>
                   <td colSpan={2} style={{ color: "#fff" }}>
-                    Umieszczenie logo na stronie internetowej Gliwickich Dni
-                    Fantastyki w dziale Wystawcy
+                    Umieszczenie logo na stronie internetowej Gliwickich Dni Fantastyki w dziale Wystawcy
                   </td>
                   <td style={{ color: "#fff" }}>✔</td>
                 </tr>
@@ -533,34 +439,17 @@ export const VendorForm = () => {
         </Row>
         <Row>
           <Col>
-            <TextInput
-              input="areaSize"
-              isRequired="true"
-              type="number"
-              data={data}
-              setData={setData}
-            />
+            <TextInput input="areaSize" isRequired="true" type="number" data={data} setData={setData} />
           </Col>
         </Row>
         <Row>
           <Col>
-            <TextInput
-              input="staff"
-              isRequired="true"
-              type="number"
-              data={data}
-              setData={setData}
-            />
+            <TextInput input="staff" isRequired="true" type="number" data={data} setData={setData} />
           </Col>
         </Row>
         <Row>
           <Col>
-            <TextInput
-              input="remarksAboutStand"
-              type="text"
-              data={data}
-              setData={setData}
-            />
+            <TextInput input="remarksAboutStand" type="text" data={data} setData={setData} />
           </Col>
         </Row>
         <Row>
@@ -625,30 +514,22 @@ export const VendorForm = () => {
             </Col>
           </Row>
         </div>
-              <Modal show={show} size="lg" onHide={handleModal}>
-        <Modal.Header closeButton>
-          <Modal.Title>
-            {" "}
-            {modalType === "rodo"
-              ? "Zgoda na przetwarzanie danych osobowych"
-              : "Regulamin wystawców"}
-          </Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          {modalType === "rodo" ? legal.rodo : <VendorRules modal={true} />}
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="primary" onClick={handleModal}>
-            OK
-          </Button>
-        </Modal.Footer>
-      </Modal>
+        <Modal show={show} size="lg" onHide={handleModal}>
+          <Modal.Header closeButton>
+            <Modal.Title>
+              {" "}
+              {modalType === "rodo" ? "Zgoda na przetwarzanie danych osobowych" : "Regulamin wystawców"}
+            </Modal.Title>
+          </Modal.Header>
+          <Modal.Body>{modalType === "rodo" ? legal.rodo : <VendorRules modal={true} />}</Modal.Body>
+          <Modal.Footer>
+            <Button variant="primary" onClick={handleModal}>
+              OK
+            </Button>
+          </Modal.Footer>
+        </Modal>
         {showAlert ? (
-          <Alert
-            variant="danger"
-            dismissible
-            onClose={() => setShowAlert(false)}
-          >
+          <Alert variant="danger" dismissible onClose={() => setShowAlert(false)}>
             <Alert.Heading>Popraw błędy w formularzu</Alert.Heading>
             <div>Nie zaznaczono:</div>
             <div>
@@ -656,26 +537,15 @@ export const VendorForm = () => {
                 ? "Czy osoba kontaktowa jest inna niż podana wyżej"
                 : ""}
             </div>
-            <div>
-              {!checkIfAtLeastOneChecked(data, category)
-                ? "Kategorii (przynajmniej jedna)"
-                : ""}
-            </div>
+            <div>{!checkIfAtLeastOneChecked(data, category) ? "Kategorii (przynajmniej jedna)" : ""}</div>
           </Alert>
         ) : (
           ""
         )}
         {isSuccess ? (
-          <Alert
-            variant="success"
-            dismissible
-            onClick={() => setSuccess(false)}
-          >
+          <Alert variant="success" dismissible onClick={() => setSuccess(false)}>
             <Alert.Heading>Gratulacje!</Alert.Heading>
-            <div>
-              Dziękujemy za zgłoszenie! Prosimy oczekiwać na informację zwrotną
-              od Koordynatora ds. Wystawców.
-            </div>
+            <div>Dziękujemy za zgłoszenie! Prosimy oczekiwać na informację zwrotną od Koordynatora ds. Wystawców.</div>
           </Alert>
         ) : (
           ""
@@ -683,16 +553,12 @@ export const VendorForm = () => {
         <Row className="align-items-center justify-content-center mt-3">
           <Col sm={5}>
             <Button type="submit" variant="warning" value="Submit">
-              {shouldSpin ? (
-                <Spinner animation="border" variant="danger" size="sm" />
-              ) : (
-                ""
-              )}
+              {shouldSpin ? <Spinner animation="border" variant="danger" size="sm" /> : ""}
               {shouldSpin ? " " : ""}Wyślij zgłoszenie
             </Button>
           </Col>
           <Col sm={2}>
-            <Button variant="outline-danger" type="button" onClick={resetForm}>
+            <Button className="submit__button" type="button" onClick={resetForm}>
               Anuluj
             </Button>
           </Col>
