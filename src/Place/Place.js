@@ -28,6 +28,8 @@ const render = (status) => {
           />
         </MyMap>
       );
+    default:
+      return null;
   }
 };
 
