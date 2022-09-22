@@ -1,5 +1,4 @@
 import { useState, useEffect, useRef } from "react";
-import { BoldText } from "../utils/BoldText";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -10,35 +9,35 @@ import { TextInput } from "../utils/TextInput";
 import Spinner from "react-bootstrap/Spinner";
 import Alert from "react-bootstrap/Alert";
 import { FormSelect } from "../utils/FormSelect";
-import { handleSetData } from "../utils/helperFunctions";
+import { handleSetData, handleDataChange } from "../utils/helperFunctions";
 import { RuleCon } from "../RuleCon/RuleCon";
 import { Modal } from "react-bootstrap";
 import { legal } from "../utils/backend";
 import { CosplayRules } from "../CosplayRules/CosplayRules";
-import Dropzone, { useDropzone } from "react-dropzone";
+import Dropzone from "react-dropzone";
 
-const defaultGeneral = {
+const MAX_REFS_FILES = 4;
+const MAX_BACKINGTRACK_FILES = 2;
+
+const defaultForm = {
   name: "",
   surname: "",
   phone: "",
   email: "",
   nick: "",
   birthDate: "",
-  contestType: "",
   characterName: "",
   seriesName: "",
   techDescr: "",
-  refs: "",
-  sceneAmbient: "",
-  sceneDescr: "",
-  isScene: "",
-  isSolo: "",
-  nameOfGroup: "",
+  refs: [],
+  backingTrack: [],
+  sceneDescription: "",
+  performanceType: "",
   generalRemarks: "",
-};
-
-const defaultForm = {
-  ...defaultGeneral,
+  useOfFacialImageConsent: "",
+  groupName: "",
+  announcement: "",
+  performanceLocation: "",
 };
 
 export const CosplayForm = () => {
@@ -51,26 +50,7 @@ export const CosplayForm = () => {
   const [shouldSpin, setShouldSpin] = useState(false);
   const [modalText, setModalText] = useState("");
   const [modalBody, setModalBody] = useState(<></>);
-  const [addedFile, setAddedFile] = useState([]);
-  const [data, setData] = useState({
-    name: "",
-    surname: "",
-    phone: "",
-    email: "",
-    nick: "",
-    birthDate: "",
-    contestType: "",
-    characterName: "",
-    seriesName: "",
-    techDescr: "",
-    refs: "",
-    sceneAmbient: "",
-    sceneDescr: "",
-    isScene: "",
-    isSolo: "",
-    nameOfGroup: "",
-    generalRemarks: "",
-  });
+  const [data, setData] = useState(defaultForm);
 
   const handleModal = (e) => {
     if (e?.target !== undefined) {
@@ -80,60 +60,38 @@ export const CosplayForm = () => {
   };
 
   const {
-    name,
-    surname,
-    phone,
-    email,
-    nick,
-    birthDate,
-    contestType,
-    characterName,
-    seriesName,
     techDescr,
-    refs,
-    sceneAmbient,
-    sceneDescr,
-    isScene,
-    isSolo,
-    nameOfGroup,
-    generalRemarks,
+    performanceType,
+    performanceLocation,
     rulesConsent,
     dataProcessingConsent,
+    useOfFacialImageConsent,
   } = data;
 
-  const onRadioChange = ({ target: { name, checked, value } }) => {
+  const onRadioChange = ({ target: { checked, value } }) => {
     handleSetData(value, checked, setData);
   };
 
-  // const handleFileUpload = () => {
-  //   setData((prev) => ({...prev, [name]: }))
-  // }
-
-  const handleDataChange = ({ target: { name, value, files } }) => {
-    console.log(files);
-    setData((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const handleEquipmentSwitch = ({ target: { name, checked } }) => {
-    setData((prev) => ({ ...prev, [name]: !prev[name] }));
-    if (name === "noeq" && checked) {
-      setData((prev) => ({
-        ...prev,
-        elec: false,
-        board: false,
-        chairs: false,
-        projector: false,
-      }));
-    }
-  };
-
   const handleFileChange = (name, file) => {
-    console.log(name, file);
-    setAddedFile(file);
-    setData((prev) => ({ ...prev, [name]: file }));
-  }
+    if (
+      name === "refs" &&
+      (file.length > MAX_REFS_FILES || data.refs.length === MAX_REFS_FILES)
+    )
+      return;
+    if (
+      name === "backingTrack" &&
+      (file.length > MAX_BACKINGTRACK_FILES ||
+        data.backingTrack.length === MAX_BACKINGTRACK_FILES)
+    )
+      return;
+    setData((prev) => ({ ...prev, [name]: [...prev[name], ...file] }));
+  };
 
-console.log(data);
+  const resetForm = () => {
+    setData(defaultForm);
+    setShowAlert(false);
+    setShouldSpin(false);
+  };
 
   useEffect(() => {
     if (modalType === "rodo") {
@@ -148,49 +106,28 @@ console.log(data);
     }
   }, [modalType]);
 
-  const resetForm = () => {
-    setData({
-      name: "",
-      surname: "",
-      phone: "",
-      email: "",
-      nick: "",
-      birthDate: "",
-      contestType: "",
-      characterName: "",
-      seriesName: "",
-      techDescr: "",
-      refs: "",
-      sceneAmbient: "",
-      sceneDescr: "",
-      isScene: "",
-      isSolo: "",
-      nameOfGroup: "",
-      generalRemarks: "",
-    });
-  };
-
   const sendEmail = (e) => {
     e.preventDefault();
-
-    // if (!block || !day || !hour || !length) {
-    //   setShouldSpin(false);
-    //   setShowAlert(true);
-    // } else {
     setShowAlert(false);
-    emailjs.sendForm("gdf_cosplay", "template_ezw6wwz", form.current, "C1GC4KNhMZuiMFPLW").then(
-      (result) => {
-        if (result.status === 200) {
-          setSuccess(true);
-          setShouldSpin(false);
-          resetForm();
+    emailjs
+      .sendForm(
+        "service_cv6vtos",
+        "template_k9cdi9f",
+        form.current,
+        "yzr1aXbYaTCMdb2TI"
+      )
+      .then(
+        (result) => {
+          if (result.status === 200) {
+            setSuccess(true);
+            setShouldSpin(false);
+            resetForm();
+          }
+        },
+        (error) => {
+          console.log(error.text);
         }
-      },
-      (error) => {
-        console.log(error.text);
-      }
-    );
-    // }
+      );
   };
 
   const startSpinner = () => {
@@ -204,26 +141,111 @@ console.log(data);
       <Form ref={form} onSubmit={sendEmail}>
         <Row>
           <Col>
-            <TextInput input="name" isRequired="true" type="text" data={data} setData={setData} />
+            <TextInput
+              input="name"
+              isRequired="true"
+              type="text"
+              data={data}
+              setData={setData}
+            />
           </Col>
           <Col>
-            <TextInput input="surname" isRequired="true" type="text" data={data} setData={setData} />
+            <TextInput
+              input="surname"
+              isRequired="true"
+              type="text"
+              data={data}
+              setData={setData}
+            />
           </Col>
         </Row>
         <Row>
           <Col>
-            <TextInput input="nick" isRequired="false" type="text" data={data} setData={setData} />
+            <TextInput
+              input="nick"
+              isRequired="false"
+              type="text"
+              data={data}
+              setData={setData}
+            />
           </Col>
           <Col>
-            <TextInput input="email" isRequired="true" type="email" data={data} setData={setData} />
+            <TextInput
+              input="birthDate"
+              isRequired="true"
+              type="date"
+              data={data}
+              setData={setData}
+            />
           </Col>
         </Row>
         <Row>
           <Col>
-            <TextInput input="phone" isRequired="true" type="number" data={data} setData={setData} />
+            <TextInput
+              input="phone"
+              isRequired="true"
+              type="number"
+              data={data}
+              setData={setData}
+            />
           </Col>
           <Col>
-            <TextInput input="facebook" isRequired="false" type="text" data={data} setData={setData} />
+            <TextInput
+              input="email"
+              isRequired="true"
+              type="email"
+              data={data}
+              setData={setData}
+            />
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <TextInput
+              input="characterName"
+              isRequired="true"
+              type="text"
+              data={data}
+              setData={setData}
+            />
+          </Col>
+          <Col>
+            <TextInput
+              input="seriesName"
+              isRequired="true"
+              type="text"
+              data={data}
+              setData={setData}
+            />
+          </Col>
+          <Col>
+            <TextInput
+              input="groupName"
+              isRequired="true"
+              type="text"
+              data={data}
+              setData={setData}
+            />
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <TextInput
+              input="sceneDescription"
+              isRequired="true"
+              type="text"
+              data={data}
+              setData={setData}
+            />
+          </Col>
+          <Col>
+            <TextInput
+              input="announcement"
+              isRequired="true"
+              type="text"
+              data={data}
+              setData={setData}
+            />
           </Col>
         </Row>
         <Row>
@@ -231,88 +253,127 @@ console.log(data);
         </Row>
         <Row>
           <Col>
-            <FloatingLabel controlId="floatingTextarea2" label="Opis atrakcji*">
+            <FloatingLabel
+              controlId="floatingTextarea2"
+              label="Opis techniczny wykonania stroju*"
+            >
               <Form.Control
                 as="textarea"
                 placeholder="Opis techniczny wykonania stroju*"
                 className="form__control--input mb-3"
                 style={{ height: "150px" }}
                 required
-                name="descr"
-                onChange={handleDataChange}
+                name="techDescr"
+                onChange={(e) => handleDataChange(e, setData)}
                 value={techDescr}
               />
             </FloatingLabel>
           </Col>
         </Row>
         <Row>
-          <hr></hr>
-        </Row>
-        <Row>
           <Col>
-          <Dropzone name="refs" onDrop={file => handleFileChange('refs', file)}>
-          {({getRootProps, getInputProps}) => (
-            <>
-          <div {...getRootProps({ className: "dropzone"})} style={{border: "1px black solid"}}>
-          <input {...getInputProps()} />
-          <div>Dodaj materiały referencyjne</div>
-          <div>(Maksymalnie 2 pliki)</div>
-        </div>
-        <aside>
-            {addedFile.map(file => {
-              <div key={file.name}>{file.name}</div>
-            })}
-        </aside>
-        </>)}
-        </Dropzone>
-        </Col>
-        </Row>
-        {/* <Row>
-          <Col>
-          <Form.Label>Materiały referencyjne</Form.Label>
-        <Form.Control
-          type="file"
-          name="refs"
-          multiple
-          className="form__control--input mb-3"
-          value={selectedFile}
-          onChange={handleUpload}
-        />
+            <FloatingLabel controlId="floatingSelect" label="Miejsce występu*">
+              <FormSelect
+                onChange={(e) => handleDataChange(e, setData)}
+                aria-label="Miejsce występu"
+                required={true}
+                name="performanceLocation"
+                value={performanceLocation}
+                options={[
+                  { val: "", label: "Wybierz" },
+                  { val: "scene", label: "Scenka" },
+                  { val: "catwalk", label: "Catwalk" },
+                ]}
+              ></FormSelect>
+            </FloatingLabel>
           </Col>
-          </Row> */}
-        {/* <Form.Label>Materiały referencyjne</Form.Label>
-        <Form.Control
-          type="file"
-          name="refs"
-          multiple
-          className="form__control--input mb-3"
-          value={selectedFile}
-          onChange={(e) => setSelectedFile(e.target.files[0])}
-        /> */}
-        <Row>
-          <hr></hr>
-        </Row>
-
-        <Row>
-          <hr></hr>
-        </Row>
-        <Row>
           <Col>
-            <FloatingLabel controlId="floatingTextarea2" label="Opis atrakcji*">
-              <Form.Control
-                as="textarea"
-                placeholder="Opis atrakcji*"
-                className="form__control--input mb-3"
-                style={{ height: "150px" }}
-                required
-                name="descr"
-                onChange={handleDataChange}
-                // value={descr}
-              />
+            <FloatingLabel controlId="floatingSelect" label="Rodzaj występu*">
+              <FormSelect
+                onChange={(e) => handleDataChange(e, setData)}
+                aria-label="Rodzaj występu"
+                required={true}
+                value={performanceType}
+                name="performanceType"
+                options={[
+                  { val: "", label: "Wybierz" },
+                  { val: "solo", label: "Solo" },
+                  { val: "group", label: "Grupowy" },
+                ]}
+              ></FormSelect>
             </FloatingLabel>
           </Col>
         </Row>
+        <Row>
+          <hr></hr>
+        </Row>
+        <Row>
+          <Col>
+            <Dropzone
+              name="refs"
+              onDrop={(file) => handleFileChange("refs", file)}
+            >
+              {({ getRootProps, getInputProps }) => (
+                <>
+                  <div
+                    {...getRootProps({ className: "dropzone" })}
+                    style={{ border: "1px black solid" }}
+                  >
+                    <input {...getInputProps()} />
+                    <div>Dodaj materiały referencyjne</div>
+                    <div>{`(Maksymalnie ${MAX_REFS_FILES} pliki)`}</div>
+                  </div>
+                  <div className="mt-2">
+                    {data.refs.length > 0 &&
+                      data.refs.map((el) => <p>{el.name}</p>)}
+                  </div>
+                </>
+              )}
+            </Dropzone>
+          </Col>
+          <Col>
+            <Dropzone
+              name="backingTrack"
+              onDrop={(file) => handleFileChange("backingTrack", file)}
+            >
+              {({ getRootProps, getInputProps }) => (
+                <>
+                  <div
+                    {...getRootProps({ className: "dropzone" })}
+                    style={{ border: "1px black solid" }}
+                  >
+                    <input {...getInputProps()} />
+                    <div>Dodaj podkład do scenki</div>
+                    <div>{`(Maksymalnie ${MAX_BACKINGTRACK_FILES} plik)`}</div>
+                  </div>
+                  <div className="mt-2">
+                    {data.backingTrack.length > 0 &&
+                      data.backingTrack.map((el) => <p>{el.name}</p>)}
+                  </div>
+                </>
+              )}
+            </Dropzone>
+          </Col>
+        </Row>
+
         <hr></hr>
+        <div className="mb-3">
+          <Row>
+            <Col>
+              <Form.Group>
+                <Form.Check
+                  inline
+                  name="useOfFacialImageConsent"
+                  value="useOfFacialImageConsent"
+                  type="radio"
+                  label="Zgoda na użycie wizerunku*"
+                  checked={useOfFacialImageConsent}
+                  onChange={onRadioChange}
+                />
+              </Form.Group>
+            </Col>
+          </Row>
+        </div>
         <Row>
           <Col>
             <Form.Group>
@@ -338,7 +399,7 @@ console.log(data);
                 }}
                 value="rules"
               >
-                Zasad zgłaszania atrakcji
+                zasady zgłaszania atrakcji
               </button>
               *
             </Form.Group>
@@ -352,7 +413,7 @@ console.log(data);
                 name="dataProcessingConsent"
                 value="dataProcessingConsent"
                 type="radio"
-                label="Akceptuję"
+                label="Wyrażam zgodę na"
                 checked={dataProcessingConsent}
                 onChange={onRadioChange}
               />
@@ -390,7 +451,11 @@ console.log(data);
         </Modal>
         <hr></hr>
         {showAlert ? (
-          <Alert variant="danger" dismissible onClose={() => setShowAlert(false)}>
+          <Alert
+            variant="danger"
+            dismissible
+            onClose={() => setShowAlert(false)}
+          >
             <Alert.Heading>Popraw błędy w formularzu</Alert.Heading>
             <div>Nie wybrano:</div>
             {/* <div>{!block ? "Bloku" : ""}</div>
@@ -402,28 +467,42 @@ console.log(data);
           ""
         )}
         {isSuccess ? (
-          <Alert variant="success" dismissible onClick={() => setSuccess(false)}>
+          <Alert
+            variant="success"
+            dismissible
+            onClick={() => setSuccess(false)}
+          >
             <Alert.Heading>Gratulacje!</Alert.Heading>
-            <div>Dziękujemy za zgłoszenie! Prosimy oczekiwać na informację zwrotną od Koordynatora ds. Programu.</div>
+            <div>
+              Dziękujemy za zgłoszenie! Prosimy oczekiwać na informację zwrotną
+              od Koordynatora ds. Programu.
+            </div>
           </Alert>
         ) : (
           ""
         )}
-        <div className="bold__text">
-          Prosimy pamiętać, że ostateczna decyzja, dotycząca darmowej wejściówki będzie uzależniona od długości trwania
-          atrakcji zatwierdzonych przez odpowiedniego Koordynatora. Informacja o tym zostanie przekazana uczestnikowi
-          drogą mailową nie później niż do 3 dni przed rozpoczęciem Konwentu.
-        </div>
-        <hr></hr>
         <Row className="align-items-center justify-content-center mt-3">
           <Col sm={5}>
-            <Button type="submit" variant="warning" value="Submit" onClick={startSpinner}>
-              {shouldSpin ? <Spinner animation="border" variant="danger" size="sm" /> : ""}
+            <Button
+              type="submit"
+              variant="warning"
+              value="Submit"
+              onClick={startSpinner}
+            >
+              {shouldSpin ? (
+                <Spinner animation="border" variant="danger" size="sm" />
+              ) : (
+                ""
+              )}
               {shouldSpin ? " " : ""}Wyślij zgłoszenie
             </Button>
           </Col>
           <Col sm={2}>
-            <Button className="submit__button" type="button" onClick={resetForm}>
+            <Button
+              className="submit__button"
+              type="button"
+              onClick={resetForm}
+            >
               Anuluj
             </Button>
           </Col>
