@@ -64,6 +64,11 @@ export const formLabels = [
   },
   { name: "remarksAboutStand", label: "Uwagi, propozycje, spostrzeżenia" },
   { name: "otherAnswer", label: "Inna odpowiedź" },
+  { name: "characterName", label: "Nazwa postaci" },
+  { name: "seriesName", label: "Nazwa serii" },
+  { name: "sceneDescription", label: "Opis scenki (rekwizyty, światła itp.)" },
+  { name: "announcement", label: "Zapowiedź dla konferansjera" },
+  { name: "groupName", label: "Nazwa grupy" },
 ];
 
 export const legal = {
@@ -74,14 +79,46 @@ export const legal = {
 };
 
 export const patrons = [
-  {src: `${process.env.PUBLIC_URL + "/patrons/patronat.png"}`, href: "https://adamneumann.pl/", alt: "Patronat Prezydenta Miasta Gliwice Pana Adama Neumanna"},
-  {src: `${process.env.PUBLIC_URL + "/patrons/gliwice.jpg"}`, href: "http://gliwice.eu/", alt: "Gliwice. Przyszłość jest tu."},
-  {src: `${process.env.PUBLIC_URL + "/patrons/arena.png"}`, href: "https://arenagliwice.com/", alt: "Arena Gliwice"},
-  {src: `${process.env.PUBLIC_URL + "/patrons/konwenty.png"}`, href: "https://konwenty-poludniowe.pl", alt: "Konwenty Południowe"},
-  {src: `${process.env.PUBLIC_URL + "/patrons/kawerna.png"}`, href: "https://kawerna.pl", alt: "Kawerna"},
-  {src: `${process.env.PUBLIC_URL + "/patrons/polter.png"}`, href: "htttps://polter.pl", alt: "Poltergeist - zrodzony z fantastyki"},
-  {src: `${process.env.PUBLIC_URL + "/patrons/ksiazki.png"}`, href: "https://www.facebook.com/groups/399240960159910", alt: "Książki Fantasy"},
-  {src: `${process.env.PUBLIC_URL + "/patrons/royal.jpg"}`, href: "https://hotelroyal.com.pl/", alt: "Hotel Royal Gliwice"},
+  {
+    src: `${process.env.PUBLIC_URL + "/patrons/patronat.png"}`,
+    href: "https://adamneumann.pl/",
+    alt: "Patronat Prezydenta Miasta Gliwice Pana Adama Neumanna",
+  },
+  {
+    src: `${process.env.PUBLIC_URL + "/patrons/gliwice.jpg"}`,
+    href: "http://gliwice.eu/",
+    alt: "Gliwice. Przyszłość jest tu.",
+  },
+  {
+    src: `${process.env.PUBLIC_URL + "/patrons/arena.png"}`,
+    href: "https://arenagliwice.com/",
+    alt: "Arena Gliwice",
+  },
+  {
+    src: `${process.env.PUBLIC_URL + "/patrons/konwenty.png"}`,
+    href: "https://konwenty-poludniowe.pl",
+    alt: "Konwenty Południowe",
+  },
+  {
+    src: `${process.env.PUBLIC_URL + "/patrons/kawerna.png"}`,
+    href: "https://kawerna.pl",
+    alt: "Kawerna",
+  },
+  {
+    src: `${process.env.PUBLIC_URL + "/patrons/polter.png"}`,
+    href: "htttps://polter.pl",
+    alt: "Poltergeist - zrodzony z fantastyki",
+  },
+  {
+    src: `${process.env.PUBLIC_URL + "/patrons/ksiazki.png"}`,
+    href: "https://www.facebook.com/groups/399240960159910",
+    alt: "Książki Fantasy",
+  },
+  {
+    src: `${process.env.PUBLIC_URL + "/patrons/royal.jpg"}`,
+    href: "https://hotelroyal.com.pl/",
+    alt: "Hotel Royal Gliwice",
+  },
 ];
 
 export const guestsVip = [
@@ -107,7 +144,8 @@ export const guestsVip = [
       'Marcin Sergiusz Przybyłek (ur. 1968), znany także jako Martin Ann / Martin Ann Drimm, lekarz medycyny, wieloletni pracownik koncernu farmaceutycznego, trener i konsultant biznesowy, wizjoner, filozof. Autor sagi science fiction "Gamedec", antyporadnika dla menadżerów "Sprzedaż albo śmierć?!", futurystycznego kryminału "CEO Slayer", powieści "Kalina i Kaj. Książka teoretycznie dla dzieci", zbioru anegdot dla graczy "Grao Story", epickiej dylogii "Orzeł Biały" oraz "Symfonii życia". We wrześniu 2021 roku wydana została przez Anshar Studios oparta na jego prozie gra wideo "Gamedec". Pyramid Games rozpoczęło prace nad grą wideo "CEO Slayer". Aktorsko realizuje się w serialu "19+" (rola Aleksa). Zainteresowany psychologicznym, technologicznym oraz finansowym rozwojem ludzkości, rozwija swoje wizje w książkach, wykładach i podczas szkoleń. Od trzydziestu sześciu lat w związku z żoną Anną, z którą mają dwudziestoletnią córkę, Kalinę.',
     ],
     fanpage: "Marcin Przybyłek strona autorska",
-    fpLink: "https://www.facebook.com/Marcin-Przyby%C5%82ek-strona-autorska-101204016074556",
+    fpLink:
+      "https://www.facebook.com/Marcin-Przyby%C5%82ek-strona-autorska-101204016074556",
   },
   {
     name: "Michał",
@@ -318,12 +356,12 @@ export const guestsVip = [
     surname: "Pilipiuk",
     photo: `${process.env.PUBLIC_URL + "/guests/22.png"}`,
     descr: [
-      'Andrzej Pilipiuk, człowiek z przeszłości. Niestrudzony tropiciel ciekawostek z lamusa. Kolekcjoner nagród literackich, który z pisania z pasją uczynił swój sposób na życie.',
-      'Autor na swoim koncie ma już 38 książek (Fabryka Słów), 19 tomów kontynuacji przygód Pana Samochodzika pod pseudonimem Tomasz Olszakowski oraz sentymentalny album „Wojsławice – skarby naszej pamięci; wspomnienie o miasteczku”.',
-      'Homo literatus, który do pisania podchodzi z żelazną konsekwencją – pracuje planowo, codziennie, a kiedy poczuje zmęczenie fabułą, zabiera się za inny tytuł. Uprzedzając krytykę sam siebie nazwał Wielkim Grafomanem. Z wykształcenia archeolog, z zamiłowania łowca meteorów. Beznadziejnie zauroczony zapomnianymi odkrywcami i wynalazkami XIX wieku. Społecznik. Własnym sumptem i ogromnym zaangażowaniem wydał unikatowy album o Wojsławicach, mieście w którym narodził się Jakub Wędrowycz.',
-      'Twórca panteonu niezwykłych bohaterów literackich oraz Jakuba Wędrowycza – zawistnego, mściwego kmiota, bimbrownika i egzorcysty. Jedynego w naszej literaturze, rdzennie polskiego superbohatera, który przez lata rozśmieszania do łez dorobił się własnego festiwalu, oraz zapewnił autorowi miejsce na podium ścisłej czołówki najpoczytniejszych pisarzy w Polsce.',
-      'Czterokrotny laureat prestiżowej nagrody Nautilusa. Dziesięciokrotnie nominowany, raz nagrodzony Nagrodą im. Janusza A. Zajdla. As EMPiK-u 2006 – jeden z trzech najchętniej kupowanych autorów.',
-      'Pija herbatę. Ani wstrząśniętą, ani tym bardziej mieszaną. Parzoną w samowarze.',
+      "Andrzej Pilipiuk, człowiek z przeszłości. Niestrudzony tropiciel ciekawostek z lamusa. Kolekcjoner nagród literackich, który z pisania z pasją uczynił swój sposób na życie.",
+      "Autor na swoim koncie ma już 38 książek (Fabryka Słów), 19 tomów kontynuacji przygód Pana Samochodzika pod pseudonimem Tomasz Olszakowski oraz sentymentalny album „Wojsławice – skarby naszej pamięci; wspomnienie o miasteczku”.",
+      "Homo literatus, który do pisania podchodzi z żelazną konsekwencją – pracuje planowo, codziennie, a kiedy poczuje zmęczenie fabułą, zabiera się za inny tytuł. Uprzedzając krytykę sam siebie nazwał Wielkim Grafomanem. Z wykształcenia archeolog, z zamiłowania łowca meteorów. Beznadziejnie zauroczony zapomnianymi odkrywcami i wynalazkami XIX wieku. Społecznik. Własnym sumptem i ogromnym zaangażowaniem wydał unikatowy album o Wojsławicach, mieście w którym narodził się Jakub Wędrowycz.",
+      "Twórca panteonu niezwykłych bohaterów literackich oraz Jakuba Wędrowycza – zawistnego, mściwego kmiota, bimbrownika i egzorcysty. Jedynego w naszej literaturze, rdzennie polskiego superbohatera, który przez lata rozśmieszania do łez dorobił się własnego festiwalu, oraz zapewnił autorowi miejsce na podium ścisłej czołówki najpoczytniejszych pisarzy w Polsce.",
+      "Czterokrotny laureat prestiżowej nagrody Nautilusa. Dziesięciokrotnie nominowany, raz nagrodzony Nagrodą im. Janusza A. Zajdla. As EMPiK-u 2006 – jeden z trzech najchętniej kupowanych autorów.",
+      "Pija herbatę. Ani wstrząśniętą, ani tym bardziej mieszaną. Parzoną w samowarze.",
     ],
     fanpage: "",
     fpLink: "",
@@ -351,21 +389,21 @@ export const funStuff = [
     name: 'DeLorean z "Powrotu do Przyszłości"',
     photo: `${process.env.PUBLIC_URL + "fun_stuff/delorean.png"}`,
     descr: [
-      'Celem naszej fundacji jest zbiórka na nowoczesną karetkę do pomocy wcześniakom i noworodkom. Ambulans typu „N” to karetka neonatologiczna służąca wyłącznie do transportu noworodków i wcześniaków w stanie zagrożenia życia. Chcemy wyposażyć w taką karetkę każde województwo w Polsce.  Karetka neonatologiczna zostanie zaprojektowana w zabudowie kontenerowej i będzie pierwszą w Polsce tak zaawansowaną karetką do ratowania najmłodszych. Od ,,zwykłej” karetki wyróżnia ją to ,że medycy mają dostęp do inkubatora z każdej strony, dzięki czemu łatwiej i szybciej mogą zajmować się małym pacjentem.',
-      'Chcemy pomóc najmłodszym dla których każda sekunda jest na wagę złota. Porody przedwczesne stanowią około 8% wszystkich porodów w Polsce, a dzięki rozwojowi medycyny polscy neonatolodzy są w stanie ratować dzieci ważące 500 gramów a nawet mniej!!',
-      'Karetek neonatologicznych jest w Polsce bardzo mało.  Jeżdżą do najcięższych przypadków i przewożą najbardziej potrzebujące maluszki między szpitalami. Często są to już stare i mocno zużyte sprzęty. Nie ma dnia, aby taka karetka nie wyjeżdżała z bazy, aby zdążyć na czas  uratować życie.',
-      'Zebraliśmy już ponad ćwierć miliona złotych na zakup karetki! Chcemy zachęcić Was wszystkich do udziału w akcji i przyłączenia się do naszego celu.',
-      'Dlaczego karetka kontenerowa?',
-      '- trwałość zabudowy na 15 lat',
-      '- wymiana podwozia po 5 latach',
-      '- większe bezpieczeństwo',
-      '- nieporównywalnie większa przestrzeń do pracy (dostęp do malucha z 3 stron)',
-      '- ponad 100-krotnie lepsza izolacja termiczna aniżeli w ambulansie typu furgon - niższe koszty eksploatacji.',
-      'Każdego dnia z samej Łodzi karetka z literą „N” wyjeżdża średnio 4 razy. Dzięki rozwojowi neonatologii szanse na przeżycie mają nawet dzieci ważące 0,5kg.',
-      'Nasza karetka da szansę na przeżycie najmłodszym dzieciom, które będą mogły być szybko przetransportowane do specjalistycznego szpitala, a podczas drogi najwyższej klasy sprzęt medyczny i lekarze będą pracować z małym pacjentem.',
-      'Dzięki Tobie kupiliśmy już pierwszą w Polsce karetkę o zabudowie kontenerowej.',
-      'Teraz musimy wyposażyć ją w sprzęt medyczny, który kosztować będzie prawie milion złotych!',
-      'Drugi etap trwa…pomożesz? 🫵 Dziękujemy za wszystkie dokonane wpłaty i mamy nadzieję ,że jak najszybciej uda nam się zakończyć budowę karetki.',
+      "Celem naszej fundacji jest zbiórka na nowoczesną karetkę do pomocy wcześniakom i noworodkom. Ambulans typu „N” to karetka neonatologiczna służąca wyłącznie do transportu noworodków i wcześniaków w stanie zagrożenia życia. Chcemy wyposażyć w taką karetkę każde województwo w Polsce.  Karetka neonatologiczna zostanie zaprojektowana w zabudowie kontenerowej i będzie pierwszą w Polsce tak zaawansowaną karetką do ratowania najmłodszych. Od ,,zwykłej” karetki wyróżnia ją to ,że medycy mają dostęp do inkubatora z każdej strony, dzięki czemu łatwiej i szybciej mogą zajmować się małym pacjentem.",
+      "Chcemy pomóc najmłodszym dla których każda sekunda jest na wagę złota. Porody przedwczesne stanowią około 8% wszystkich porodów w Polsce, a dzięki rozwojowi medycyny polscy neonatolodzy są w stanie ratować dzieci ważące 500 gramów a nawet mniej!!",
+      "Karetek neonatologicznych jest w Polsce bardzo mało.  Jeżdżą do najcięższych przypadków i przewożą najbardziej potrzebujące maluszki między szpitalami. Często są to już stare i mocno zużyte sprzęty. Nie ma dnia, aby taka karetka nie wyjeżdżała z bazy, aby zdążyć na czas  uratować życie.",
+      "Zebraliśmy już ponad ćwierć miliona złotych na zakup karetki! Chcemy zachęcić Was wszystkich do udziału w akcji i przyłączenia się do naszego celu.",
+      "Dlaczego karetka kontenerowa?",
+      "- trwałość zabudowy na 15 lat",
+      "- wymiana podwozia po 5 latach",
+      "- większe bezpieczeństwo",
+      "- nieporównywalnie większa przestrzeń do pracy (dostęp do malucha z 3 stron)",
+      "- ponad 100-krotnie lepsza izolacja termiczna aniżeli w ambulansie typu furgon - niższe koszty eksploatacji.",
+      "Każdego dnia z samej Łodzi karetka z literą „N” wyjeżdża średnio 4 razy. Dzięki rozwojowi neonatologii szanse na przeżycie mają nawet dzieci ważące 0,5kg.",
+      "Nasza karetka da szansę na przeżycie najmłodszym dzieciom, które będą mogły być szybko przetransportowane do specjalistycznego szpitala, a podczas drogi najwyższej klasy sprzęt medyczny i lekarze będą pracować z małym pacjentem.",
+      "Dzięki Tobie kupiliśmy już pierwszą w Polsce karetkę o zabudowie kontenerowej.",
+      "Teraz musimy wyposażyć ją w sprzęt medyczny, który kosztować będzie prawie milion złotych!",
+      "Drugi etap trwa…pomożesz? 🫵 Dziękujemy za wszystkie dokonane wpłaty i mamy nadzieję ,że jak najszybciej uda nam się zakończyć budowę karetki.",
     ],
     fanpage: "Fundacja FUN and DRIVE",
     fpLink: "https://www.facebook.com/fundacjafunanddrive",
@@ -375,13 +413,14 @@ export const funStuff = [
     name: "Grupa rekonstrukcyjna Powrót Bractwa Śródziemia",
     photo: `${process.env.PUBLIC_URL + "fun_stuff/middleearth.png"}`,
     descr: [
-      'Grupa rekonstrukcyjna ze świata Tolkiena, zajmująca się światem Śródziemia, jest forpocztą tego świata, pokazuje ludziom świat stworzony  przez J.R.R. Tolkiena i świat filmowy Petera Jacksona. Prowadzi wykłady, warsztaty, własne widowiska, ma obóz rycerski w klimatach. W tym roku cała organizacja obchodziła 20-lecie istnienia. Na swoim koncie ma oprawę jak i organizacje koncertów muzyki filmowej czy oprawy kinowe.',
+      "Grupa rekonstrukcyjna ze świata Tolkiena, zajmująca się światem Śródziemia, jest forpocztą tego świata, pokazuje ludziom świat stworzony  przez J.R.R. Tolkiena i świat filmowy Petera Jacksona. Prowadzi wykłady, warsztaty, własne widowiska, ma obóz rycerski w klimatach. W tym roku cała organizacja obchodziła 20-lecie istnienia. Na swoim koncie ma oprawę jak i organizacje koncertów muzyki filmowej czy oprawy kinowe.",
       'Była też gwardią dla aktorów grających we "Władcy Pierścieni" i "Hobbicie", podczas ich wizyty w Polsce. Od paru lat organizują Dni Tolkienowskie i Międzynarodowy Dzień Czytania Tolkiena.',
-      'Posiada swoje stroje uzbrojenie, chatkę hobbita i wiele innych akcesoriów.',
-      'Przybliżamy ten świat nawet osobom, które nigdy nie miały styczności z powieściami J.R.R. Tolkiena. W tym roku po raz pierwszy stworzyli widowisko - słowo muzyczne w klimatach Śródziemia.',
+      "Posiada swoje stroje uzbrojenie, chatkę hobbita i wiele innych akcesoriów.",
+      "Przybliżamy ten świat nawet osobom, które nigdy nie miały styczności z powieściami J.R.R. Tolkiena. W tym roku po raz pierwszy stworzyli widowisko - słowo muzyczne w klimatach Śródziemia.",
       'Poza tym zajmują się też światami "Star Wars", XV-wiecznego rycerstwa oraz średniowiecznej Japonii.',
     ],
-    fanpage: "Powrót Bractwa Śródziemia - The Return of the Brotherhood of Middle-earth",
+    fanpage:
+      "Powrót Bractwa Śródziemia - The Return of the Brotherhood of Middle-earth",
     fpLink: "https://www.facebook.com/brotherhoodofmiddleearth",
     webpage: "",
   },
@@ -419,9 +458,7 @@ export const funStuff = [
   {
     name: "",
     photo: `${process.env.PUBLIC_URL + "fun_stuff/"}`,
-    descr: [
-      "",
-    ],
+    descr: [""],
     fanpage: "",
     fpLink: "",
     webpage: "",
@@ -433,9 +470,9 @@ export const concerts = [
     name: "Oberschlesien",
     photo: `${process.env.PUBLIC_URL + "concerts/oberschlesien.png"}`,
     descr: [
-      'Oberschlesien – śląska grupa muzyczna wykonująca industrial metal. Powstała w 2008 roku w Piekarach Śląskich z inicjatywy Marcela Różanki. W swej twórczości formacja posługuje się Językiem Śląskim.',
-      'W 2012 roku zespół wziął udział w czwartej edycji talent show “Must Be the Music. Tylko muzyka” emitowanego na antenie telewizji Polsat. Grupa zajęła drugie miejsce w tymże konkursie.',
-      'Zespół zagrał setki koncertów na wszystkich największych festiwalach w Polsce i za granicą gdzie jest entuzjastycznie przyjmowany krzewiąc Ślaską Tożsamość, Kulturę i Język Śląski co jest głównym założeniem grupy jak mówi pomysłodawca, kompozytor i producent całej muzycznej twórczości zespołu – Marcel Różanka.',
+      "Oberschlesien – śląska grupa muzyczna wykonująca industrial metal. Powstała w 2008 roku w Piekarach Śląskich z inicjatywy Marcela Różanki. W swej twórczości formacja posługuje się Językiem Śląskim.",
+      "W 2012 roku zespół wziął udział w czwartej edycji talent show “Must Be the Music. Tylko muzyka” emitowanego na antenie telewizji Polsat. Grupa zajęła drugie miejsce w tymże konkursie.",
+      "Zespół zagrał setki koncertów na wszystkich największych festiwalach w Polsce i za granicą gdzie jest entuzjastycznie przyjmowany krzewiąc Ślaską Tożsamość, Kulturę i Język Śląski co jest głównym założeniem grupy jak mówi pomysłodawca, kompozytor i producent całej muzycznej twórczości zespołu – Marcel Różanka.",
     ],
     date: "15.10.2022, godzina 22:00",
     fanpage: "Oberschlesien",
@@ -446,11 +483,11 @@ export const concerts = [
     name: "Cronica",
     photo: `${process.env.PUBLIC_URL + "concerts/cronica.png"}`,
     descr: [
-      'Cronica to formacja Heavy folkowa powstała w roku 2015 w Jaworznie. Ich muzyka to połączenie mocnych brzmień gitar elektrycznych z melodyjnymi dźwiękami instrumentów takich jak: flet, skrzypce, lira korbowa oraz keyboard. Grupa prócz warstwy instrumentalnej kładzie bardzo duży nacisk na sekcję wokalną i lirykę. Cztery głosy (2 damskie i 2 męskie) operujące różnymi stylami (min. śpiew klasyczny, operowy, growl), jak najlepiej starają się oddać klimat wykonywanych przez nich utworów. Bardzo ważnym ogniwem twórczości Cronicy jest wcześniej wspomniana warstwa tekstowa inspirowana dawnymi legendami i podaniami ludowymi, wierzeniami, religią, a także filozofią oraz obecnymi odczuciami samych muzyków w sprawach doczesnych.',
+      "Cronica to formacja Heavy folkowa powstała w roku 2015 w Jaworznie. Ich muzyka to połączenie mocnych brzmień gitar elektrycznych z melodyjnymi dźwiękami instrumentów takich jak: flet, skrzypce, lira korbowa oraz keyboard. Grupa prócz warstwy instrumentalnej kładzie bardzo duży nacisk na sekcję wokalną i lirykę. Cztery głosy (2 damskie i 2 męskie) operujące różnymi stylami (min. śpiew klasyczny, operowy, growl), jak najlepiej starają się oddać klimat wykonywanych przez nich utworów. Bardzo ważnym ogniwem twórczości Cronicy jest wcześniej wspomniana warstwa tekstowa inspirowana dawnymi legendami i podaniami ludowymi, wierzeniami, religią, a także filozofią oraz obecnymi odczuciami samych muzyków w sprawach doczesnych.",
     ],
     date: "14.10.2022, godzina 22:00",
     fanpage: "Cronica",
     fpLink: "https://www.facebook.com/cronicaPL",
     webpage: "https://cronicapl.bandcamp.com/",
   },
-]
+];
